@@ -1,0 +1,332 @@
+{
+  "slug": "harness",
+  "num": 2,
+  "menu": "Harness",
+  "titulo": "Harness: lo que queda alrededor del modelo",
+  "titulo_curto": "Harness alrededor del modelo",
+  "minutos": 15,
+  "lead": "El modelo solo predice texto: no recuerda, no ve tus archivos, no actúa y no comprueba. Quien hace el trabajo en Claude Code y en Codex es el harness, el programa que rodea al modelo. Cuando el agente falla, la pregunta útil casi nunca es \"inténtalo de nuevo\": es qué pieza del harness falta. En esta lección haces el inventario del tuyo.",
+  "objetivo": "listar las piezas del harness de tu máquina (contexto, memoria, herramientas, verificación, permisos) y decir cuál de ellas sostiene cada falla.",
+  "competencias": [
+    "explicar-harness",
+    "inventariar-harness-local",
+    "atribuir-falha-a-peca"
+  ],
+  "aprende": [
+    {
+      "icone": "chip",
+      "t": "Lo que el modelo hace solo y lo que no"
+    },
+    {
+      "icone": "camadas",
+      "t": "Las cinco piezas del harness y el loop que las une"
+    },
+    {
+      "icone": "terminal",
+      "t": "Dónde vive cada pieza en tu Claude Code y en tu Codex"
+    },
+    {
+      "icone": "lupa",
+      "t": "Leer una falla del agente como una pieza que falta"
+    }
+  ],
+  "hero_alt": "Chip de procesador en el centro de una carcasa de aluminio oscuro, rodeado de conectores, cables, un seguro y un indicador.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "El modelo y lo que queda alrededor",
+      "sub": "Haz clic en cada bloque: qué hace la pieza y dónde vive en tu máquina.",
+      "nos": [
+        {
+          "icone": "arquivo",
+          "titulo": "Contexto",
+          "sub": "lo que la IA sabe al empezar",
+          "itens": [
+            {
+              "icone": "arquivo",
+              "t": "CLAUDE.md, AGENTS.md"
+            },
+            {
+              "icone": "pasta",
+              "t": "estructura y cambios recientes"
+            }
+          ],
+          "detalhe": "Al inicio de cada sesión el modelo no sabe nada de tu proyecto. El harness carga las reglas (CLAUDE.md en Claude Code, AGENTS.md en Codex), la estructura de carpetas y lo que cambió. Lo escribes una vez; él lo lee en cada sesión."
+        },
+        {
+          "icone": "memoria",
+          "titulo": "Memoria",
+          "sub": "la ventana se llena",
+          "itens": [
+            {
+              "icone": "camadas",
+              "t": "compactación: mantiene el objetivo"
+            },
+            {
+              "icone": "arquivo",
+              "t": "notas fuera de la ventana"
+            }
+          ],
+          "detalhe": "Cuanto más larga la sesión, más llena la ventana de contexto. El harness compacta: mantiene el objetivo y encoge los pasos antiguos. Compactar demasiado pierde detalle; por eso los loops largos guardan el estado en un archivo (lección 5) y el curso 2 trata de los rangos de contexto."
+        },
+        {
+          "icone": "terminal",
+          "titulo": "Herramientas",
+          "sub": "cómo actúa la IA",
+          "itens": [
+            {
+              "icone": "seta",
+              "t": "el modelo pide, el harness ejecuta"
+            },
+            {
+              "icone": "nuvem",
+              "t": "MCP conecta otros sistemas"
+            }
+          ],
+          "detalhe": "El modelo solo produce texto. Cuando ese texto es un pedido de herramienta (leer un archivo, correr un comando, editar), el harness lo ejecuta y le devuelve el resultado al modelo. MCP es la forma estándar de conectar herramientas de otros sistemas."
+        },
+        {
+          "icone": "check",
+          "titulo": "Verificación",
+          "sub": "revisar el trabajo",
+          "forte": true,
+          "itens": [
+            {
+              "icone": "terminal",
+              "t": "correr, probar, lint"
+            },
+            {
+              "icone": "check",
+              "t": "código de salida 0"
+            }
+          ],
+          "detalhe": "Sin verificación, el modelo mira el código y dice \"se ve bien\". Con ella, corre la prueba y lee el resultado. Un resultado real vale más que la IA diciendo que está bien. Es la pieza que más necesita el loop (clases 1 y 6; curso 1)."
+        },
+        {
+          "icone": "cadeado",
+          "titulo": "Permisos",
+          "sub": "lo que puede, lo que pregunta",
+          "itens": [
+            {
+              "icone": "portao",
+              "t": "reglas, hooks, checkpoints"
+            },
+            {
+              "icone": "escudo",
+              "t": "el sandbox contiene el daño"
+            }
+          ],
+          "detalhe": "El harness revisa cada acción antes de ejecutarla: editar pasa, borrar pregunta. Los hooks corren tus scripts antes y después de las herramientas; el sandbox limita hasta dónde llega un comando. En un loop sin que tú mires, es lo que contiene el radio de daño (curso 4)."
+        },
+        {
+          "icone": "voltar",
+          "titulo": "Loop del agente",
+          "sub": "pensar, actuar, leer",
+          "itens": [
+            {
+              "icone": "cerebro",
+              "t": "el modelo decide el siguiente paso"
+            },
+            {
+              "icone": "voltar",
+              "t": "el resultado vuelve a él"
+            }
+          ],
+          "detalhe": "Juntando todo: el modelo piensa y pide una herramienta, el permiso la revisa, el harness la corre, el resultado vuelve y el ciclo sigue hasta lograr el objetivo. El harness no vuelve al modelo más inteligente; lo vuelve más útil."
+        }
+      ],
+      "estilo": "fluxo",
+      "legenda": "Claude Code y Codex son harnesses. El mismo modelo en harnesses distintos da resultados distintos.",
+      "rolagem": true,
+      "rolagem_fim": {
+        "titulo": "¿Falló? Busca la pieza",
+        "texto": "Olvidó la regla del proyecto: contexto. Perdió el hilo después de horas: memoria. No logró hacerlo: herramienta. Dijo listo sin estarlo: verificación. Hizo lo que no debía: permisos.",
+        "curto": "Cada falla tiene una pieza responsable."
+      }
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Dos lecciones de quienes construyen harnesses",
+      "sub": "De posts de ingeniería públicos (investigación del 19/10/2026).",
+      "passos": [
+        {
+          "titulo": "Pregunta qué falta",
+          "sub": "OpenAI, 11/02/2026",
+          "texto": [
+            "En el post \"Harness engineering\", la lección central es: cuando el agente falla, preguntar qué capacidad, contexto o estructura falta, en vez de mandarlo a intentar más.",
+            "En la práctica: la corrección va al harness (una regla en el AGENTS.md, una herramienta, una prueba), no a un prompt más enfático."
+          ]
+        },
+        {
+          "titulo": "Cada pieza es una suposición",
+          "sub": "Anthropic, 24/03/2026",
+          "texto": [
+            "En el post sobre el harness de apps largas, el equipo necesitó resets de contexto con handoff para un modelo que terminaba antes de tiempo; en un modelo siguiente ese comportamiento desapareció y los resets salieron, quedando la compactación automática.",
+            "Lección: cada pieza del harness codifica una suposición sobre el modelo. Cambiar de modelo pide reevaluar las piezas."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Inventario de tu harness",
+      "sub": "Solo lectura: no se altera nada. Córrelo en tu máquina y anota lo que apareció.",
+      "blocos": [
+        {
+          "rot": "Terminal · contexto y memoria",
+          "icone": "arquivo",
+          "conteudo": "ls -la ~/.claude/CLAUDE.md ~/.codex/AGENTS.md 2>&1\nwc -l ~/.claude/CLAUDE.md ~/.codex/AGENTS.md 2>/dev/null\nls CLAUDE.md AGENTS.md 2>&1   # en el proyecto actual"
+        },
+        {
+          "rot": "Terminal · herramientas (MCP) y skills",
+          "icone": "terminal",
+          "conteudo": "claude mcp list\nls ~/.claude/skills 2>/dev/null | wc -l"
+        },
+        {
+          "rot": "Terminal · permisos y hooks de Claude Code (usuario y proyecto; ejecútalo en la carpeta del proyecto)",
+          "icone": "cadeado",
+          "conteudo": "python3 - <<'PY'\nimport json, pathlib\nfor p in (pathlib.Path.home() / \".claude/settings.json\",   # usuario\n          pathlib.Path(\".claude/settings.json\"),            # proyecto (va al git)\n          pathlib.Path(\".claude/settings.local.json\")):     # proyecto, solo en esta máquina\n    if not p.exists():\n        print(f\"{p}: não existe\")\n        continue\n    d = json.loads(p.read_text())\n    perm = d.get(\"permissions\", {})\n    print(f\"{p}: hooks {sorted(d.get('hooks', {})) or 'nenhum'} · allow {len(perm.get('allow', []))} · deny {len(perm.get('deny', []))}\")\nPY"
+        },
+        {
+          "rot": "Terminal · sandbox y aprobación de Codex",
+          "icone": "escudo",
+          "conteudo": "grep -nE '^(sandbox_mode|approval_policy)' ~/.codex/config.toml || echo \"padrão do Codex (sem chave no config)\""
+        },
+        {
+          "rot": "harness.md · modelo para completar",
+          "icone": "caneta",
+          "conteudo": "# Mi harness — <fecha>\ncontexto: <archivos de reglas que el agente lee al empezar>\nmemória: <cómo guardo lo que no se puede perder: handoff, archivos de estado, nada>\nferramentas: <MCP y skills que uso de verdad>\nverificação: <el comando que prueba que salió bien en mi proyecto principal>\npermissões: <hooks y reglas allow/deny; sandbox de Codex>\npeça mais fraca: <cuál y por qué>"
+        }
+      ]
+    },
+    {
+      "tipo": "video",
+      "titulo": "Video: el harness por dentro",
+      "sub": "Contexto, memoria, herramientas, verificación, permisos y el loop del agente, una pieza por capítulo (10/10/2026).",
+      "chave": "ai-harness"
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Práctica",
+      "sub": "En tu máquina. Pasa al siguiente solo cuando el \"listo cuando\" sea verdad.",
+      "exercicios": [
+        {
+          "id": "e1",
+          "titulo": "E1 · Inventario",
+          "min": "15 min",
+          "texto": "Ejecuta los cuatro bloques del inventario y completa el harness.md con lo que apareció, una línea por pieza. Escribe las marcas del comienzo de la línea exactamente como están en el modelo: el grep del \"listo cuando\" las busca.",
+          "pronto": "<code>grep -cE '^(contexto|memória|ferramentas|verificação|permissões):' harness.md</code> → <code>5</code>, y <code>grep -c '&lt;' harness.md</code> → <code>0</code> (ningún marcador de la plantilla quedó sin completar)."
+        },
+        {
+          "id": "e2",
+          "titulo": "E2 · ¿Realmente se lee el contexto?",
+          "min": "10 min",
+          "texto": "Agrega al CLAUDE.md (o AGENTS.md) del proyecto una regla fácil de comprobar, por ejemplo \"toda respuesta termina con la palabra CONFERIDO\". Abre una sesión nueva y pide cualquier cosa.",
+          "pronto": "La respuesta de la sesión nueva termina con <code>CONFERIDO</code> sin que tú lo pidas. Después borra la regla: <code>grep -c CONFERIDO CLAUDE.md</code> → <code>0</code>."
+        },
+        {
+          "id": "e3",
+          "titulo": "E3 · Una falla, una pieza",
+          "min": "10 min",
+          "texto": "Recuerda una falla real del agente en las últimas semanas. Escribe en harness.md la línea \"peça mais fraca:\" con la pieza dueña de la falla y la corrección que va al harness, no al prompt.",
+          "pronto": "<code>grep '^peça mais fraca:' harness.md</code> → una línea que cite una de las cinco piezas y un archivo, comando o herramienta concreta."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Prueba de la lección",
+      "perguntas": [
+        {
+          "p": "En cada sesión nueva el agente olvida que el proyecto usa pnpm y ejecuta npm. ¿Qué pieza del harness lo resuelve?",
+          "opcoes": [
+            "Herramientas: más comandos disponibles en la terminal",
+            "Un modelo más grande, que deduzca solo el gestor de paquetes del proyecto",
+            "Permisos: aprobar cada comando antes de ejecutarlo",
+            "Contexto: una línea en CLAUDE.md o AGENTS.md"
+          ],
+          "certa": 3,
+          "explica": "Es conocimiento del proyecto que el modelo no tiene al empezar; el harness lo carga mediante el archivo de reglas. Cambiar de modelo no lo resuelve: ningún modelo adivina la convención de tu proyecto.",
+          "ref": "diagrama",
+          "cert": true
+        },
+        {
+          "p": "El agente dijo \"corregí el bug\" y el bug sigue ahí. ¿Qué pieza faltó y cuál es la corrección de harness?",
+          "opcoes": [
+            "Verificación: una prueba que reproduce el bug, ejecutada antes de dar por terminado",
+            "Memoria: aumentar la ventana de contexto para que recuerde el bug",
+            "Permisos: exigir aprobación humana de cada edición antes de guardar",
+            "Contexto: explicar mejor el bug en el prompt inicial"
+          ],
+          "certa": 0,
+          "explica": "Sin verificación, \"corregí\" es una opinión. Una prueba que falla antes y pasa después convierte la opinión en evidencia. Explicar mejor ayuda, pero no impide que el agente se apruebe a sí mismo.",
+          "ref": "diagrama"
+        },
+        {
+          "p": "Según el post de ingeniería de Anthropic de marzo de 2026, ¿qué hacer con el harness cuando se cambia el modelo?",
+          "opcoes": [
+            "Cambiar todo el harness por uno hecho para el modelo nuevo",
+            "Reevaluar cada pieza: cada una supone algo sobre el modelo",
+            "Desactivar la compactación, que el modelo nuevo ya no necesita",
+            "Nada: un harness bien hecho sirve igual con cualquier modelo nuevo"
+          ],
+          "certa": 1,
+          "explica": "Los resets de contexto existían por un comportamiento de un modelo; en el modelo siguiente ese comportamiento desapareció y la pieza salió. Una pieza que ya no sirve solo cuesta.",
+          "ref": "passos"
+        },
+        {
+          "p": "¿Por qué el mismo modelo da resultados distintos en Claude Code y en Codex?",
+          "opcoes": [
+            "Porque el harness alrededor del modelo es diferente",
+            "No se puede: con el mismo prompt el resultado siempre es igual",
+            "Porque cada herramienta usa una versión distinta del mismo modelo",
+            "Porque una usa API y la otra corre solo con la suscripción"
+          ],
+          "certa": 0,
+          "explica": "Elegir la herramienta es elegir su harness. El modelo decide; el harness define qué sabe, qué puede hacer y cómo comprueba.",
+          "ref": "diagrama",
+          "cert": true
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "En tres frases",
+      "itens": [
+        {
+          "t": "El modelo decide, el harness hace",
+          "texto": "Contexto, memoria, herramientas, verificación y permisos están alrededor del modelo y el loop los une."
+        },
+        {
+          "t": "Toda falla tiene dueña",
+          "texto": "Antes de intentarlo de nuevo, pregunta qué pieza faltó y corrígela en el harness."
+        },
+        {
+          "t": "Reevalúa con cada modelo",
+          "texto": "Cada pieza codifica una suposición sobre el modelo; un modelo nuevo pide revisión."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Para ir más allá",
+      "links": [
+        {
+          "t": "Video AI harness (pizarra blanca y profesional, PT/EN/ES)",
+          "href": "https://inematds.github.io/ai-harness/videos/",
+          "icone": "video"
+        },
+        {
+          "t": "Anthropic: diseño de harness para apps de larga duración (24/03/2026)",
+          "href": "https://anthropic.com/engineering/harness-design-long-running-apps",
+          "icone": "lupa"
+        },
+        {
+          "t": "Anthropic: ingeniería de contexto para agentes (29/09/2025)",
+          "href": "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents",
+          "icone": "lupa"
+        }
+      ]
+    }
+  ]
+}

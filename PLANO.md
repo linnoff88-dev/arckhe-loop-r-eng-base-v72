@@ -1,0 +1,23 @@
+# PLANO — Base: anatomia do loop (Formação LOOP-R Engenharia, curso 0 de 6) · 19/10/2026
+
+Curso de entrada da formação: apresenta os 6 cursos e as peças comuns. Cada aula ensina o conceito e aponta para o curso irmão que é dono do assunto (tabela "dono de cada assunto" do CURRICULO), sem repetir.
+
+Fontes: `loop-r` (README, docs/01–06, `.claude/agents/*.md`, vídeos trilha 2 e 3), `execucao-longa` (README, `templates/goal.md` com a escala 0–4, `tools/loop-longrun.sh` só como referência de tetos), `ai-harness` (vídeo/roteiro), doc oficial do Claude Code (`/goal`, scheduled tasks/`/loop`, routines — lidas em 19/10/2026), doc oficial do Codex (`codex exec`, modo não interativo), ghuntley.com/ralph, posts de engenharia da Anthropic (pesquisa §1). Codex Goal Mode: só "usado no kit", sem data nem detalhe não confirmado.
+Saídas "real": capturadas em 19/10/2026 no scratchpad com os scripts de ensaio deste curso (loop de brinquedo, ciclo descartável, timeout, MemoryMax, projeto conta-palavras).
+
+| # | slug | título | objetivo (≤160) | diagrama | prática → pronto quando |
+|---|---|---|---|---|---|
+| 1 | pecas | O loop em 5 peças: objetivo, estado, ação, verificação, parada | identificar as 5 peças em qualquer loop de agente e rodar um loop de brinquedo que para sozinho pelo teste ou pelo teto. | ciclo objetivo → estado → ação → verificação → parada, com volta | `bash loop-brinquedo.sh` → `PRONTO no ciclo 5`; objetivo 20 → `PARADO: teto de 8 ciclos` (rc 2) |
+| 2 | harness | Harness: o que fica em volta do modelo | listar as peças do harness da sua máquina (contexto, ferramentas, permissões, memória, verificação) e dizer qual delas segura cada falha. | modelo no centro + 5 peças + loop | inventário: `ls ~/.claude/CLAUDE.md ~/.codex/AGENTS.md` e `claude mcp list`; arquivo harness.md com 5 linhas |
+| 3 | motores | Os motores de loop hoje: /goal, /loop, Ralph, routines, codex exec | escolher o motor de loop certo para uma tarefa sabendo onde roda, o que dispara o próximo turno, quem decide parar e o limite de cada um. | 5 motores × próximo turno / para quando | `/goal` pequeno → arquivo criado e goal atingido; `codex exec` read-only → número impresso |
+| 4 | loopr | LOOP-R: as cinco letras e os nove agentes | explicar as letras L-O-O-P-R e o contrato dos nove agentes (lê, escreve, decide, nunca faz) e por que separar quem faz de quem avalia. | 5 letras → agentes | `ls .claude/agents/*.md \| wc -l` → `9`; ledger do exemplo lido (dados sintéticos) |
+| 5 | estado | Estado fora do modelo: arquivos e git como memória | montar um ciclo descartável que relê o estado em arquivo, faz um item, verifica e commita, e retomar depois de interromper sem refazer nada. | sessão descartável ↔ features.json + progress + git log | `python3 ciclo.py` ×4 → `nada pendente`; `git log --oneline \| wc -l` → `4` |
+| 6 | criterio | Critério de pronto na escala 0–4 | classificar critérios de pronto de 0 a 4 com as 5 perguntas e reescrever um critério vago até o nível 3. | escada 0 vago → 4 independente | 3 critérios reescritos; cada um roda e imprime o esperado |
+| 7 | tetos | Tetos e parada: turnos, tempo, memória, estagnação e custo | pôr os cinco tetos num loop e decidir, diante de um agente que insiste, entre continuar, parar e chamar o humano. | 5 tetos em volta do ciclo | `timeout 2 sleep 5; echo $?` → `124`; MemoryMax → `137`; simconversa até o placar |
+| 8 | primeiro | Seu primeiro loop: objetivo pequeno com critério nível 3 | rodar seu primeiro loop com /goal num projeto pequeno com testes congelados, critério nível 3 e teto de turnos, e sair com o plano da formação. | mapa 4 degraus + gerador | `pytest -q tests/` → `6 passed`; `sha256sum -c tests.sha256` → `OK`; `git diff --exit-code -- tests/` → rc 0 |
+
+Simulações: `simfila` na aula 5 (ciclos descartáveis com interrupção e retomada; falha = item cuja verificação falha). `simconversa` na aula 7 (o agente quer "só mais uma tentativa": continuar, parar, chamar humano).
+Vídeos publicados: "AI harness" (aula 2), LOOP-R trilha 2 (as cinco letras, aula 4). PT; EN/ES com mp4/vtt por idioma se o motor permitir.
+Imagens: capa + inicio + 8 heroes pelo Codex (uma por vez), sem texto. Cartões dos 6 cursos: capa do piloto (curso 2) e recortes das fotos deste curso para os irmãos ainda sem capa.
+Dono de cada assunto (aponta, não repete): verificação/avaliador/testes congelados → curso 1; kit de 7 arquivos, goal.md completo, faixas, headless (`loop-longrun.sh`) → curso 2; subagentes → curso 3; permissões/hooks de guarda → curso 4; promoção/rollback → curso 5.
+Próximo curso da ordem: `https://inematds.github.io/loop-r-eng-verificacao-v72/` (curso 1; ainda não publicado em 19/10).

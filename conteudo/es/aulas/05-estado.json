@@ -1,0 +1,321 @@
+{
+  "slug": "estado",
+  "num": 5,
+  "menu": "Estado",
+  "titulo": "Estado fuera del modelo: archivos y git como memoria",
+  "titulo_curto": "Estado en archivos y git",
+  "minutos": 16,
+  "lead": "En un loop largo, el contexto del modelo va a ser compactado, reseteado o cambiado por una sesión nueva. Lo que solo existía en la conversación desaparece o vuelve como resumen, mezclando hecho y suposición. La salida: sesión descartable, estado en archivos y en git, y todo ciclo empieza releyendo. Tú armas un ciclo así y lo interrumpes a propósito.",
+  "objetivo": "armar un ciclo descartable que relee el estado en archivo, hace un ítem, verifica y hace commit, y retomar después de interrumpir sin rehacer nada.",
+  "competencias": [
+    "guardar-estado-fuera-del-modelo",
+    "usar-git-como-memoria",
+    "retomar-loop-interrumpido"
+  ],
+  "aprende": [
+    {
+      "icone": "memoria",
+      "t": "Por qué la memoria del modelo no aguanta un loop largo"
+    },
+    {
+      "icone": "lista",
+      "t": "La lista de ítems con passes, el archivo de progreso y el git log"
+    },
+    {
+      "icone": "voltar",
+      "t": "Interrumpir y retomar sin rehacer ni saltar"
+    },
+    {
+      "icone": "git",
+      "t": "Git como deshacer y como historial del loop"
+    }
+  ],
+  "hero_alt": "Carpetas de papel y un disco externo junto a un notebook, conectados por cables finos que se ramifican.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "Una sesión descartable, un estado que se queda",
+      "sub": "Haz clic en cada paso del ciclo: qué lee y qué deja grabado.",
+      "nos": [
+        {
+          "icone": "robo",
+          "titulo": "Sesión nueva",
+          "sub": "no recuerda nada",
+          "itens": [
+            {
+              "icone": "x",
+              "t": "Sin la conversación anterior"
+            },
+            {
+              "icone": "check",
+              "t": "Puede caerse en cualquier momento"
+            }
+          ],
+          "detalhe": "Puede ser un /clear, una compactación, un codex exec nuevo, el Ralph llamando de nuevo u otra persona tomando el relevo. El diseño parte del peor caso: la sesión no recuerda nada y puede interrumpirse a la mitad."
+        },
+        {
+          "icone": "arquivo",
+          "titulo": "Relee el estado",
+          "sub": "lista, progreso, git log",
+          "forte": true,
+          "itens": [
+            {
+              "icone": "lista",
+              "t": "features.json: ítems con passes"
+            },
+            {
+              "icone": "git",
+              "t": "git log y progress.md"
+            }
+          ],
+          "detalhe": "En el harness de larga duración de Anthropic (26/11/2025), toda sesión empieza así: dónde estoy (pwd), qué se hizo (git log y el archivo de progreso), cuál es el próximo ítem, y una prueba básica antes de programar. La lista de ítems es JSON con el campo passes; el post dice que el modelo sobrescribe menos el JSON que el Markdown."
+        },
+        {
+          "icone": "terminal",
+          "titulo": "Hace un ítem",
+          "sub": "el primero pendiente",
+          "itens": [
+            {
+              "icone": "seta",
+              "t": "Solo uno por ciclo"
+            },
+            {
+              "icone": "x",
+              "t": "No reabre un ítem con passes true"
+            }
+          ],
+          "detalhe": "Elige el primer ítem pendiente y hace solo ese. En el post de Anthropic, las sesiones siguientes solo pueden cambiar el campo passes; no reescriben ni borran ítems de la lista."
+        },
+        {
+          "icone": "check",
+          "titulo": "Verifica y marca",
+          "sub": "passes solo con prueba",
+          "itens": [
+            {
+              "icone": "check",
+              "t": "passes: true si la verificación pasó"
+            },
+            {
+              "icone": "arquivo",
+              "t": "Una línea en progress.md"
+            }
+          ],
+          "detalhe": "El ítem solo pasa a passes: true si la verificación de ese ítem pasó. La línea en el progreso dice cuándo y el resultado. Si falló, el ítem sigue pendiente y el motivo queda registrado."
+        },
+        {
+          "icone": "git",
+          "titulo": "Commit",
+          "sub": "el punto de retomada",
+          "itens": [
+            {
+              "icone": "git",
+              "t": "Un commit por ítem"
+            },
+            {
+              "icone": "voltar",
+              "t": "git revert deshace"
+            }
+          ],
+          "detalhe": "El commit es el checkpoint: si la próxima sesión se cae, nada de lo que se verificó se pierde; si un ítem salió mal, git revert lo deshace. LOOP-R usa el mismo principio para las versiones del proceso (\"git es el mecanismo de promoción y rollback\"; detalle en el curso 5)."
+        }
+      ],
+      "volta": "La sesión termina o se cae; la siguiente empieza releyendo los archivos y sigue desde el primer pendiente.",
+      "legenda": "El kit execucao-longa lleva la idea a siete archivos (goal, plan, state, progress, failures, decisions, canal): es la clase 1 del curso 2.",
+      "rolagem": true,
+      "rolagem_fim": {
+        "titulo": "Relee la carpeta, no la conversación",
+        "texto": "La sesión es descartable; el estado no. Lo que necesita sobrevivir a una compactación, a un reset o a un cambio de modelo va a un archivo y a un commit antes del fin del ciclo.",
+        "curto": "Archivo + commit en cada ítem."
+      }
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Un ciclo descartable en Python",
+      "sub": "Cada ejecución es una \"sesión\" que no recuerda nada: relee, hace un ítem, verifica, graba y hace commit. Sin modelo: la acción es escribir un archivo.",
+      "blocos": [
+        {
+          "rot": "Terminal · preparar la carpeta",
+          "icone": "terminal",
+          "conteudo": "mkdir -p ~/ensaio-loop/estado && cd ~/ensaio-loop/estado && git init -q\ncat > features.json <<'EOF'\n[\n {\"id\":\"f1\",\"descricao\":\"ler o CSV\",\"passes\":false},\n {\"id\":\"f2\",\"descricao\":\"contar linhas\",\"passes\":false},\n {\"id\":\"f3\",\"descricao\":\"gravar o resumo\",\"passes\":false}\n]\nEOF\ngit add -A && git commit -qm inicio"
+        },
+        {
+          "rot": "ciclo.py",
+          "icone": "arquivo",
+          "conteudo": "#!/usr/bin/env python3\n\"\"\"Un ciclo que empieza de cero cada vez: relee el estado en los archivos, hace UN ítem, graba y hace commit.\"\"\"\nimport json, subprocess, sys, datetime, pathlib\n\nestado = pathlib.Path(\"features.json\")\nitens = json.loads(estado.read_text())\npendentes = [i for i in itens if not i[\"passes\"]]\nif not pendentes:\n    print(\"nada pendente: objetivo cumprido\")\n    sys.exit(0)\nitem = pendentes[0]\nprint(f\"releu features.json: {len(itens) - len(pendentes)} feitos, {len(pendentes)} pendentes\")\nprint(f\"faz: {item['id']} ({item['descricao']})\")\npathlib.Path(f\"{item['id']}.txt\").write_text(item[\"descricao\"] + \"\\n\")   # la \"acción\"\nitem[\"passes\"] = pathlib.Path(f\"{item['id']}.txt\").exists()                # la \"verificación\"\nestado.write_text(json.dumps(itens, ensure_ascii=False, indent=2) + \"\\n\")\nagora = datetime.datetime.now().strftime(\"%Y-%m-%d %H:%M\")\nwith open(\"progress.md\", \"a\") as f:\n    f.write(f\"| {agora} | {item['id']} | passes={item['passes']} |\\n\")\nsubprocess.run([\"git\", \"add\", \"-A\"], check=True)\nsubprocess.run([\"git\", \"commit\", \"-qm\", f\"feito: {item['id']}\"], check=True)\nprint(f\"commit: feito: {item['id']}\")"
+        },
+        {
+          "rot": "Terminal · ejecutar, \"caer\" y retomar",
+          "icone": "voltar",
+          "conteudo": "python3 ciclo.py\n# cierra el terminal aquí, abre otro y vuelve a la carpeta\ncd ~/ensaio-loop/estado\npython3 ciclo.py && python3 ciclo.py && python3 ciclo.py\ngit log --oneline"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Salida capturada (19/10/2026)",
+            "html": "<pre>$ python3 ciclo.py\nreleu features.json: 0 feitos, 3 pendentes\nfaz: f1 (ler o CSV)\ncommit: feito: f1\n--- (sessão descartada; outra começa do zero)\n$ python3 ciclo.py\nreleu features.json: 1 feitos, 2 pendentes\nfaz: f2 (contar linhas)\ncommit: feito: f2\n$ python3 ciclo.py\nreleu features.json: 2 feitos, 1 pendentes\nfaz: f3 (gravar o resumo)\ncommit: feito: f3\n$ python3 ciclo.py\nnada pendente: objetivo cumprido\n\n$ git log --oneline\n58d590c feito: f3\n16ff9e9 feito: f2\n7345668 feito: f1\n7f9664d inicio</pre><p>Los hashes cambian en tu máquina; el orden y los mensajes no.</p>"
+          },
+          {
+            "rot": "En un loop de agente",
+            "html": "<p>Cambia la línea de la \"acción\" por una llamada al agente (<code>codex exec</code> o <code>claude -p</code>) y la de la \"verificación\" por una prueba que se ejecute de verdad. El resto (releer, un ítem, marcar solo con prueba, commit) queda igual. La verificación de esta versión de juguete es débil a propósito: solo comprueba que el archivo existe (nivel 2 en la escala de la clase 6).</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "simfila",
+      "titulo": "Interrumpe a la mitad y mira la retomada",
+      "sub": "Cada tarea es un ciclo. Ejecuta, interrumpe y ejecuta de nuevo: lo que ya tiene commit no se rehace.",
+      "tarefas": [
+        "f1 · leer el CSV",
+        "f2 · contar líneas",
+        "f3 · grabar el resumen",
+        "f4 · generar el gráfico",
+        "f5 · actualizar el README"
+      ],
+      "falha": 3,
+      "rot": {
+        "entrada": "pendientes (passes: false)",
+        "rodando": "en esta sesión",
+        "feito": "passes: true + commit",
+        "falhou": "la verificación falló",
+        "rodar": "Ejecutar los ciclos",
+        "parar": "Interrumpir (la sesión se cayó)",
+        "zerar": "Reiniciar"
+      },
+      "msg": {
+        "inicio": "5 ítems con passes: false. Haz clic en \"Ejecutar los ciclos\".",
+        "rodando": "Cada ciclo: relee la lista, toma el primer pendiente, verifica y hace commit.",
+        "parou": "La sesión se cayó en medio de un ítem. No tiene commit: sigue pendiente. Ejecuta de nuevo.",
+        "retoma": "Sesión nueva: releyó la lista y el git log. Lo que tiene commit no se rehace; el ítem interrumpido vuelve a pendientes.",
+        "fim": "Lista vacía: todos los ítems con passes: true y commit.",
+        "fimfalha": "Fin de la ronda. Un ítem quedó sin passes porque la verificación falló: el motivo va al registro y es el primero del próximo ciclo."
+      },
+      "legenda": "Simulación ilustrativa en el navegador. El fallo es a propósito: un ítem sin prueba no pasa a passes: true."
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Práctica",
+      "sub": "En tu máquina. No gasta cuota: no hay modelo en el ciclo.",
+      "exercicios": [
+        {
+          "id": "e1",
+          "titulo": "E1 · Tres sesiones, tres commits",
+          "min": "10 min",
+          "texto": "Prepara la carpeta, pega el ciclo.py y ejecútalo una vez. Cierra la terminal, abre otra y ejecútalo hasta que aparezca \"nada pendente\".",
+          "pronto": "La última ronda imprime <code>nada pendente: objetivo cumprido</code>, y <code>git log --oneline | wc -l</code> → <code>4</code>."
+        },
+        {
+          "id": "e2",
+          "titulo": "E2 · La verificación que reprueba",
+          "min": "15 min",
+          "texto": "Agrega el ítem f4 \"arquivo vazio\" y cambia la verificación para exigir un archivo no vacío (stat().st_size > 0). Haz que la acción de f4 grabe un archivo vacío y ejecútalo.",
+          "pronto": "<code>python3 -c \"import json;print([i['passes'] for i in json.load(open('features.json'))])\"</code> → <code>[True, True, True, False]</code>, y <code>tail -1 progress.md</code> termina con <code>passes=False |</code>."
+        },
+        {
+          "id": "e3",
+          "titulo": "E3 · La lista de un trabajo tuyo",
+          "min": "15 min",
+          "texto": "Elige una tarea real de varias horas y divídela en al menos 5 ítems verificables en un features.json, todos con passes: false, en una carpeta de proyecto con git.",
+          "pronto": "<code>python3 -c \"import json;d=json.load(open('features.json'));print(len(d)&gt;=5, any(i['passes'] for i in d))\"</code> → <code>True False</code>, y <code>git log --oneline -1 -- features.json</code> muestra el commit de la lista."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Prueba de la lección",
+      "perguntas": [
+        {
+          "p": "Después de una compactación, el resumen dice \"f3 concluído\", pero features.json muestra f3 con passes: false y no hay commit de f3. ¿Qué vale?",
+          "opcoes": [
+            "El resumen, que es más reciente",
+            "Marcar f3 como true para no perder tiempo",
+            "El archivo y git: f3 está pendiente",
+            "Preguntarle al modelo si lo recuerda"
+          ],
+          "certa": 2,
+          "explica": "El resumen mezcla lo confirmado con la suposición. Lo que tiene prueba es lo que está en el archivo con commit. Marcar sin verificar es exactamente el atajo que la lista existe para impedir.",
+          "ref": "diagrama",
+          "cert": true
+        },
+        {
+          "p": "¿Por qué el post de harness de Anthropic guarda la lista de ítems en JSON y no en Markdown?",
+          "opcoes": [
+            "Porque el modelo sobrescribe JSON menos que Markdown",
+            "Porque JSON es más rápido de leer y ocupa menos contexto",
+            "Porque Markdown no tiene campos para marcar lo que pasó",
+            "Porque Claude Code solo lee archivos de estado en JSON"
+          ],
+          "certa": 0,
+          "explica": "Es la razón que da el propio post: con JSON el modelo tiende a cambiar solo el campo passes, en lugar de reescribir la lista. Las sesiones siguientes solo pueden cambiar ese campo.",
+          "ref": "diagrama"
+        },
+        {
+          "p": "¿Cuál es la ventaja de un commit por ítem en lugar de un commit al final?",
+          "opcoes": [
+            "Ninguna, solo ensucia el historial",
+            "Git se vuelve más rápido",
+            "El modelo lee mejor los commits pequeños",
+            "Cada ítem verificado se vuelve un punto de reanudación y se puede deshacer por separado"
+          ],
+          "certa": 3,
+          "explica": "Si la sesión se cae, lo que fue verificado queda guardado; si un ítem salió mal, git revert deshace solo ese. Un commit al final lo pierde todo en una caída y mezcla aciertos con errores.",
+          "ref": "codigo"
+        },
+        {
+          "p": "En la simulación, la sesión se cayó en medio de un ítem. ¿Qué pasa con él al reanudar?",
+          "opcoes": [
+            "Se descarta y sale de la lista de ítems",
+            "Pasa a falló y exige revisión humana",
+            "Vuelve a pendientes, porque no tiene commit",
+            "Se marca como hecho, porque ya había empezado"
+          ],
+          "certa": 2,
+          "explica": "Sin verificación y sin commit, no hay prueba de que terminó: vuelve a pendientes y se rehace. Lo que ya tiene commit no se rehace.",
+          "ref": "simfila",
+          "cert": true
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "En tres frases",
+      "itens": [
+        {
+          "t": "Sesión descartable",
+          "texto": "Diseña para el peor caso: la próxima sesión no recuerda nada y puede caerse en medio."
+        },
+        {
+          "t": "Vuelve a leer antes de actuar",
+          "texto": "La lista con passes, el archivo de progreso y el git log dicen dónde quedó; el resumen de la conversación no."
+        },
+        {
+          "t": "Un ítem, una prueba, un commit",
+          "texto": "passes solo pasa a true con verificación, y cada ítem verificado se vuelve un punto de reanudación."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Para ir más allá",
+      "links": [
+        {
+          "t": "Anthropic: harnesses para agentes de larga duración (26/11/2025)",
+          "href": "https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents",
+          "icone": "lupa"
+        },
+        {
+          "t": "Curso 2 de la formación: ejecución larga (los siete archivos del kit)",
+          "href": "https://inematds.github.io/loop-r-eng-execucao-longa-v72/es/",
+          "icone": "pasta"
+        },
+        {
+          "t": "LOOP-R, docs/02: archivos, no base de datos; git como promoción y rollback",
+          "href": "https://github.com/inematds/loop-r/blob/main/docs/02-arquitetura.md",
+          "icone": "git"
+        }
+      ]
+    }
+  ]
+}

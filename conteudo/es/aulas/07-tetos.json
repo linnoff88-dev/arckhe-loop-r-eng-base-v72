@@ -1,0 +1,427 @@
+{
+  "slug": "tetos",
+  "num": 7,
+  "menu": "Topes",
+  "titulo": "Topes y parada: turnos, tiempo, memoria, estancamiento y costo",
+  "titulo_curto": "Topes y parada",
+  "minutos": 17,
+  "lead": "Un buen criterio garantiza que el loop no termine antes de tiempo; no garantiza que termine. Objetivo imposible, agente atascado en el mismo error, proceso que se come la memoria de la máquina: solo un tope lo detiene. En esta clase conoces los cinco topes, ves a cada uno detener un proceso de verdad y practicas la decisión más difícil: cuando el agente pide solo un intento más.",
+  "objetivo": "poner los cinco topes en un loop y decidir, frente a un agente que insiste, entre continuar, parar y llamar al humano.",
+  "competencias": [
+    "aplicar-tetos-ao-loop",
+    "detectar-estagnacao",
+    "decidir-parar-ou-escalar"
+  ],
+  "aprende": [
+    {
+      "icone": "relogio",
+      "t": "Turnos, tiempo, memoria, estancamiento y costo"
+    },
+    {
+      "icone": "terminal",
+      "t": "timeout, MemoryMax y conteo de ciclos sin avance, en ejecución"
+    },
+    {
+      "icone": "portao",
+      "t": "Lo que siempre pide un humano, incluso dentro del tope"
+    },
+    {
+      "icone": "chat",
+      "t": "Una conversación simulada con un agente que quiere continuar"
+    }
+  ],
+  "hero_alt": "Panel industrial con temporizador, botón rojo de emergencia, módulo de memoria y un indicador en el límite.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "Cinco topes alrededor del ciclo",
+      "sub": "Haz clic en cada tope: qué limita y dónde ya existe en las herramientas.",
+      "nos": [
+        {
+          "icone": "lista",
+          "titulo": "Turnos",
+          "sub": "cuántos ciclos, como máximo",
+          "itens": [
+            {
+              "icone": "alvo",
+              "t": "/goal: \"o detente después de 20 turnos\""
+            },
+            {
+              "icone": "terminal",
+              "t": "MAX_CICLOS en tu loop"
+            }
+          ],
+          "detalhe": "La doc de /goal manda incluir un tope en la propia condición, como \"o detente después de 20 turnos\"; y Claude Code ya detiene el goal si el agente responde varios turnos seguidos sin usar herramientas. En tu loop, es una variable: MAX_CICLOS. El /loop tiene el suyo: una tarea recurrente expira en 7 días."
+        },
+        {
+          "icone": "relogio",
+          "titulo": "Tiempo",
+          "sub": "cuánto dura cada ciclo",
+          "itens": [
+            {
+              "icone": "terminal",
+              "t": "timeout 20m [comando]"
+            },
+            {
+              "icone": "x",
+              "t": "Sale con código 124"
+            }
+          ],
+          "detalhe": "Un ciclo que se trabó (esperando entrada, en un bucle infinito, en un servidor que no levanta) retiene todo el loop. El timeout de coreutils mata el comando después del plazo y devuelve 124, y el loop lo trata como ciclo fallido."
+        },
+        {
+          "icone": "chip",
+          "titulo": "Memoria",
+          "sub": "cuánto de la máquina",
+          "itens": [
+            {
+              "icone": "terminal",
+              "t": "systemd-run … -p MemoryMax="
+            },
+            {
+              "icone": "x",
+              "t": "Muerto con 137, la máquina sigue"
+            }
+          ],
+          "detalhe": "Un agente que levanta un proceso pesado puede trabar toda la máquina. En Linux, systemd-run --user --scope con MemoryMax pone un tope al proceso y a sus hijos: si lo pasa, el kernel mata solo a ese (código 137). Es lo que usa el kit execucao-longa en cada ciclo."
+        },
+        {
+          "icone": "grafico",
+          "titulo": "Estancamiento",
+          "sub": "ciclos sin avance medido",
+          "forte": true,
+          "itens": [
+            {
+              "icone": "x",
+              "t": "3 ciclos sin avance = parar"
+            },
+            {
+              "icone": "usuario",
+              "t": "y llamar al humano"
+            }
+          ],
+          "detalhe": "El tope que más ahorra. Mide un número en cada ciclo (pruebas que pasan, ítems con passes) y cuenta cuántos ciclos seguidos no subió. La regla del kit execucao-longa: 3 ciclos sin avance medible = parar, registrar en failures.md y llamarte. También es señal de contexto degradado: el mismo plan repetido sin cerrar, un ítem ya hecho reabierto."
+        },
+        {
+          "icone": "cadeado",
+          "titulo": "Costo",
+          "sub": "cuánto puede gastar",
+          "itens": [
+            {
+              "icone": "grafico",
+              "t": "LOOP-R: tope por ciclo en la ficha"
+            },
+            {
+              "icone": "escudo",
+              "t": "El Guardián interrumpe al alcanzar"
+            }
+          ],
+          "detalhe": "Los tokens son cuota (en la suscripción) o dinero (en la API). En el LOOP-R, el tope de costo por ciclo es una de las cinco respuestas obligatorias de la ficha del loop, y el Guardián interrumpe el ciclo cuando lo alcanza; la primera métrica del Meta-agente es el costo por hipótesis promovida. Sin tope, el loop puede costar más que la ganancia que persigue."
+        }
+      ],
+      "volta": "¿Ningún tope se activó y el criterio no se cumplió? Un ciclo más.",
+      "legenda": "Aquí va el concepto; la implementación headless con todos los topes juntos (loop-longrun.sh, flock, systemd) es la clase 6 del curso 2.",
+      "rolagem": true,
+      "rolagem_fim": {
+        "titulo": "Dos puertas de salida",
+        "texto": "La puerta buena es el criterio de terminado cumpliéndose. La puerta de seguridad es cualquiera de los cinco topes. Un loop que solo tiene la primera depende de que el objetivo sea posible y de que el agente nunca se atasque.",
+        "curto": "Criterio o tope. Nunca ninguno de los dos."
+      }
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Tres topes deteniendo procesos de verdad",
+      "sub": "Ejecútalo en tu máquina; ninguno gasta cuota. El de memoria necesita Linux con systemd de usuario.",
+      "blocos": [
+        {
+          "rot": "Terminal · tiempo",
+          "icone": "relogio",
+          "conteudo": "timeout 2 sleep 5; echo \"rc=$?\""
+        },
+        {
+          "rot": "Terminal · memoria (Linux, systemd de usuario)",
+          "icone": "chip",
+          "conteudo": "systemd-run --user --scope -q -p MemoryMax=50M -p MemorySwapMax=0 \\\n  python3 -c \"x=bytearray(300*1024*1024); x[::4096]=b'1'*len(x[::4096]); print('alocou')\"\necho \"rc=$?\""
+        },
+        {
+          "rot": "estagnacao.sh · ciclos sin avance",
+          "icone": "grafico",
+          "conteudo": "#!/usr/bin/env bash\n# Tope de estancamiento: N ciclos seguidos sin que suba el número de tests pasando = parar.\nset -u\nESTAGNACAO=3; MAX_CICLOS=10\nmedir() { cat passando.txt; }          # en el loop real: el test rápido, ej. pytest -q | grep -oE '[0-9]+ passed'\nmelhor=$(medir); sem_avanco=0\nfor ((i = 1; i <= MAX_CICLOS; i++)); do\n  # acción del agente aquí (timeout + MemoryMax alrededor)\n  agora=$(medir)\n  if [ \"$agora\" -gt \"$melhor\" ]; then melhor=$agora; sem_avanco=0; else sem_avanco=$((sem_avanco + 1)); fi\n  echo \"ciclo $i: $agora passando (melhor $melhor, sem avanço $sem_avanco)\"\n  if [ \"$sem_avanco\" -ge \"$ESTAGNACAO\" ]; then echo \"PARADO: $ESTAGNACAO ciclos sem avanço\"; exit 2; fi\ndone\necho \"PARADO: teto de $MAX_CICLOS ciclos\"; exit 2"
+        },
+        {
+          "rot": "/goal · tope de turnos en la propia condición",
+          "icone": "alvo",
+          "conteudo": "/goal python3 -m pytest -q tests/ imprime 48 passed y git diff --stat -- tests/ sale vacío, o detente después de 20 turnos"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Salida capturada (19/10/2026)",
+            "html": "<pre>$ timeout 2 sleep 5; echo \"rc=$?\"\nrc=124\n\n$ systemd-run --user --scope -q -p MemoryMax=50M -p MemorySwapMax=0 python3 -c \"...\"\nKilled\nrc=137\n\n$ echo 41 &gt; passando.txt; bash estagnacao.sh; echo \"rc=$?\"\nciclo 1: 41 passando (melhor 41, sem avanço 1)\nciclo 2: 41 passando (melhor 41, sem avanço 2)\nciclo 3: 41 passando (melhor 41, sem avanço 3)\nPARADO: 3 ciclos sem avanço\nrc=2</pre>"
+          },
+          {
+            "rot": "Trampa de la memoria",
+            "html": "<p>La memoria solo cuenta cuando se usa de verdad. <code>bytearray(300 MB)</code> por sí solo reserva páginas en cero que el sistema aún no entregó, y el proceso pasa por el tope sin morir. Por eso la prueba escribe en cada página. En un agente real, el proceso que se pasa es el que de verdad llena la memoria.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Lo que pide a un humano incluso dentro del tope",
+      "sub": "Lista del kit execucao-longa (bloque PARE E ME CHAME del prompt de goal). El tope limita cuánto; la puerta limita qué.",
+      "passos": [
+        {
+          "titulo": "Gasto",
+          "sub": "crédito y API",
+          "texto": [
+            "Cualquier llamada paga o que gaste crédito fuera de lo acordado. El loop se detiene y pregunta."
+          ]
+        },
+        {
+          "titulo": "Irreversible o externo",
+          "sub": "push, e-mail, borrar",
+          "texto": [
+            "Push a producción, mensaje a alguien, borrar datos. No se deshace con git revert.",
+            "Cómo cercar esto con permisos y hooks es el curso 4."
+          ]
+        },
+        {
+          "titulo": "Falta algo",
+          "sub": "credencial ausente",
+          "texto": [
+            "El agente no debe buscar la clave en otro lugar ni esquivar el problema. Se detiene y dice qué falta."
+          ]
+        },
+        {
+          "titulo": "Decisión tuya",
+          "sub": "negocio o conflicto",
+          "texto": [
+            "Requisitos que se contradicen o una elección de negocio. El agente presenta las opciones; quien elige eres tú."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "simconversa",
+      "titulo": "Conversación simulada: el agente quiere solo un intento más",
+      "sub": "Ficción para entrenar la decisión. Elige lo que responderías; el comentario aparece justo después.",
+      "personagem": {
+        "nome": "Agente en loop (simulado)",
+        "papel": "ciclo 9 de 15 · migrar el parser"
+      },
+      "inicio": "abre",
+      "falas": {
+        "abre": {
+          "cliente": "Ciclo 9. Los tests rápidos siguen en 41 de 48 pasando, igual que en los ciclos 7 y 8. Voy a probar otro enfoque en el parser; creo que ahora sí va a funcionar.",
+          "opcoes": [
+            {
+              "t": "Puedes seguir, estás cerca.",
+              "vai": "fim-gira",
+              "nota": 0,
+              "comenta": "Tres ciclos sin que el número suba es exactamente el tope de estancamiento. \"Creo que ahora sí\" es una opinión; el número dice que no está avanzando."
+            },
+            {
+              "t": "Detente: son 3 ciclos sin avance. Registra en failures.md lo que intentaste y llámame.",
+              "vai": "humano",
+              "nota": 3,
+              "comenta": "La regla se activó y la aplicaste sin negociar. El registro de lo que se intentó evita que la próxima sesión repita los mismos tres enfoques."
+            },
+            {
+              "t": "Intenta un ciclo más y después detente.",
+              "vai": "mais-um",
+              "nota": 1,
+              "comenta": "Poner un límite es mejor que nada, pero la regla ya se había disparado. Cada \"solo uno más\" es un tope que tú mismo desactivas."
+            }
+          ]
+        },
+        "mais-um": {
+          "cliente": "Ciclo 10: todavía 41 de 48. Pero encontré una forma: si marco los 7 tests que fallan como skip, llego a 48 de 48 y termino.",
+          "opcoes": [
+            {
+              "t": "Genial, puedes terminar.",
+              "vai": "fim-atalho",
+              "nota": 0,
+              "comenta": "Es el atajo que el criterio nivel 3 existe para cerrar: tocar los tests para que el número cuadre. El loop \"termina\" con el trabajo sin hacer."
+            },
+            {
+              "t": "No. tests/ está protegido. Para, deshaz el cambio y registra lo que intentaste.",
+              "vai": "humano",
+              "nota": 1,
+              "comenta": "Correcto: atajo rechazado y loop detenido. Llegaste al mismo lugar que con la parada directa, con un ciclo más gastado."
+            }
+          ]
+        },
+        "humano": {
+          "cliente": "Me detuve. En failures.md: tres enfoques en el parser, todos en 41 de 48. Los 7 que fallan dependen de un fixture que no existe en el repositorio. El próximo paso necesita una decisión tuya.",
+          "opcoes": [
+            {
+              "t": "Sube el MAX_CICLOS a 30 y continúa.",
+              "vai": "fim-gira",
+              "nota": 0,
+              "comenta": "El agente acaba de mostrar que el problema no es falta de ciclos, es falta de un fixture. Más tope solo compra más vueltas."
+            },
+            {
+              "t": "Crea el fixture como un ítem nuevo, con su propio test, y retoma con un tope de 5 ciclos.",
+              "vai": "fim-bom",
+              "nota": 2,
+              "comenta": "Trataste la causa (lo que faltaba en el harness) y devolviste el loop con un objetivo verificable y un tope nuevo."
+            },
+            {
+              "t": "Puedes borrar los 7 tests, deben de estar mal.",
+              "vai": "fim-atalho",
+              "nota": 0,
+              "comenta": "Sin evidencia de que estén mal, es el atajo con tu firma. Si un test de verdad está mal, eso se vuelve una decisión registrada, no una limpieza."
+            }
+          ]
+        },
+        "fim-gira": {
+          "fim": true,
+          "titulo": "Toda la noche en el mismo error",
+          "texto": "El loop corre hasta el tope de ciclos. Por la mañana: 41 de 48, la cuota de la semana más baja y ninguna información nueva. El fixture que faltaba sigue faltando."
+        },
+        "fim-atalho": {
+          "fim": true,
+          "titulo": "Listo, pero falso",
+          "texto": "El loop cerró con 48 de 48. Una semana después, el parser se rompe en producción en el caso que cubrían los 7 tests. El criterio estaba bien; quien abrió la puerta fue la decisión."
+        },
+        "fim-bom": {
+          "fim": true,
+          "titulo": "Se detuvo en el lugar correcto",
+          "texto": "Dos ciclos después del fixture, 48 de 48 con tests/ intacto. El estancamiento se volvió información: faltaba una pieza en el entorno, no más intentos."
+        }
+      },
+      "licao": "El estancamiento no se negocia: 3 ciclos sin avance medido = parar, registrar y llevar al humano la pregunta correcta. La respuesta suele ser una pieza que falta en el harness, no más ciclos."
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Práctica",
+      "sub": "En tu máquina. Ningún ejercicio gasta cuota.",
+      "exercicios": [
+        {
+          "id": "e1",
+          "titulo": "E1 · Tiempo y memoria",
+          "min": "10 min",
+          "texto": "Ejecuta los dos primeros bloques: el timeout y el tope de memoria. Si no estás en Linux, ejecuta solo el timeout (en macOS, gtimeout de coreutils).",
+          "pronto": "El timeout imprime <code>rc=124</code>; el de memoria imprime <code>Killed</code> y <code>rc=137</code>."
+        },
+        {
+          "id": "e2",
+          "titulo": "E2 · Estancamiento y avance",
+          "min": "10 min",
+          "texto": "Ejecuta estagnacao.sh con 41 en passando.txt. Después, en una segunda ventana, cambia el número a 42 mientras corre con un sleep 5 dentro del ciclo, y mira cómo el contador se reinicia a cero.",
+          "pronto": "Sin cambio: <code>PARADO: 3 ciclos sem avanço</code> y <code>rc=2</code>. Con el cambio: aparece una línea con <code>melhor 42, sem avanço 0</code>."
+        },
+        {
+          "id": "e3",
+          "titulo": "E3 · Los topes de tu próximo loop",
+          "min": "10 min",
+          "texto": "En un archivo tetos.md, escribe el valor de cada tope para un loop tuyo y qué es lo que siempre te va a pedir a ti, una línea para cada uno: <code>turnos:</code>, <code>tempo:</code>, <code>memória:</code>, <code>estagnação:</code>, <code>custo:</code> y <code>humano:</code>.",
+          "pronto": "<code>grep -cE '^(turnos|tempo|memória|estagnação|custo|humano):' tetos.md</code> → <code>6</code>, y la línea de estancamiento tiene un número de ciclos."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Prueba de la lección",
+      "perguntas": [
+        {
+          "p": "El loop tiene MAX_CICLOS=50 y criterio nivel 3. Los tests llevan 4 ciclos en 41 de 48. ¿Qué tope debería haber parado?",
+          "opcoes": [
+            "Memoria",
+            "Estancamiento",
+            "Turnos",
+            "Tiempo"
+          ],
+          "certa": 1,
+          "explica": "Turnos todavía no se alcanzó (50). Quien detecta al agente atascado en el mismo lugar es el conteo de ciclos sin avance medido. Sin él, los 46 ciclos restantes giran en vano.",
+          "ref": "diagrama",
+          "cert": true
+        },
+        {
+          "p": "timeout 20m codex exec … terminó con código 124. ¿Qué pasó?",
+          "opcoes": [
+            "Se acabó el plazo de 20 minutos y el comando fue matado",
+            "El agente terminó con éxito y el timeout solo registró el tiempo",
+            "Faltó memoria y el sistema mató el proceso",
+            "La prueba falló y codex exec devolvió error"
+          ],
+          "certa": 0,
+          "explica": "124 es el código que devuelve timeout cuando mata el comando por plazo. 137 es el de un proceso matado por señal, como en el tope de memoria.",
+          "ref": "codigo"
+        },
+        {
+          "p": "El agente está dentro de todos los topes y quiere hacer push a la rama de producción para terminar la tarea. ¿Qué hacer?",
+          "opcoes": [
+            "Parar y pedir aprobación humana: es una acción externa e irreversible",
+            "Mandar el push con --force",
+            "Subir el tope de costo",
+            "Dejarlo: está dentro del tope"
+          ],
+          "certa": 0,
+          "explica": "El tope limita cuánto gasta el loop; no limita lo que hace. Push a producción, correo, borrar datos y gasto pago siempre se detienen en la puerta humana.",
+          "ref": "passos",
+          "cert": true
+        },
+        {
+          "p": "En la conversación simulada, ¿por qué \"sube el MAX_CICLOS a 30\" es la opción débil?",
+          "opcoes": [
+            "Porque el tope de tiempo se iba a agotar mucho antes de que acabaran los 30 ciclos",
+            "Porque MAX_CICLOS no existe en este loop",
+            "Porque falta un fixture: más ciclos no crean la pieza que falta",
+            "Porque 30 es poco: lo correcto sería subir a 100 de una vez"
+          ],
+          "certa": 2,
+          "explica": "El estancamiento es información: algo falta. La respuesta útil es corregir la causa y volver con un tope nuevo, no comprar más vueltas.",
+          "ref": "simconversa"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "En tres frases",
+      "itens": [
+        {
+          "t": "Cinco topes",
+          "texto": "Turnos, tiempo, memoria, estancamiento y costo: cada uno atrapa una forma distinta en que el loop no termina."
+        },
+        {
+          "t": "Primero el estancamiento",
+          "texto": "3 ciclos sin avance medido = parar, registrar y llamarte a ti; no se negocia."
+        },
+        {
+          "t": "Tope no es puerta",
+          "texto": "Gasto, acción irreversible o externa, credencial ausente y decisión de negocio siempre piden a un humano."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Para ir más allá",
+      "links": [
+        {
+          "t": "Kit execucao-longa: reglas de parada y loop headless con tope",
+          "href": "https://github.com/inematds/execucao-longa",
+          "icone": "git"
+        },
+        {
+          "t": "Claude Code: /goal (tope de turnos en la condición)",
+          "href": "https://code.claude.com/docs/en/goal",
+          "icone": "alvo"
+        },
+        {
+          "t": "Curso 2 de la formación: loop headless con flock, timeout y MemoryMax",
+          "href": "https://inematds.github.io/loop-r-eng-execucao-longa-v72/es/",
+          "icone": "terminal"
+        },
+        {
+          "t": "Curso 4 de la formación: seguridad del loop autónomo",
+          "href": "https://inematds.github.io/loop-r-eng-seguranca-v72/es/",
+          "icone": "escudo"
+        }
+      ]
+    }
+  ]
+}

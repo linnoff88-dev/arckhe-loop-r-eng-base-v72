@@ -1,0 +1,427 @@
+{
+  "slug": "tetos",
+  "num": 7,
+  "menu": "Caps",
+  "titulo": "Caps and stopping: turns, time, memory, stagnation and cost",
+  "titulo_curto": "Caps and stopping",
+  "minutos": 17,
+  "lead": "A good criterion guarantees the loop doesn't exit too early; it doesn't guarantee that it exits. An impossible goal, an agent stuck on the same error, a process that eats the machine's memory: only a cap stops it. In this lesson you learn the five caps, watch each one stop a real process, and practice the hardest decision: when the agent asks for just one more try.",
+  "objetivo": "put the five caps on a loop and decide, when facing an agent that insists, between continuing, stopping and calling the human.",
+  "competencias": [
+    "aplicar-tetos-ao-loop",
+    "detectar-estagnacao",
+    "decidir-parar-ou-escalar"
+  ],
+  "aprende": [
+    {
+      "icone": "relogio",
+      "t": "Turns, time, memory, stagnation and cost"
+    },
+    {
+      "icone": "terminal",
+      "t": "timeout, MemoryMax and a count of cycles without progress, running"
+    },
+    {
+      "icone": "portao",
+      "t": "What always needs a human, even inside the cap"
+    },
+    {
+      "icone": "chat",
+      "t": "A simulated conversation with an agent that wants to keep going"
+    }
+  ],
+  "hero_alt": "Industrial panel with a timer, a red emergency button, a memory module and a gauge at its limit.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "Five caps around the cycle",
+      "sub": "Click each cap: what it limits and where it already exists in the tools.",
+      "nos": [
+        {
+          "icone": "lista",
+          "titulo": "Turns",
+          "sub": "how many cycles, at most",
+          "itens": [
+            {
+              "icone": "alvo",
+              "t": "/goal: \"or stop after 20 turns\""
+            },
+            {
+              "icone": "terminal",
+              "t": "MAX_CICLOS in your loop"
+            }
+          ],
+          "detalhe": "The /goal docs say to include a cap in the condition itself, like \"or stop after 20 turns\"; and Claude Code already stops the goal if the agent answers several turns in a row without using a tool. In your loop, it's a variable: MAX_CICLOS. The /loop has its own: a recurring task expires in 7 days."
+        },
+        {
+          "icone": "relogio",
+          "titulo": "Time",
+          "sub": "how long each cycle lasts",
+          "itens": [
+            {
+              "icone": "terminal",
+              "t": "timeout 20m [command]"
+            },
+            {
+              "icone": "x",
+              "t": "Exits with code 124"
+            }
+          ],
+          "detalhe": "A cycle that hung (waiting for input, in an infinite loop, on a server that won't start) holds up the whole loop. The coreutils timeout kills the command after the deadline and returns 124, and the loop treats it as a failed cycle."
+        },
+        {
+          "icone": "chip",
+          "titulo": "Memory",
+          "sub": "how much of the machine",
+          "itens": [
+            {
+              "icone": "terminal",
+              "t": "systemd-run … -p MemoryMax="
+            },
+            {
+              "icone": "x",
+              "t": "Killed with 137, the machine keeps going"
+            }
+          ],
+          "detalhe": "An agent that starts a heavy process can freeze the whole machine. On Linux, systemd-run --user --scope with MemoryMax puts a cap on the process and its children: if it goes over, the kernel kills only it (code 137). This is what the execucao-longa kit uses on every cycle."
+        },
+        {
+          "icone": "grafico",
+          "titulo": "Stagnation",
+          "sub": "cycles without measured progress",
+          "forte": true,
+          "itens": [
+            {
+              "icone": "x",
+              "t": "3 cycles without progress = stop"
+            },
+            {
+              "icone": "usuario",
+              "t": "and call the human"
+            }
+          ],
+          "detalhe": "The cap that saves the most. It measures a number each cycle (passing tests, items with passes) and counts how many cycles in a row it hasn't gone up. The execucao-longa kit rule: 3 cycles without measurable progress = stop, record it in failures.md and call you. It's also a sign of degraded context: the same plan repeated without closing, an already-done item reopened."
+        },
+        {
+          "icone": "cadeado",
+          "titulo": "Cost",
+          "sub": "how much it can spend",
+          "itens": [
+            {
+              "icone": "grafico",
+              "t": "LOOP-R: cap per cycle in the loop sheet"
+            },
+            {
+              "icone": "escudo",
+              "t": "The Guardian stops when it hits"
+            }
+          ],
+          "detalhe": "Tokens are quota (on a subscription) or money (on the API). In LOOP-R, the per-cycle cost cap is one of the five required answers on the loop sheet, and the Guardian stops the cycle when it hits that cap; the Meta-agent's first metric is the cost per promoted hypothesis. Without a cap, the loop can cost more than the gain it chases."
+        }
+      ],
+      "volta": "No cap was hit and the criterion didn't pass? One more cycle.",
+      "legenda": "The concept is here; the headless implementation with all the caps together (loop-longrun.sh, flock, systemd) is lesson 6 of course 2.",
+      "rolagem": true,
+      "rolagem_fim": {
+        "titulo": "Two exit doors",
+        "texto": "The good door is the done criterion passing. The safety door is any one of the five caps. A loop that only has the first one depends on the goal being possible and on the agent never getting stuck.",
+        "curto": "Criterion or cap. Never neither."
+      }
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Three caps stopping real processes",
+      "sub": "Run it on your machine; none of them uses quota. The memory one needs Linux with a user systemd.",
+      "blocos": [
+        {
+          "rot": "Terminal · time",
+          "icone": "relogio",
+          "conteudo": "timeout 2 sleep 5; echo \"rc=$?\""
+        },
+        {
+          "rot": "Terminal · memory (Linux, user systemd)",
+          "icone": "chip",
+          "conteudo": "systemd-run --user --scope -q -p MemoryMax=50M -p MemorySwapMax=0 \\\n  python3 -c \"x=bytearray(300*1024*1024); x[::4096]=b'1'*len(x[::4096]); print('alocou')\"\necho \"rc=$?\""
+        },
+        {
+          "rot": "estagnacao.sh · cycles without progress",
+          "icone": "grafico",
+          "conteudo": "#!/usr/bin/env bash\n# Stagnation cap: N cycles in a row without the number of passing tests going up = stop.\nset -u\nESTAGNACAO=3; MAX_CICLOS=10\nmedir() { cat passando.txt; }          # in the real loop: the fast test, e.g. pytest -q | grep -oE '[0-9]+ passed'\nmelhor=$(medir); sem_avanco=0\nfor ((i = 1; i <= MAX_CICLOS; i++)); do\n  # agent action here (timeout + MemoryMax around it)\n  agora=$(medir)\n  if [ \"$agora\" -gt \"$melhor\" ]; then melhor=$agora; sem_avanco=0; else sem_avanco=$((sem_avanco + 1)); fi\n  echo \"ciclo $i: $agora passando (melhor $melhor, sem avanço $sem_avanco)\"\n  if [ \"$sem_avanco\" -ge \"$ESTAGNACAO\" ]; then echo \"PARADO: $ESTAGNACAO ciclos sem avanço\"; exit 2; fi\ndone\necho \"PARADO: teto de $MAX_CICLOS ciclos\"; exit 2"
+        },
+        {
+          "rot": "/goal · turn cap in the condition itself",
+          "icone": "alvo",
+          "conteudo": "/goal python3 -m pytest -q tests/ prints 48 passed and git diff --stat -- tests/ comes out empty, or stop after 20 turns"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Captured output (10/19/2026)",
+            "html": "<pre>$ timeout 2 sleep 5; echo \"rc=$?\"\nrc=124\n\n$ systemd-run --user --scope -q -p MemoryMax=50M -p MemorySwapMax=0 python3 -c \"...\"\nKilled\nrc=137\n\n$ echo 41 &gt; passando.txt; bash estagnacao.sh; echo \"rc=$?\"\nciclo 1: 41 passando (melhor 41, sem avanço 1)\nciclo 2: 41 passando (melhor 41, sem avanço 2)\nciclo 3: 41 passando (melhor 41, sem avanço 3)\nPARADO: 3 ciclos sem avanço\nrc=2</pre>"
+          },
+          {
+            "rot": "The memory catch",
+            "html": "<p>Memory only counts when it's actually used. <code>bytearray(300 MB)</code> on its own reserves zeroed pages the system hasn't handed over yet, and the process slips past the cap without dying. That's why the test writes to every page. In a real agent, the process that blows up is the one that actually fills the memory.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "passos",
+      "titulo": "What calls for a human even inside the cap",
+      "sub": "List from the execucao-longa kit (the STOP AND CALL ME block of the goal prompt). A cap limits how much; a gate limits what.",
+      "passos": [
+        {
+          "titulo": "Spending",
+          "sub": "credit and API",
+          "texto": [
+            "Any paid call, or one that spends credit outside what was agreed. The loop stops and asks."
+          ]
+        },
+        {
+          "titulo": "Irreversible or external",
+          "sub": "push, email, delete",
+          "texto": [
+            "Push to production, a message to someone, deleting data. You can't undo it with git revert.",
+            "How to fence this in with permissions and hooks is course 4."
+          ]
+        },
+        {
+          "titulo": "Something is missing",
+          "sub": "missing credential",
+          "texto": [
+            "The agent shouldn't look for a key somewhere else or work around it. It stops and says what's missing."
+          ]
+        },
+        {
+          "titulo": "Your decision",
+          "sub": "business or conflict",
+          "texto": [
+            "Requirements that contradict each other, or a business choice. The agent lays out the options; you're the one who chooses."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "simconversa",
+      "titulo": "Simulated chat: the agent wants just one more try",
+      "sub": "Fiction to practice the decision. Pick what you would answer; the comment appears right after.",
+      "personagem": {
+        "nome": "Agent in a loop (simulated)",
+        "papel": "cycle 9 of 15 · migrating the parser"
+      },
+      "inicio": "abre",
+      "falas": {
+        "abre": {
+          "cliente": "Cycle 9. The fast tests are still at 41 of 48 passing, same as in cycles 7 and 8. I'll try a different approach on the parser; I think it'll work now.",
+          "opcoes": [
+            {
+              "t": "Go ahead, you're close.",
+              "vai": "fim-gira",
+              "nota": 0,
+              "comenta": "Three cycles without the number going up is exactly the stagnation cap. \"I think it'll work now\" is an opinion; the number says it isn't working."
+            },
+            {
+              "t": "Stop: that's 3 cycles without progress. Log what you tried in failures.md and call me.",
+              "vai": "humano",
+              "nota": 3,
+              "comenta": "The rule fired and you applied it without negotiating. Logging what was tried keeps the next session from repeating the same three approaches."
+            },
+            {
+              "t": "Try one more cycle and then stop.",
+              "vai": "mais-um",
+              "nota": 1,
+              "comenta": "Setting a limit is better than nothing, but the rule had already fired. Every \"just one more\" is a cap you turn off yourself."
+            }
+          ]
+        },
+        "mais-um": {
+          "cliente": "Cycle 10: still 41 of 48. But I found a way: if I mark the 7 failing tests as skip, I get to 48 of 48 and finish.",
+          "opcoes": [
+            {
+              "t": "Great, go ahead and finish.",
+              "vai": "fim-atalho",
+              "nota": 0,
+              "comenta": "This is the shortcut the level 3 criterion exists to close: changing the tests so the number matches. The loop \"finishes\" with the work still undone."
+            },
+            {
+              "t": "No. tests/ is protected. Stop, undo the change, and log what you tried.",
+              "vai": "humano",
+              "nota": 1,
+              "comenta": "Right: shortcut refused and loop stopped. You ended up in the same place as a direct stop, with one extra cycle spent."
+            }
+          ]
+        },
+        "humano": {
+          "cliente": "I stopped. In failures.md: three approaches in the parser, all at 41 of 48. The 7 that fail depend on a fixture that does not exist in the repository. The next step needs a decision from you.",
+          "opcoes": [
+            {
+              "t": "Raise MAX_CICLOS to 30 and keep going.",
+              "vai": "fim-gira",
+              "nota": 0,
+              "comenta": "The agent just showed that the problem is not a lack of cycles, it is a missing fixture. A higher cap only buys more spinning."
+            },
+            {
+              "t": "Create the fixture as a new item, with its own test, and resume with a cap of 5 cycles.",
+              "vai": "fim-bom",
+              "nota": 2,
+              "comenta": "You fixed the cause (what the harness was missing) and gave the loop back with a verifiable goal and a new cap."
+            },
+            {
+              "t": "You can delete the 7 tests, they must be wrong.",
+              "vai": "fim-atalho",
+              "nota": 0,
+              "comenta": "Without evidence that they are wrong, this is the shortcut with your signature on it. If a test really is wrong, that becomes a recorded decision, not a cleanup."
+            }
+          ]
+        },
+        "fim-gira": {
+          "fim": true,
+          "titulo": "The whole night on the same error",
+          "texto": "The loop runs up to the cycle cap. In the morning: 41 of 48, the weekly quota lower, and no new information. The missing fixture is still missing."
+        },
+        "fim-atalho": {
+          "fim": true,
+          "titulo": "Done, but false",
+          "texto": "The loop closed at 48 of 48. A week later, the parser breaks in production on the case the 7 tests covered. The criterion was right; the decision is what opened the door."
+        },
+        "fim-bom": {
+          "fim": true,
+          "titulo": "Stopped in the right place",
+          "texto": "Two cycles after the fixture, 48 of 48 with tests/ untouched. The stagnation became information: a piece was missing in the environment, not more attempts."
+        }
+      },
+      "licao": "Stagnation is not negotiable: 3 cycles without measured progress = stop, log it, and bring the right question to the human. The answer is usually a piece missing in the harness, not more cycles."
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Practice",
+      "sub": "On your machine. No exercise uses up quota.",
+      "exercicios": [
+        {
+          "id": "e1",
+          "titulo": "E1 · Time and memory",
+          "min": "10 min",
+          "texto": "Run the first two blocks: the timeout and the memory cap. If you are not on Linux, run only the timeout (on macOS, gtimeout from coreutils).",
+          "pronto": "The timeout prints <code>rc=124</code>; the memory one prints <code>Killed</code> and <code>rc=137</code>."
+        },
+        {
+          "id": "e2",
+          "titulo": "E2 · Stagnation and progress",
+          "min": "10 min",
+          "texto": "Run estagnacao.sh with 41 in passando.txt. Then, in a second window, change the number to 42 while it runs with a sleep 5 inside the loop, and watch the counter reset.",
+          "pronto": "No change: <code>PARADO: 3 ciclos sem avanço</code> and <code>rc=2</code>. With the change: a line appears with <code>melhor 42, sem avanço 0</code>."
+        },
+        {
+          "id": "e3",
+          "titulo": "E3 · The caps for your next loop",
+          "min": "10 min",
+          "texto": "In a tetos.md file, write the value of each cap for a loop of your own, and what will always need you, one line for each: <code>turnos:</code>, <code>tempo:</code>, <code>memória:</code>, <code>estagnação:</code>, <code>custo:</code> and <code>humano:</code>.",
+          "pronto": "<code>grep -cE '^(turnos|tempo|memória|estagnação|custo|humano):' tetos.md</code> → <code>6</code>, and the stagnation line has a number of cycles."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Lesson quiz",
+      "perguntas": [
+        {
+          "p": "The loop has MAX_CICLOS=50 and a level 3 criterion. The tests have been at 41 of 48 for 4 cycles. Which cap should have stopped it?",
+          "opcoes": [
+            "Memory",
+            "Stagnation",
+            "Turns",
+            "Time"
+          ],
+          "certa": 1,
+          "explica": "Turns has not hit yet (50). What catches the agent stuck in the same place is the count of cycles without measured progress. Without it, the remaining 46 cycles spin for nothing.",
+          "ref": "diagrama",
+          "cert": true
+        },
+        {
+          "p": "timeout 20m codex exec … finished with exit code 124. What happened?",
+          "opcoes": [
+            "The 20-minute deadline ran out and the command was killed",
+            "The agent finished successfully and the timeout only recorded the time",
+            "It ran out of memory and the system killed the process",
+            "The test failed and codex exec returned an error"
+          ],
+          "certa": 0,
+          "explica": "124 is the code timeout returns when it kills the command for the deadline. 137 is the code for a process killed by a signal, as with the memory cap.",
+          "ref": "codigo"
+        },
+        {
+          "p": "The agent is within all the caps and wants to push to the production branch to finish the task. What should you do?",
+          "opcoes": [
+            "Stop and ask for human approval: it is an external, irreversible action",
+            "Tell it to push with --force",
+            "Raise the cost cap",
+            "Let it: it is within the cap"
+          ],
+          "certa": 0,
+          "explica": "A cap limits how much the loop spends; it does not limit what it does. Pushing to production, e-mail, deleting data, and paid spending always stop at the human gate.",
+          "ref": "passos",
+          "cert": true
+        },
+        {
+          "p": "In the simulated conversation, why is \"raise MAX_CICLOS to 30\" the weak choice?",
+          "opcoes": [
+            "Because the time cap would blow well before the 30 cycles ran out",
+            "Because MAX_CICLOS doesn't exist in this loop",
+            "Because a fixture is missing: more cycles don't create the missing piece",
+            "Because 30 is too few: the right move would be to jump to 100 at once"
+          ],
+          "certa": 2,
+          "explica": "Stagnation is information: something is missing. The useful answer is to fix the cause and come back with a new cap, not to buy more spins.",
+          "ref": "simconversa"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "In three sentences",
+      "itens": [
+        {
+          "t": "Five caps",
+          "texto": "Turns, time, memory, stagnation, and cost: each one catches a different way the loop can fail to finish."
+        },
+        {
+          "t": "Stagnation first",
+          "texto": "3 cycles without measured progress = stop, log it, and call you; this is not negotiable."
+        },
+        {
+          "t": "A cap is not a gate",
+          "texto": "Spending, irreversible or external actions, missing credentials, and business decisions always need a human."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Going further",
+      "links": [
+        {
+          "t": "execucao-longa kit: stop rules and headless loop with a cap",
+          "href": "https://github.com/inematds/execucao-longa",
+          "icone": "git"
+        },
+        {
+          "t": "Claude Code: /goal (turn cap in the condition)",
+          "href": "https://code.claude.com/docs/en/goal",
+          "icone": "alvo"
+        },
+        {
+          "t": "Course 2 of the track: headless loop with flock, timeout, and MemoryMax",
+          "href": "https://inematds.github.io/loop-r-eng-execucao-longa-v72/en/",
+          "icone": "terminal"
+        },
+        {
+          "t": "Course 4 of the track: safety for the autonomous loop",
+          "href": "https://inematds.github.io/loop-r-eng-seguranca-v72/en/",
+          "icone": "escudo"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,359 @@
+{
+  "slug": "motores",
+  "num": 3,
+  "menu": "Engines",
+  "titulo": "Today's loop engines: /goal, /loop, Ralph, routines, codex exec",
+  "titulo_curto": "Loop engines",
+  "minutos": 18,
+  "lead": "There are five common ways to put an agent in a loop, and they answer two questions differently: what triggers the next turn and who decides when to stop. Choosing wrong gets expensive: a /loop waiting for a condition that never comes, a /goal that believes what the agent said. Here is only what the official documentation confirms, read on 10/19/2026.",
+  "objetivo": "choose the right loop engine for a task by knowing where it runs, what triggers the next turn, who decides when to stop, and the limit of each one.",
+  "competencias": [
+    "comparar-motores-de-loop",
+    "escolher-motor-por-tarefa",
+    "rodar-goal-e-codex-exec"
+  ],
+  "aprende": [
+    {
+      "icone": "alvo",
+      "t": "/goal: by condition, with an evaluator that only reads the conversation"
+    },
+    {
+      "icone": "relogio",
+      "t": "/loop and routines: by time or by event, and where each one runs"
+    },
+    {
+      "icone": "terminal",
+      "t": "Ralph and codex exec: the disposable session inside a loop of your own"
+    },
+    {
+      "icone": "lista",
+      "t": "A simple rule for choosing"
+    }
+  ],
+  "hero_alt": "Stopwatch, stepper motor, mechanical timer, cloud-shaped part and server module lined up on a dark workbench.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "Five engines, five limits",
+      "sub": "Click each engine: what triggers the next turn, who decides when to stop, and the limit the official docs give.",
+      "nos": [
+        {
+          "icone": "alvo",
+          "titulo": "/goal",
+          "sub": "Claude Code · by condition",
+          "forte": true,
+          "itens": [
+            {
+              "icone": "check",
+              "t": "Next turn: when the previous one ends"
+            },
+            {
+              "icone": "lupa",
+              "t": "Stops: a small model judges the condition"
+            }
+          ],
+          "detalhe": "After each turn, a small model judges your condition: met, not met, or impossible. It's a prompt-based Stop hook, per session. <b>Limit:</b> the evaluator doesn't run commands or read files, it only judges the conversation; the proof has to be printed out. It doesn't change the permission mode. With <code>-p</code> it runs to the end in a single call."
+        },
+        {
+          "icone": "relogio",
+          "titulo": "/loop",
+          "sub": "Claude Code · by time",
+          "itens": [
+            {
+              "icone": "relogio",
+              "t": "Next turn: the interval passes"
+            },
+            {
+              "icone": "x",
+              "t": "Stops: you, or Claude decides it's done"
+            }
+          ],
+          "detalhe": "Repeats a prompt at a fixed interval (<code>/loop 5m …</code>) or at one Claude picks on each round, from 1 minute to 1 hour. <b>Limits:</b> it belongs to the session and only fires while Claude Code is open and idle; minimum of 1 minute; a recurring task expires after 7 days; the self-paced one doesn't come back on <code>--resume</code>. It's for watching, not for chasing a condition."
+        },
+        {
+          "icone": "voltar",
+          "titulo": "Ralph",
+          "sub": "a shell loop",
+          "itens": [
+            {
+              "icone": "terminal",
+              "t": "Next turn: the loop calls again"
+            },
+            {
+              "icone": "arquivo",
+              "t": "Memory: files and git"
+            }
+          ],
+          "detalhe": "A technique described by Geoffrey Huntley: in its pure form, a bash loop that calls the agent with the same prompt, endlessly. Each session is disposable; what remains is in the files and in git. Anthropic cites the pattern as a community convergence. <b>Limit:</b> it has no stop or verification out of the box; you add those yourself (lessons 6 and 7)."
+        },
+        {
+          "icone": "nuvem",
+          "titulo": "Routines",
+          "sub": "Claude Code in the cloud",
+          "itens": [
+            {
+              "icone": "calendario",
+              "t": "Trigger: schedule, HTTP call, or GitHub event"
+            },
+            {
+              "icone": "x",
+              "t": "No access to your local files"
+            }
+          ],
+          "detalhe": "A saved configuration (prompt, repositories, connectors) that runs on Anthropic's infrastructure, with your laptop closed. <b>Limits:</b> it's in research preview (behavior and limits may change); it works on a fresh clone, with no access to your local files; minimum interval of 1 hour on the schedule."
+        },
+        {
+          "icone": "terminal",
+          "titulo": "codex exec",
+          "sub": "Codex without an interface",
+          "itens": [
+            {
+              "icone": "play",
+              "t": "One run per call"
+            },
+            {
+              "icone": "cadeado",
+              "t": "Read-only sandbox by default"
+            }
+          ],
+          "detalhe": "Runs Codex without an interface: it takes the request as an argument or via stdin, works, and exits. By default the sandbox is read-only; <code>--sandbox workspace-write</code> allows editing. <code>--json</code> gives the events as JSONL, <code>-o</code> saves the last message, <code>exec resume --last</code> continues the previous one. <b>Limit:</b> it isn't a loop; the loop, the test, and the stop live in a script of your own (the headless loop is course 2)."
+        }
+      ],
+      "legenda": "Sources: official Claude Code docs (/goal, scheduled tasks, routines) and Codex docs (non-interactive mode), read on 10/19/2026; ghuntley.com/ralph.",
+      "rolagem": true,
+      "rolagem_fim": {
+        "titulo": "Two questions pick the engine",
+        "texto": "Does the next turn come from a condition, a clock, or a loop of your own? And who decides to stop: an evaluator that reads the conversation, you, or a test that actually runs? The engine that runs the test outside the conversation is the hardest to fool.",
+        "curto": "Condition, clock, or loop. Conversation or test."
+      }
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Which one to use",
+      "sub": "A rule of thumb based on the limits above.",
+      "passos": [
+        {
+          "titulo": "A task with a provable end",
+          "sub": "/goal",
+          "texto": [
+            "Migrate a module until it compiles and the tests pass, empty a queue of issues. The condition needs an end state, the command that proves it, and what must not change along the way.",
+            "Put a cap on the condition itself, as the doc suggests: \"or stop after 20 turns\"."
+          ],
+          "exemplo": {
+            "rot": "Condition",
+            "texto": "python3 -m pytest -q tests/ prints 6 passed, no file in tests/ was modified, or stop after 15 turns"
+          }
+        },
+        {
+          "titulo": "Watch something that changes on its own",
+          "sub": "/loop",
+          "texto": [
+            "Did the deploy finish? Did the CI pass? Did a comment arrive on the PR? Time triggers the next round, and each round looks again.",
+            "Close the terminal and it stops. To last longer than the session, use a cloud schedule, the Desktop app, or GitHub Actions, as the doc itself points out."
+          ]
+        },
+        {
+          "titulo": "Hours of work on your machine",
+          "sub": "your own loop + codex exec or claude -p",
+          "texto": [
+            "Each cycle is a new session that rereads the state from a file; what decides whether to continue is the test run by the script, not the conversation.",
+            "This is what the execucao-longa kit does, with a cap on time and memory (course 2)."
+          ]
+        },
+        {
+          "titulo": "No open terminal",
+          "sub": "routines",
+          "texto": [
+            "PR review on an event, nightly issue triage: repeatable work in a repository, without depending on the files on your machine.",
+            "Since it is in research preview, check the limits in the doc before depending on it."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "The five in one line each",
+      "sub": "Commands from the official documentation and from the Ralph article. Run only the ones you will actually use.",
+      "blocos": [
+        {
+          "rot": "Claude Code · interactive and headless /goal",
+          "icone": "alvo",
+          "conteudo": "/goal python3 -m pytest -q tests/ prints 6 passed and git diff --stat -- tests/ comes out empty, or stop after 15 turns\n/goal clear\n\nclaude -p \"/goal CHANGELOG.md has an entry for each PR this week\" --output-format stream-json --verbose"
+        },
+        {
+          "rot": "Claude Code · /loop by time",
+          "icone": "relogio",
+          "conteudo": "/loop 5m check whether the deploy finished and tell me what happened\n/loop check whether CI passed and reply to the review comments"
+        },
+        {
+          "rot": "Ralph · the pure form (ghuntley.com/ralph)",
+          "icone": "voltar",
+          "conteudo": "while :; do cat PROMPT.md | claude-code ; done"
+        },
+        {
+          "rot": "Codex · a headless run",
+          "icone": "terminal",
+          "conteudo": "codex exec \"count the .md files in this folder and reply with just the number\"\ncodex exec --sandbox workspace-write \"create ola.txt with the word ola\"\ncodex exec --json \"summarize the repository structure\" > eventos.jsonl\ncodex exec resume --last \"now fix what you found\""
+        }
+      ],
+      "saida": {
+        "selo": "simulacao",
+        "abas": [
+          {
+            "rot": "How to read Ralph",
+            "html": "<p>As written, the loop has no <b>stop</b> and no <b>verification</b>: it runs until you press Ctrl+C. The executable name in the article is the author's; on your machine it would be <code>claude -p</code> or <code>codex exec -</code>. In lessons 6 and 7 you add the done criterion and the caps that are missing.</p>"
+          },
+          {
+            "rot": "Codex has /goal too",
+            "html": "<p>The execucao-longa kit uses <code>/goal</code> in Codex as well (with <code>/goals</code> and <code>/goal pause|resume</code>). This track's research did not find the official page with its date and limits; so this course claims nothing beyond the use in the kit.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Practice",
+      "sub": "On your machine. These are short runs: they use little of your quota.",
+      "exercicios": [
+        {
+          "id": "e1",
+          "titulo": "E1 · A /goal with proof in the output",
+          "min": "10 min",
+          "texto": "In an empty folder with git initialized, open Claude Code and run: /goal the file ola.txt exists and cat ola.txt prints ola in the conversation, or stop after 5 turns.",
+          "pronto": "<code>cat ola.txt</code> → <code>ola</code>, and the goal status in Claude Code shows the condition as met, with the turn count."
+        },
+        {
+          "id": "e2",
+          "titulo": "E2 · codex exec read-only",
+          "min": "5 min",
+          "texto": "In the same folder, ask Codex in headless mode to count files, writing the last message to a file.",
+          "pronto": "<code>codex exec -o resposta.txt \"how many .txt files are in this folder? answer with just the number\"; echo \"saída: $?\"</code> → <code>saída: 0</code>, and <code>grep -cE '^[0-9]+$' resposta.txt</code> → <code>1</code> (the answer is a single line with just a number; the criterion checks the format, not what the model answered)."
+        },
+        {
+          "id": "e3",
+          "titulo": "E3 · Justified choice",
+          "min": "10 min",
+          "texto": "List three real tasks of yours in a file motores.md, one per line, in the format task → engine → why (trigger and who decides to stop).",
+          "pronto": "<code>grep -c '→.*→' motores.md</code> → <code>3</code>, and no task with a verifiable end was left with /loop."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Lesson quiz",
+      "perguntas": [
+        {
+          "p": "Your /goal condition is \"all tests pass\". The agent writes \"I ran the tests, all pass\" without showing the output. What happens?",
+          "opcoes": [
+            "/goal rejects any conclusion that doesn't include the output",
+            "Claude Code blocks the reply until the tests run",
+            "The evaluator only reads the chat and may accept the claim",
+            "The evaluator runs the tests on its own and checks the result"
+          ],
+          "certa": 2,
+          "explica": "Per the doc, the evaluator does not run commands or read files: it judges what appeared in the conversation. That is why the condition asks for the proof to be printed (\"npm test sai 0\"). Course 1 shows how to make this shortcut-proof.",
+          "ref": "diagrama",
+          "cert": true
+        },
+        {
+          "p": "You want to check the CI every 10 minutes during the afternoon, with the terminal open. Which engine?",
+          "opcoes": [
+            "/goal",
+            "codex exec",
+            "routines",
+            "/loop"
+          ],
+          "certa": 3,
+          "explica": "It's time-based watching inside the session: the /loop case. /goal pursues a condition on every turn; routines is for when there is no open terminal.",
+          "ref": "passos"
+        },
+        {
+          "p": "Why is a routine not suited to running the tests of a project that only exists on your laptop?",
+          "opcoes": [
+            "Because it runs in the cloud on a fresh clone, without your local files",
+            "Because a routine requires a paid API plan",
+            "Because routines only schedule prompts and don't run test commands",
+            "Because the minimum interval of a routine is 1 minute"
+          ],
+          "certa": 0,
+          "explica": "The official table says: local file access, no (fresh clone). The routine's minimum interval is 1 hour; 1 minute is the one for /loop and Desktop.",
+          "ref": "diagrama"
+        },
+        {
+          "p": "What is missing from Ralph in its pure form, while :; do cat PROMPT.md | claude-code ; done?",
+          "opcoes": [
+            "State: it keeps nothing in files between turns",
+            "Stopping and verification: it has no end and no test",
+            "Action: the loop doesn't actually call the agent",
+            "Nothing: it's a complete loop, just minimalist"
+          ],
+          "certa": 1,
+          "explica": "The state lives in the files and in git, and each turn acts. But nothing decides that it's done and nothing checks the work: the two pieces you add.",
+          "ref": "codigo",
+          "cert": true
+        },
+        {
+          "p": "Will a recurring /loop created today still run a month from now?",
+          "opcoes": [
+            "Yes: it keeps going until you cancel or close the terminal",
+            "Only if the session is resumed before each trigger",
+            "No: recurring ones expire 7 days after being created",
+            "Only if it's in auto mode"
+          ],
+          "certa": 2,
+          "explica": "The doc limits the lifetime of a forgotten loop: it fires one last time and deletes itself at 7 days. To last longer, recreate it or use a schedule outside the session.",
+          "ref": "diagrama"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "In three sentences",
+      "itens": [
+        {
+          "t": "Trigger and judge",
+          "texto": "Each engine differs in what triggers the next turn (condition, time, loop, event) and in who decides to stop."
+        },
+        {
+          "t": "Official limits",
+          "texto": "/goal judges only the conversation; /loop lives in the session and expires in 7 days; routines run in the cloud without your files; codex exec is a single run, not a loop."
+        },
+        {
+          "t": "Ralph is the base",
+          "texto": "A loop that calls the agent with state in files; you add the stopping and verification."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Going further",
+      "links": [
+        {
+          "t": "Claude Code: /goal (official doc)",
+          "href": "https://code.claude.com/docs/en/goal",
+          "icone": "alvo"
+        },
+        {
+          "t": "Claude Code: scheduled tasks and /loop (official doc)",
+          "href": "https://code.claude.com/docs/en/scheduled-tasks",
+          "icone": "relogio"
+        },
+        {
+          "t": "Claude Code: routines (official doc)",
+          "href": "https://code.claude.com/docs/en/routines",
+          "icone": "nuvem"
+        },
+        {
+          "t": "Codex: non-interactive mode, codex exec (official doc)",
+          "href": "https://developers.openai.com/codex/noninteractive",
+          "icone": "terminal"
+        },
+        {
+          "t": "Geoffrey Huntley: Ralph",
+          "href": "https://ghuntley.com/ralph/",
+          "icone": "voltar"
+        }
+      ]
+    }
+  ]
+}

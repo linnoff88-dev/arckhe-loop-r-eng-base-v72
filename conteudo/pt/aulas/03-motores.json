@@ -1,0 +1,260 @@
+{
+  "slug": "motores",
+  "num": 3,
+  "menu": "Motores",
+  "titulo": "Os motores de loop hoje: /goal, /loop, Ralph, routines, codex exec",
+  "titulo_curto": "Motores de loop",
+  "minutos": 18,
+  "lead": "Há cinco jeitos comuns de pôr um agente em loop, e eles respondem de forma diferente a duas perguntas: o que dispara o próximo turno e quem decide parar. Escolher errado custa caro: um /loop esperando uma condição que nunca vem, um /goal que acredita no que o agente disse. Aqui fica só o que a documentação oficial confirma, lida em 19/10/2026.",
+  "objetivo": "escolher o motor de loop certo para uma tarefa sabendo onde roda, o que dispara o próximo turno, quem decide parar e o limite de cada um.",
+  "competencias": [
+    "comparar-motores-de-loop",
+    "escolher-motor-por-tarefa",
+    "rodar-goal-e-codex-exec"
+  ],
+  "aprende": [
+    { "icone": "alvo", "t": "/goal: por condição, com um avaliador que só lê a conversa" },
+    { "icone": "relogio", "t": "/loop e routines: por tempo ou por evento, e onde cada um roda" },
+    { "icone": "terminal", "t": "Ralph e codex exec: a sessão descartável dentro de um laço seu" },
+    { "icone": "lista", "t": "Uma regra simples para escolher" }
+  ],
+  "hero_alt": "Cronômetro, motor de passo, temporizador mecânico, peça em forma de nuvem e módulo de servidor enfileirados numa bancada escura.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "Cinco motores, cinco limites",
+      "sub": "Clique em cada motor: o que dispara o próximo turno, quem decide parar e o limite que a doc oficial dá.",
+      "nos": [
+        {
+          "icone": "alvo",
+          "titulo": "/goal",
+          "sub": "Claude Code · por condição",
+          "forte": true,
+          "itens": [
+            { "icone": "check", "t": "Próximo turno: quando o anterior acaba" },
+            { "icone": "lupa", "t": "Para: um modelo pequeno julga a condição" }
+          ],
+          "detalhe": "Depois de cada turno, um modelo pequeno julga a sua condição: atingida, não atingida ou impossível. É um Stop hook baseado em prompt, por sessão. <b>Limite:</b> o avaliador não roda comandos nem lê arquivos, só julga a conversa; a prova tem que estar impressa. Não muda o modo de permissão. Com <code>-p</code> roda até o fim numa chamada."
+        },
+        {
+          "icone": "relogio",
+          "titulo": "/loop",
+          "sub": "Claude Code · por tempo",
+          "itens": [
+            { "icone": "relogio", "t": "Próximo turno: o intervalo passa" },
+            { "icone": "x", "t": "Para: você, ou o Claude acha que acabou" }
+          ],
+          "detalhe": "Repete um prompt num intervalo fixo (<code>/loop 5m …</code>) ou escolhido pelo Claude a cada volta, de 1 minuto a 1 hora. <b>Limites:</b> é da sessão e só dispara com o Claude Code aberto e ocioso; mínimo de 1 minuto; tarefa recorrente expira em 7 dias; o auto-ritmado não volta no <code>--resume</code>. Serve para vigiar, não para perseguir condição."
+        },
+        {
+          "icone": "voltar",
+          "titulo": "Ralph",
+          "sub": "um laço de shell",
+          "itens": [
+            { "icone": "terminal", "t": "Próximo turno: o laço chama de novo" },
+            { "icone": "arquivo", "t": "Memória: arquivos e git" }
+          ],
+          "detalhe": "Técnica descrita por Geoffrey Huntley: em sua forma pura, um laço de bash que chama o agente com o mesmo prompt, sem fim. Cada sessão é descartável; o que sobra está nos arquivos e no git. A Anthropic cita o padrão como convergência da comunidade. <b>Limite:</b> não tem parada nem verificação de fábrica; quem põe é você (aulas 6 e 7)."
+        },
+        {
+          "icone": "nuvem",
+          "titulo": "Routines",
+          "sub": "Claude Code na nuvem",
+          "itens": [
+            { "icone": "calendario", "t": "Gatilho: agenda, chamada HTTP ou evento do GitHub" },
+            { "icone": "x", "t": "Sem seus arquivos locais" }
+          ],
+          "detalhe": "Configuração salva (prompt, repositórios, conectores) que roda na infraestrutura da Anthropic, com o notebook fechado. <b>Limites:</b> está em research preview (comportamento e limites podem mudar); trabalha num clone novo, sem acesso aos seus arquivos locais; intervalo mínimo de 1 hora na agenda."
+        },
+        {
+          "icone": "terminal",
+          "titulo": "codex exec",
+          "sub": "Codex sem interface",
+          "itens": [
+            { "icone": "play", "t": "Uma execução por chamada" },
+            { "icone": "cadeado", "t": "Sandbox só leitura por padrão" }
+          ],
+          "detalhe": "Roda o Codex sem interface: recebe o pedido por argumento ou stdin, trabalha e sai. Por padrão a sandbox é só leitura; <code>--sandbox workspace-write</code> libera edição. <code>--json</code> dá os eventos em JSONL, <code>-o</code> grava a última mensagem, <code>exec resume --last</code> continua a anterior. <b>Limite:</b> não é um loop; o laço, o teste e a parada ficam num script seu (o loop headless é o curso 2)."
+        }
+      ],
+      "legenda": "Fontes: docs oficiais do Claude Code (/goal, scheduled tasks, routines) e do Codex (modo não interativo), lidas em 19/10/2026; ghuntley.com/ralph.",
+      "rolagem": true,
+      "rolagem_fim": {
+        "titulo": "Duas perguntas escolhem o motor",
+        "texto": "O próximo turno vem de uma condição, de um relógio ou de um laço seu? E quem decide parar: um avaliador que lê a conversa, você, ou um teste que roda de verdade? O motor que roda o teste fora da conversa é o mais difícil de enganar.",
+        "curto": "Condição, relógio ou laço. Conversa ou teste."
+      }
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Qual usar",
+      "sub": "Uma regra de bolso a partir dos limites acima.",
+      "passos": [
+        {
+          "titulo": "Tarefa com fim que se prova",
+          "sub": "/goal",
+          "texto": [
+            "Migrar um módulo até compilar e passar os testes, esvaziar uma fila de issues. A condição precisa ter um estado final, o comando que prova e o que não pode mudar no caminho.",
+            "Ponha um teto na própria condição, como a doc sugere: \"ou pare depois de 20 turnos\"."
+          ],
+          "exemplo": { "rot": "Condição", "texto": "python3 -m pytest -q tests/ imprime 6 passed, nenhum arquivo em tests/ foi modificado, ou pare depois de 15 turnos" }
+        },
+        {
+          "titulo": "Vigiar algo que muda sozinho",
+          "sub": "/loop",
+          "texto": [
+            "O deploy terminou? O CI passou? Chegou comentário no PR? O tempo dispara a volta e cada volta olha de novo.",
+            "Feche o terminal e ele para. Para durar mais que a sessão, use agenda na nuvem, no Desktop ou GitHub Actions, como a própria doc indica."
+          ]
+        },
+        {
+          "titulo": "Horas de trabalho na sua máquina",
+          "sub": "laço seu + codex exec ou claude -p",
+          "texto": [
+            "Cada ciclo é uma sessão nova que relê o estado em arquivo; quem decide continuar é o teste rodado pelo script, não a conversa.",
+            "É o que o kit execucao-longa faz com teto de tempo e memória (curso 2)."
+          ]
+        },
+        {
+          "titulo": "Sem terminal aberto",
+          "sub": "routines",
+          "texto": [
+            "Revisão de PR por evento, triagem noturna de issues: trabalho repetível num repositório, sem depender dos arquivos da sua máquina.",
+            "Como está em research preview, confira os limites na doc antes de depender dele."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Os cinco em uma linha cada",
+      "sub": "Comandos da documentação oficial e do artigo do Ralph. Rode só os que você vai usar na prática.",
+      "blocos": [
+        {
+          "rot": "Claude Code · /goal interativo e sem interface",
+          "icone": "alvo",
+          "conteudo": "/goal python3 -m pytest -q tests/ imprime 6 passed e git diff --stat -- tests/ sai vazio, ou pare depois de 15 turnos\n/goal clear\n\nclaude -p \"/goal CHANGELOG.md tem uma entrada para cada PR desta semana\" --output-format stream-json --verbose"
+        },
+        {
+          "rot": "Claude Code · /loop por tempo",
+          "icone": "relogio",
+          "conteudo": "/loop 5m confira se o deploy terminou e me diga o que aconteceu\n/loop confira se o CI passou e responda aos comentários de revisão"
+        },
+        {
+          "rot": "Ralph · a forma pura (ghuntley.com/ralph)",
+          "icone": "voltar",
+          "conteudo": "while :; do cat PROMPT.md | claude-code ; done"
+        },
+        {
+          "rot": "Codex · uma execução sem interface",
+          "icone": "terminal",
+          "conteudo": "codex exec \"conte os arquivos .md desta pasta e responda só com o número\"\ncodex exec --sandbox workspace-write \"crie ola.txt com a palavra ola\"\ncodex exec --json \"resuma a estrutura do repositório\" > eventos.jsonl\ncodex exec resume --last \"agora corrija o que você encontrou\""
+        }
+      ],
+      "saida": {
+        "selo": "simulacao",
+        "abas": [
+          {
+            "rot": "Como ler o Ralph",
+            "html": "<p>Do jeito que está, o laço não tem <b>parada</b> nem <b>verificação</b>: roda até você apertar Ctrl+C. O nome do executável no artigo é o do autor; na sua máquina seria <code>claude -p</code> ou <code>codex exec -</code>. Nas aulas 6 e 7 você acrescenta o critério e os tetos que faltam.</p>"
+          },
+          {
+            "rot": "Codex também tem /goal",
+            "html": "<p>O kit execucao-longa usa <code>/goal</code> também no Codex (com <code>/goals</code> e <code>/goal pause|resume</code>). A pesquisa desta formação não achou a página oficial com data e limites; por isso este curso não afirma nada além do uso no kit.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Prática",
+      "sub": "Na sua máquina. São execuções curtas: gastam pouco da sua cota.",
+      "exercicios": [
+        {
+          "id": "e1",
+          "titulo": "E1 · Um /goal com prova na saída",
+          "min": "10 min",
+          "texto": "Numa pasta vazia com git iniciado, abra o Claude Code e rode: /goal o arquivo ola.txt existe e cat ola.txt imprime ola na conversa, ou pare depois de 5 turnos.",
+          "pronto": "<code>cat ola.txt</code> → <code>ola</code>, e o status do goal no Claude Code mostra a condição como atingida, com a contagem de turnos."
+        },
+        {
+          "id": "e2",
+          "titulo": "E2 · codex exec só leitura",
+          "min": "5 min",
+          "texto": "Na mesma pasta, peça ao Codex sem interface para contar arquivos, gravando a última mensagem num arquivo.",
+          "pronto": "<code>codex exec -o resposta.txt \"quantos arquivos .txt há nesta pasta? responda só com o número\"; echo \"saída: $?\"</code> → <code>saída: 0</code>, e <code>grep -cE '^[0-9]+$' resposta.txt</code> → <code>1</code> (a resposta é uma linha só com um número; o critério confere o formato, não o que o modelo respondeu)."
+        },
+        {
+          "id": "e3",
+          "titulo": "E3 · Escolha justificada",
+          "min": "10 min",
+          "texto": "Liste três tarefas reais suas num arquivo motores.md, uma por linha, no formato tarefa → motor → por quê (gatilho e quem decide parar).",
+          "pronto": "<code>grep -c '→.*→' motores.md</code> → <code>3</code>, e nenhuma tarefa com fim verificável ficou com /loop."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Teste da aula",
+      "perguntas": [
+        {
+          "p": "Sua condição do /goal é \"todos os testes passam\". O agente escreve \"rodei os testes, todos passam\" sem mostrar a saída. O que acontece?",
+          "opcoes": ["O /goal recusa qualquer conclusão que não traga a saída", "O Claude Code bloqueia a resposta até os testes rodarem", "O avaliador só lê a conversa e pode aceitar a frase", "O avaliador roda os testes por conta própria e confere o resultado"],
+          "certa": 2,
+          "explica": "Pela doc, o avaliador não roda comandos nem lê arquivos: julga o que apareceu na conversa. Por isso a condição pede a prova impressa (\"npm test sai 0\"). O curso 1 mostra como tornar isso à prova de atalho.",
+          "ref": "diagrama",
+          "cert": true
+        },
+        {
+          "p": "Você quer conferir o CI a cada 10 minutos durante a tarde, com o terminal aberto. Qual motor?",
+          "opcoes": ["/goal", "codex exec", "routines", "/loop"],
+          "certa": 3,
+          "explica": "É vigilância por tempo dentro da sessão: o caso do /loop. /goal persegue uma condição a cada turno; routines é para quando não há terminal aberto.",
+          "ref": "passos"
+        },
+        {
+          "p": "Por que uma routine não serve para rodar os testes de um projeto que só existe no seu notebook?",
+          "opcoes": ["Porque roda na nuvem num clone novo, sem seus arquivos locais", "Porque routine exige plano pago de API", "Porque routines só agendam prompts e não executam comandos de teste", "Porque o intervalo mínimo de uma routine é 1 minuto"],
+          "certa": 0,
+          "explica": "A tabela oficial diz: acesso a arquivos locais, não (clone novo). O intervalo mínimo da routine é 1 hora; 1 minuto é o do /loop e do Desktop.",
+          "ref": "diagrama"
+        },
+        {
+          "p": "O que falta no Ralph na forma pura, while :; do cat PROMPT.md | claude-code ; done?",
+          "opcoes": ["Estado: ele não guarda nada em arquivos entre voltas", "Parada e verificação: não tem fim nem teste", "Ação: o laço não chama o agente de verdade", "Nada: é um loop completo, só que minimalista"],
+          "certa": 1,
+          "explica": "O estado está nos arquivos e no git, e cada volta age. Mas nada decide que acabou e nada confere o trabalho: as duas peças que você acrescenta.",
+          "ref": "codigo",
+          "cert": true
+        },
+        {
+          "p": "Um /loop recorrente criado hoje ainda vai rodar daqui a um mês?",
+          "opcoes": ["Sim: continua até você cancelar ou fechar o terminal", "Só se a sessão for retomada antes de cada disparo", "Não: recorrentes expiram 7 dias depois de criadas", "Só se estiver no modo auto"],
+          "certa": 2,
+          "explica": "A doc limita o tempo de vida de um loop esquecido: dispara uma última vez e se apaga aos 7 dias. Para durar mais, recrie ou use agenda fora da sessão.",
+          "ref": "diagrama"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Em três frases",
+      "itens": [
+        { "t": "Gatilho e juiz", "texto": "Cada motor difere no que dispara o próximo turno (condição, tempo, laço, evento) e em quem decide parar." },
+        { "t": "Limites oficiais", "texto": "/goal julga só a conversa; /loop vive na sessão e expira em 7 dias; routines rodam na nuvem sem seus arquivos; codex exec é uma execução, não um loop." },
+        { "t": "Ralph é a base", "texto": "Um laço que chama o agente com estado em arquivos; parada e verificação você acrescenta." }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Para ir além",
+      "links": [
+        { "t": "Claude Code: /goal (doc oficial)", "href": "https://code.claude.com/docs/en/goal", "icone": "alvo" },
+        { "t": "Claude Code: tarefas agendadas e /loop (doc oficial)", "href": "https://code.claude.com/docs/en/scheduled-tasks", "icone": "relogio" },
+        { "t": "Claude Code: routines (doc oficial)", "href": "https://code.claude.com/docs/en/routines", "icone": "nuvem" },
+        { "t": "Codex: modo não interativo, codex exec (doc oficial)", "href": "https://developers.openai.com/codex/noninteractive", "icone": "terminal" },
+        { "t": "Geoffrey Huntley: Ralph", "href": "https://ghuntley.com/ralph/", "icone": "voltar" }
+      ]
+    }
+  ]
+}

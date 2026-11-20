@@ -1,0 +1,336 @@
+{
+  "slug": "pecas",
+  "num": 1,
+  "menu": "Pieces",
+  "titulo": "The loop in 5 pieces: goal, state, action, check, stop",
+  "titulo_curto": "The 5 pieces of the loop",
+  "minutos": 15,
+  "lead": "Every agent loop that works has the same five pieces, from /goal to the shell loop. When a loop fails, almost always one is missing: it doesn't say where it wants to get, it forgets where it was, it approves itself, or it doesn't know when to stop. Here you learn to see the five and run a toy loop, with no model, that shows them.",
+  "objetivo": "identify the 5 pieces in any agent loop and run a toy loop that stops on its own, by the test or by the cap.",
+  "competencias": [
+    "identificar-pecas-do-loop",
+    "diagnosticar-peca-faltando",
+    "rodar-loop-com-parada"
+  ],
+  "aprende": [
+    {
+      "icone": "alvo",
+      "t": "The five pieces and the question each one answers"
+    },
+    {
+      "icone": "lupa",
+      "t": "Which piece is missing when the loop spins aimlessly or stops early"
+    },
+    {
+      "icone": "terminal",
+      "t": "A toy loop in bash that stops on the test or the cap"
+    },
+    {
+      "icone": "camadas",
+      "t": "Where each piece is explored in depth across the six courses"
+    }
+  ],
+  "hero_alt": "Braided black cable running through five different metal clips on a dark surface.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "The five pieces of every loop",
+      "sub": "Tap each block: the question the piece answers and what happens when it is missing.",
+      "nos": [
+        {
+          "icone": "alvo",
+          "titulo": "Goal",
+          "sub": "where I want to end up",
+          "itens": [
+            {
+              "icone": "check",
+              "t": "A final state you can check"
+            },
+            {
+              "icone": "x",
+              "t": "Without it: \"improve\" never ends"
+            }
+          ],
+          "detalhe": "One sentence with an end you can check: a file with 5 lines, a test suite passing, an empty queue. Without it the loop has no way to know it is done, and it stops when the quota runs out or when the model decides it looks good enough."
+        },
+        {
+          "icone": "memoria",
+          "titulo": "State",
+          "sub": "where I am now",
+          "itens": [
+            {
+              "icone": "arquivo",
+              "t": "Lives in a file and in git"
+            },
+            {
+              "icone": "x",
+              "t": "Without it: redoes or skips work"
+            }
+          ],
+          "detalhe": "What has been done, what is left, and how to resume. In a long loop the model's context gets compacted, reset, or moved to a new session; whatever lives only in the conversation is lost. That is why the state lives outside the model (lesson 5)."
+        },
+        {
+          "icone": "robo",
+          "titulo": "Action",
+          "sub": "one step at a time",
+          "itens": [
+            {
+              "icone": "terminal",
+              "t": "Edits, runs, calls a tool"
+            },
+            {
+              "icone": "git",
+              "t": "One small step per cycle"
+            }
+          ],
+          "detalhe": "What the agent does in this cycle: edit a file, run a command, ask for a tool. A small step is a verifiable step; five changes at once don't tell you which one broke."
+        },
+        {
+          "icone": "check",
+          "titulo": "Verification",
+          "sub": "did it work? proof",
+          "forte": true,
+          "itens": [
+            {
+              "icone": "terminal",
+              "t": "A command with an expected output"
+            },
+            {
+              "icone": "x",
+              "t": "Without it: the agent approves itself"
+            }
+          ],
+          "detalhe": "What says the step worked is a command, not the agent's opinion: the test runs and prints \"6 passed\", wc counts 5 lines. It is the piece that is missing most often and costs the most when it is missing. The 0–4 scale is in lesson 6; how to build the evaluator, in course 1."
+        },
+        {
+          "icone": "portao",
+          "titulo": "Stop",
+          "sub": "when to leave the loop",
+          "itens": [
+            {
+              "icone": "check",
+              "t": "Done: the verification passed"
+            },
+            {
+              "icone": "relogio",
+              "t": "Cap: cycles, time, memory, cost"
+            }
+          ],
+          "detalhe": "Two exits, always: the good one (the goal was verified) and the safety one (a cap was hit or it stopped making progress). A loop without a cap is the one that spins all night on the same broken test. The five caps are in lesson 7."
+        }
+      ],
+      "volta": "Not done and no cap hit? Reread the state and start another cycle.",
+      "legenda": "It applies to a shell loop, to Claude Code's /goal, to codex exec inside a script, and to the nine LOOP-R agents.",
+      "rolagem": true,
+      "rolagem_fim": {
+        "titulo": "Five questions per cycle",
+        "texto": "Where do I want to end up? Where am I? What is the next step? Did it work, with proof? Do I stop or continue? A loop that answers all five with a file and a command works on its own; one that answers with the model's memory depends on luck.",
+        "curto": "Goal, state, action, verification, stop."
+      }
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Which piece is missing?",
+      "sub": "Four symptoms everyone has seen, and the piece that fixes each.",
+      "passos": [
+        {
+          "titulo": "Says \"done\" without proof",
+          "sub": "missing verification",
+          "texto": [
+            "The agent finishes with a confident summary and the test never ran. The goal existed, but nobody checked it.",
+            "Fix: the stop depends on a command that prints the result, and the proof shows up in the output."
+          ],
+          "exemplo": {
+            "rot": "Before → after",
+            "texto": "\"leave the tests passing\" → \"python3 -m pytest -q prints 6 passed\""
+          }
+        },
+        {
+          "titulo": "Spins all night",
+          "sub": "missing stop",
+          "texto": [
+            "The same broken test, the same attempt, cycle after cycle, until the quota runs out.",
+            "Fix: a cap on cycles and a stagnation rule, for example 3 cycles without measured progress = stop and call you."
+          ]
+        },
+        {
+          "titulo": "Redoes what it already did",
+          "sub": "missing state",
+          "texto": [
+            "After a compaction or a new session, the agent restarts a finished item or skips a pending one.",
+            "Fix: the state goes to a file and to git, and every cycle starts by rereading it (lesson 5)."
+          ]
+        },
+        {
+          "titulo": "It never stops improving",
+          "sub": "missing goal",
+          "texto": [
+            "\"Improve the code\" has no end: each cycle finds one more thing.",
+            "Fix: an end state you can check with a command. If you can't write the command, the task isn't ready to become a loop yet."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "The five pieces in 15 lines of bash",
+      "sub": "No model at all: the \"action\" is one line of shell. The goal is to see the pieces, not the agent.",
+      "blocos": [
+        {
+          "rot": "loop-brinquedo.sh",
+          "icone": "arquivo",
+          "conteudo": "#!/usr/bin/env bash\n# Toy loop: the 5 pieces with no model at all. The \"agent\" is one line of shell.\nset -u\nOBJETIVO=5                         # 1. goal: saida.txt with 5 lines\nESTADO=estado.txt                  # 2. state: lives in a file, not in memory\nMAX_CICLOS=8                       # 5. stop: cap on cycles\ntouch saida.txt\nciclo=$(cat \"$ESTADO\" 2>/dev/null || echo 0)\nwhile true; do\n  feitas=$(wc -l < saida.txt)      # 4. check: one command, before acting\n  echo \"ciclo $ciclo: $feitas de $OBJETIVO linhas\"\n  if [ \"$feitas\" -ge \"$OBJETIVO\" ]; then echo \"PRONTO no ciclo $ciclo\"; exit 0; fi\n  if [ \"$ciclo\" -ge \"$MAX_CICLOS\" ]; then echo \"PARADO: teto de $MAX_CICLOS ciclos\"; exit 2; fi\n  ciclo=$((ciclo + 1)); echo \"$ciclo\" > \"$ESTADO\"\n  echo \"item $ciclo\" >> saida.txt  # 3. action\ndone"
+        },
+        {
+          "rot": "Terminal · run in an empty folder",
+          "icone": "terminal",
+          "conteudo": "mkdir -p ~/ensaio-loop/pecas && cd ~/ensaio-loop/pecas\n# paste the script above into loop-brinquedo.sh and run:\nbash loop-brinquedo.sh; echo \"rc=$?\"\nbash loop-brinquedo.sh; echo \"rc=$?\"   # again: it's already done, so it doesn't act"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Captured output (10/19/2026)",
+            "html": "<pre>$ bash loop-brinquedo.sh; echo \"rc=$?\"\nciclo 0: 0 de 5 linhas\nciclo 1: 1 de 5 linhas\nciclo 2: 2 de 5 linhas\nciclo 3: 3 de 5 linhas\nciclo 4: 4 de 5 linhas\nciclo 5: 5 de 5 linhas\nPRONTO no ciclo 5\nrc=0\n\n$ bash loop-brinquedo.sh; echo \"rc=$?\"\nciclo 5: 5 de 5 linhas\nPRONTO no ciclo 5\nrc=0</pre><p>The second run adds nothing: the state is in the file and the check comes before the action.</p>"
+          },
+          {
+            "rot": "With OBJETIVO=20",
+            "html": "<pre>$ bash loop-brinquedo.sh | tail -3; echo \"rc=${PIPESTATUS[0]}\"\nciclo 7: 7 de 20 linhas\nciclo 8: 8 de 20 linhas\nPARADO: teto de 8 ciclos\nrc=2</pre><p>The goal doesn't fit under the cap: the loop exits through the safety door, with a nonzero code, instead of spinning forever.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "texto",
+      "titulo": "Where each piece is explored in depth",
+      "paragrafos": [
+        "This course gives the anatomy; the other five go deeper into one piece each. <b>Verification</b>: course 1 (separate evaluator, frozen tests, reward hacking). <b>State and goal</b> in a run that lasts hours: course 2 (the seven-file kit and the goal.md).",
+        "<b>Action</b> split across several agents: course 3. <b>Limits</b> on what the agent can do: course 4. And the loop that improves its own process, with promotion and rollback: course 5."
+      ]
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Practice",
+      "sub": "On your machine. Only move on to the next one when the \"done when\" is true.",
+      "exercicios": [
+        {
+          "id": "e1",
+          "titulo": "E1 · The toy loop stops on the check",
+          "min": "10 min",
+          "texto": "Create ~/ensaio-loop/pecas, paste in loop-brinquedo.sh and run it twice in a row.",
+          "pronto": "The first run ends with <code>PRONTO no ciclo 5</code> and <code>rc=0</code>; the second prints only <code>ciclo 5: 5 de 5 linhas</code> and <code>PRONTO no ciclo 5</code>, and <code>wc -l &lt; saida.txt</code> → <code>5</code>."
+        },
+        {
+          "id": "e2",
+          "titulo": "E2 · The loop stops on the cap",
+          "min": "5 min",
+          "texto": "Delete saida.txt and estado.txt, change OBJETIVO=5 to OBJETIVO=20 and run it again.",
+          "pronto": "The last line is <code>PARADO: teto de 8 ciclos</code> and <code>echo $?</code> right after → <code>2</code>."
+        },
+        {
+          "id": "e3",
+          "titulo": "E3 · Diagnosis of a loop of your own",
+          "min": "15 min",
+          "texto": "Take the last long request you made to Claude Code or Codex. In a file named pecas.md, write one line per piece, starting with <code>objetivo:</code>, <code>estado:</code>, <code>ação:</code>, <code>verificação:</code> and <code>parada:</code>, saying what filled that role, or <code>faltou</code>. Write the markers exactly like this, in Portuguese: the \"done when\" grep looks for them.",
+          "pronto": "<code>grep -ciE '^(objetivo|estado|ação|verificação|parada):' pecas.md</code> → <code>5</code>, and at least one line says \"faltou\" or points to a real command."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Lesson quiz",
+      "perguntas": [
+        {
+          "p": "The agent finished by saying \"I implemented it and everything works,\" but no test shows up in the output. Which piece was missing?",
+          "opcoes": [
+            "Goal",
+            "State",
+            "Action",
+            "Verification"
+          ],
+          "certa": 3,
+          "explica": "There was a goal and an action; what was missing was a command that proved it. Without a check, the agent's opinion decides when it's done. The common mistake is to blame the goal: it may be clear and still nobody checked.",
+          "ref": "diagrama",
+          "cert": true
+        },
+        {
+          "p": "In the toy loop, why doesn't the second run add the 6th line?",
+          "opcoes": [
+            "Because MAX_CICLOS is 8 and the loop stops before the 6th line",
+            "Because bash remembers the previous round and skips what it already did",
+            "Because saida.txt is deleted at the start of each round",
+            "Because it checks before acting and the state lives in a file"
+          ],
+          "certa": 3,
+          "explica": "The script rereads estado.txt and saida.txt, checks first and only acts if something is missing. The bash process keeps nothing between runs: the memory is the file. If the check came after the action, the second run would write one extra line before noticing.",
+          "ref": "codigo"
+        },
+        {
+          "p": "A loop has a verifiable goal, state in a file and a test per cycle, but no cap. What can go wrong?",
+          "opcoes": [
+            "It will approve itself, even with the test failing",
+            "It loses state between one cycle and the next",
+            "Spinning forever if the goal is impossible or the agent gets stuck",
+            "Nothing: if the test is good, the loop always ends on its own once it passes"
+          ],
+          "certa": 2,
+          "explica": "A good test guarantees it doesn't exit too early, not that it exits. An impossible goal or an agent stuck on the same error only stops at a cap: cycles, time, memory, stagnation or cost.",
+          "ref": "diagrama"
+        },
+        {
+          "p": "Which goal is ready to become a loop?",
+          "opcoes": [
+            "Make the code cleaner",
+            "Review everything carefully",
+            "Improve the quality of the login module",
+            "python3 -m pytest -q tests/auth prints 0 failed and the number of tests does not decrease"
+          ],
+          "certa": 3,
+          "explica": "It's the only one with an end that a command can check. The others never finish or depend on opinion. The full scale, with what makes a criterion shortcut-proof, is in lesson 6.",
+          "ref": "passos",
+          "cert": true
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "In three sentences",
+      "itens": [
+        {
+          "t": "Five pieces",
+          "texto": "Goal, state, action, verification and stop: every loop that works has all five."
+        },
+        {
+          "t": "Command, not opinion",
+          "texto": "What decides that a step worked is a command's output; what decides to stop is the test or a cap."
+        },
+        {
+          "t": "Two exits",
+          "texto": "Done by verification or stopped by the cap, with a different exit code for each."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Going further",
+      "links": [
+        {
+          "t": "Anthropic: harnesses for long-running agents (11/26/2025)",
+          "href": "https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents",
+          "icone": "lupa"
+        },
+        {
+          "t": "execucao-longa kit: goal with proof, state in files and stop rules",
+          "href": "https://github.com/inematds/execucao-longa",
+          "icone": "git"
+        },
+        {
+          "t": "Course 1 of the track: verification and evals",
+          "href": "https://inematds.github.io/loop-r-eng-verificacao-v72/en/",
+          "icone": "check"
+        }
+      ]
+    }
+  ]
+}

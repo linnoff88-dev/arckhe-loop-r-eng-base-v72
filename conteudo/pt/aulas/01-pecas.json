@@ -1,0 +1,250 @@
+{
+  "slug": "pecas",
+  "num": 1,
+  "menu": "Peças",
+  "titulo": "O loop em 5 peças: objetivo, estado, ação, verificação, parada",
+  "titulo_curto": "As 5 peças do loop",
+  "minutos": 15,
+  "lead": "Todo loop de agente que funciona tem as mesmas cinco peças, do /goal ao laço de shell. Quando um loop falha, quase sempre falta uma: não diz onde quer chegar, esquece onde estava, se aprova sozinho ou não sabe parar. Aqui você aprende a enxergar as cinco e roda um loop de brinquedo, sem modelo, que as mostra.",
+  "objetivo": "identificar as 5 peças em qualquer loop de agente e rodar um loop de brinquedo que para sozinho pelo teste ou pelo teto.",
+  "competencias": [
+    "identificar-pecas-do-loop",
+    "diagnosticar-peca-faltando",
+    "rodar-loop-com-parada"
+  ],
+  "aprende": [
+    { "icone": "alvo", "t": "As cinco peças e a pergunta que cada uma responde" },
+    { "icone": "lupa", "t": "Qual peça falta quando o loop gira à toa ou para cedo" },
+    { "icone": "terminal", "t": "Um loop de brinquedo em bash que para pelo teste ou pelo teto" },
+    { "icone": "camadas", "t": "Onde cada peça é aprofundada nos seis cursos" }
+  ],
+  "hero_alt": "Cabo preto trançado passando por cinco presilhas de metal diferentes sobre uma chapa escura.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "As cinco peças de todo loop",
+      "sub": "Clique em cada bloco: a pergunta que a peça responde e o que acontece quando ela falta.",
+      "nos": [
+        {
+          "icone": "alvo",
+          "titulo": "Objetivo",
+          "sub": "onde quero chegar",
+          "itens": [
+            { "icone": "check", "t": "Um estado final que se confere" },
+            { "icone": "x", "t": "Sem ele: \"melhorar\" não termina" }
+          ],
+          "detalhe": "Uma frase com um fim que dá para checar: um arquivo com 5 linhas, uma suíte de testes passando, uma fila vazia. Sem isso o loop não tem como saber que acabou, e para quando a cota acaba ou quando o modelo acha que já está bom."
+        },
+        {
+          "icone": "memoria",
+          "titulo": "Estado",
+          "sub": "onde estou agora",
+          "itens": [
+            { "icone": "arquivo", "t": "Fica em arquivo e no git" },
+            { "icone": "x", "t": "Sem ele: refaz ou pula trabalho" }
+          ],
+          "detalhe": "O que já foi feito, o que falta e como retomar. Num loop longo o contexto do modelo é compactado, resetado ou trocado de sessão; o que só está na conversa se perde. Por isso o estado mora fora do modelo (aula 5)."
+        },
+        {
+          "icone": "robo",
+          "titulo": "Ação",
+          "sub": "um passo de cada vez",
+          "itens": [
+            { "icone": "terminal", "t": "Edita, roda, chama ferramenta" },
+            { "icone": "git", "t": "Um passo pequeno por ciclo" }
+          ],
+          "detalhe": "O que o agente faz neste ciclo: editar um arquivo, rodar um comando, pedir uma ferramenta. Passo pequeno é passo verificável; cinco mudanças de uma vez não dizem qual delas quebrou."
+        },
+        {
+          "icone": "check",
+          "titulo": "Verificação",
+          "sub": "deu certo? prova",
+          "forte": true,
+          "itens": [
+            { "icone": "terminal", "t": "Um comando com saída esperada" },
+            { "icone": "x", "t": "Sem ela: o agente se aprova" }
+          ],
+          "detalhe": "Quem diz que o passo deu certo é um comando, não a opinião do agente: o teste roda e imprime \"6 passed\", o wc conta 5 linhas. É a peça que mais falta e a que mais custa quando falta. A escala de 0 a 4 está na aula 6; como montar o avaliador, no curso 1."
+        },
+        {
+          "icone": "portao",
+          "titulo": "Parada",
+          "sub": "quando sair do laço",
+          "itens": [
+            { "icone": "check", "t": "Pronto: a verificação passou" },
+            { "icone": "relogio", "t": "Teto: ciclos, tempo, memória, custo" }
+          ],
+          "detalhe": "Duas saídas, sempre: a boa (o objetivo foi verificado) e a de segurança (bateu um teto ou parou de avançar). Loop sem teto é o que gira a noite toda no mesmo teste quebrado. Os cinco tetos estão na aula 7."
+        }
+      ],
+      "volta": "Não terminou e nenhum teto bateu? Relê o estado e começa outro ciclo.",
+      "legenda": "Vale para um laço de shell, para o /goal do Claude Code, para o codex exec dentro de um script e para os nove agentes do LOOP-R.",
+      "rolagem": true,
+      "rolagem_fim": {
+        "titulo": "Cinco perguntas por ciclo",
+        "texto": "Onde quero chegar? Onde estou? Qual o próximo passo? Deu certo, com prova? Paro ou continuo? O loop que responde as cinco com arquivo e comando trabalha sozinho; o que responde com a memória do modelo depende de sorte.",
+        "curto": "Objetivo, estado, ação, verificação, parada."
+      }
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Qual peça falta?",
+      "sub": "Quatro sintomas que todo mundo já viu, e a peça que resolve.",
+      "passos": [
+        {
+          "titulo": "Diz \"pronto\" sem prova",
+          "sub": "falta verificação",
+          "texto": [
+            "O agente termina com um resumo confiante e o teste nem rodou. O objetivo existia, mas ninguém conferiu.",
+            "Correção: a parada depende de um comando que imprime o resultado, e a prova aparece na saída."
+          ],
+          "exemplo": { "rot": "Antes → depois", "texto": "\"deixe os testes passando\" → \"python3 -m pytest -q imprime 6 passed\"" }
+        },
+        {
+          "titulo": "Gira a noite toda",
+          "sub": "falta parada",
+          "texto": [
+            "O mesmo teste quebrado, a mesma tentativa, ciclo após ciclo, até acabar a cota.",
+            "Correção: teto de ciclos e regra de estagnação, por exemplo 3 ciclos sem avanço medido = parar e chamar você."
+          ]
+        },
+        {
+          "titulo": "Refaz o que já fez",
+          "sub": "falta estado",
+          "texto": [
+            "Depois de uma compactação ou de uma sessão nova, o agente recomeça um item pronto ou pula um pendente.",
+            "Correção: o estado vai para arquivo e git, e todo ciclo começa relendo (aula 5)."
+          ]
+        },
+        {
+          "titulo": "Não para de melhorar",
+          "sub": "falta objetivo",
+          "texto": [
+            "\"Melhore o código\" não tem fim: cada ciclo acha mais uma coisa.",
+            "Correção: um estado final que se confere com um comando. Se não dá para escrever o comando, a tarefa ainda não está pronta para virar loop."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "As cinco peças em 15 linhas de bash",
+      "sub": "Sem modelo nenhum: a \"ação\" é uma linha de shell. O objetivo é ver as peças, não o agente.",
+      "blocos": [
+        {
+          "rot": "loop-brinquedo.sh",
+          "icone": "arquivo",
+          "conteudo": "#!/usr/bin/env bash\n# Loop de brinquedo: as 5 peças sem modelo nenhum. O \"agente\" é uma linha de shell.\nset -u\nOBJETIVO=5                         # 1. objetivo: saida.txt com 5 linhas\nESTADO=estado.txt                  # 2. estado: fica num arquivo, não na memória\nMAX_CICLOS=8                       # 5. parada: teto de ciclos\ntouch saida.txt\nciclo=$(cat \"$ESTADO\" 2>/dev/null || echo 0)\nwhile true; do\n  feitas=$(wc -l < saida.txt)      # 4. verificação: um comando, antes de agir\n  echo \"ciclo $ciclo: $feitas de $OBJETIVO linhas\"\n  if [ \"$feitas\" -ge \"$OBJETIVO\" ]; then echo \"PRONTO no ciclo $ciclo\"; exit 0; fi\n  if [ \"$ciclo\" -ge \"$MAX_CICLOS\" ]; then echo \"PARADO: teto de $MAX_CICLOS ciclos\"; exit 2; fi\n  ciclo=$((ciclo + 1)); echo \"$ciclo\" > \"$ESTADO\"\n  echo \"item $ciclo\" >> saida.txt  # 3. ação\ndone"
+        },
+        {
+          "rot": "Terminal · rodar numa pasta vazia",
+          "icone": "terminal",
+          "conteudo": "mkdir -p ~/ensaio-loop/pecas && cd ~/ensaio-loop/pecas\n# cole o script acima em loop-brinquedo.sh e rode:\nbash loop-brinquedo.sh; echo \"rc=$?\"\nbash loop-brinquedo.sh; echo \"rc=$?\"   # de novo: já está pronto, não age"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Saída capturada (19/10/2026)",
+            "html": "<pre>$ bash loop-brinquedo.sh; echo \"rc=$?\"\nciclo 0: 0 de 5 linhas\nciclo 1: 1 de 5 linhas\nciclo 2: 2 de 5 linhas\nciclo 3: 3 de 5 linhas\nciclo 4: 4 de 5 linhas\nciclo 5: 5 de 5 linhas\nPRONTO no ciclo 5\nrc=0\n\n$ bash loop-brinquedo.sh; echo \"rc=$?\"\nciclo 5: 5 de 5 linhas\nPRONTO no ciclo 5\nrc=0</pre><p>A segunda rodada não acrescenta nada: o estado está no arquivo e a verificação vem antes da ação.</p>"
+          },
+          {
+            "rot": "Com OBJETIVO=20",
+            "html": "<pre>$ bash loop-brinquedo.sh | tail -3; echo \"rc=${PIPESTATUS[0]}\"\nciclo 7: 7 de 20 linhas\nciclo 8: 8 de 20 linhas\nPARADO: teto de 8 ciclos\nrc=2</pre><p>O objetivo não cabe no teto: o loop sai pela porta de segurança, com código diferente de 0, em vez de girar para sempre.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "texto",
+      "titulo": "Onde cada peça é aprofundada",
+      "paragrafos": [
+        "Este curso dá a anatomia; os outros cinco aprofundam uma peça cada. <b>Verificação</b>: curso 1 (avaliador separado, testes congelados, reward hacking). <b>Estado e objetivo</b> numa execução de horas: curso 2 (o kit de sete arquivos e o goal.md).",
+        "<b>Ação</b> dividida entre vários agentes: curso 3. <b>Limites</b> do que o agente pode fazer: curso 4. E o loop que melhora o próprio processo, com promoção e rollback: curso 5."
+      ]
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Prática",
+      "sub": "Na sua máquina. Só passe para o próximo quando o \"pronto quando\" for verdade.",
+      "exercicios": [
+        {
+          "id": "e1",
+          "titulo": "E1 · O loop de brinquedo para pelo teste",
+          "min": "10 min",
+          "texto": "Crie ~/ensaio-loop/pecas, cole o loop-brinquedo.sh e rode duas vezes seguidas.",
+          "pronto": "A primeira rodada termina com <code>PRONTO no ciclo 5</code> e <code>rc=0</code>; a segunda imprime só <code>ciclo 5: 5 de 5 linhas</code> e <code>PRONTO no ciclo 5</code>, e <code>wc -l &lt; saida.txt</code> → <code>5</code>."
+        },
+        {
+          "id": "e2",
+          "titulo": "E2 · O loop para pelo teto",
+          "min": "5 min",
+          "texto": "Apague saida.txt e estado.txt, troque OBJETIVO=5 por OBJETIVO=20 e rode de novo.",
+          "pronto": "A última linha é <code>PARADO: teto de 8 ciclos</code> e <code>echo $?</code> logo depois → <code>2</code>."
+        },
+        {
+          "id": "e3",
+          "titulo": "E3 · Diagnóstico de um loop seu",
+          "min": "15 min",
+          "texto": "Pegue o último pedido longo que você fez ao Claude Code ou ao Codex. Num arquivo pecas.md, escreva uma linha por peça, começando por <code>objetivo:</code>, <code>estado:</code>, <code>ação:</code>, <code>verificação:</code> e <code>parada:</code>, dizendo o que fazia esse papel, ou <code>faltou</code>. Escreva as marcas exatamente assim, em português: o grep do \"pronto quando\" procura por elas.",
+          "pronto": "<code>grep -ciE '^(objetivo|estado|ação|verificação|parada):' pecas.md</code> → <code>5</code>, e pelo menos uma linha diz \"faltou\" ou aponta um comando de verdade."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Teste da aula",
+      "perguntas": [
+        {
+          "p": "O agente terminou dizendo \"implementei e está tudo funcionando\", mas nenhum teste aparece na saída. Qual peça faltou?",
+          "opcoes": ["Objetivo", "Estado", "Ação", "Verificação"],
+          "certa": 3,
+          "explica": "Havia objetivo e ação; faltou um comando que provasse. Sem verificação, quem decide que acabou é a opinião do agente. O erro comum é culpar o objetivo: ele pode estar claro e mesmo assim ninguém conferir.",
+          "ref": "diagrama",
+          "cert": true
+        },
+        {
+          "p": "No loop de brinquedo, por que a segunda rodada não acrescenta a 6ª linha?",
+          "opcoes": ["Porque MAX_CICLOS é 8 e o loop para antes da 6ª linha", "Porque o bash lembra da rodada anterior e pula o que já fez", "Porque saida.txt é apagado no início de cada rodada", "Porque confere antes de agir e o estado fica em arquivo"],
+          "certa": 3,
+          "explica": "O script relê estado.txt e saida.txt, confere primeiro e só age se faltar. O processo do bash não guarda nada entre rodadas: a memória é o arquivo. Se a verificação viesse depois da ação, a segunda rodada escreveria uma linha a mais antes de perceber.",
+          "ref": "codigo"
+        },
+        {
+          "p": "Um loop tem objetivo verificável, estado em arquivo e teste por ciclo, mas nenhum teto. O que pode dar errado?",
+          "opcoes": ["Ele vai se aprovar sozinho, mesmo com o teste falhando", "Ele perde o estado entre um ciclo e outro", "Girar sem fim se o objetivo é impossível ou o agente empaca", "Nada: se o teste é bom, o loop sempre termina sozinho quando passa"],
+          "certa": 2,
+          "explica": "Teste bom garante que ele não sai antes da hora, não que ele saia. Objetivo impossível ou agente preso no mesmo erro só param por teto: ciclos, tempo, memória, estagnação ou custo.",
+          "ref": "diagrama"
+        },
+        {
+          "p": "Qual objetivo está pronto para virar loop?",
+          "opcoes": ["Deixar o código mais limpo", "Revisar tudo com cuidado", "Melhorar a qualidade do módulo de login", "python3 -m pytest -q tests/auth imprime 0 failed e o número de testes não diminui"],
+          "certa": 3,
+          "explica": "É o único com um fim que um comando confere. Os outros não terminam ou dependem de opinião. A escala completa, com o que torna um critério à prova de atalho, está na aula 6.",
+          "ref": "passos",
+          "cert": true
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "Em três frases",
+      "itens": [
+        { "t": "Cinco peças", "texto": "Objetivo, estado, ação, verificação e parada: todo loop que funciona tem as cinco." },
+        { "t": "Comando, não opinião", "texto": "Quem decide que um passo deu certo é uma saída de comando; quem decide parar é o teste ou um teto." },
+        { "t": "Duas saídas", "texto": "Pronto pela verificação ou parado pelo teto, com código de saída diferente para cada uma." }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Para ir além",
+      "links": [
+        { "t": "Anthropic: harnesses para agentes de longa duração (26/11/2025)", "href": "https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents", "icone": "lupa" },
+        { "t": "Kit execucao-longa: objetivo com prova, estado em arquivos e regras de parada", "href": "https://github.com/inematds/execucao-longa", "icone": "git" },
+        { "t": "Curso 1 da formação: verificação e evals", "href": "https://inematds.github.io/loop-r-eng-verificacao-v72/", "icone": "check" }
+      ]
+    }
+  ]
+}

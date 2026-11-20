@@ -1,0 +1,339 @@
+{
+  "slug": "loopr",
+  "num": 4,
+  "menu": "LOOP-R",
+  "titulo": "LOOP-R: las cinco letras y los nueve agentes",
+  "titulo_curto": "LOOP-R: letras y agentes",
+  "minutos": 18,
+  "lead": "Un agente que evalúa su propio trabajo tiende a aprobarse. El LOOP-R, framework abierto de INEMA que da nombre a esta formación, resuelve eso separando funciones: nueve agentes, cada uno con lo que lee, lo que escribe, lo que decide y lo que nunca hace. Las cinco letras dan el orden del método. Aquí ves el diseño; la parte de promover y volver a versiones anteriores es del curso 5.",
+  "objetivo": "explicar las letras L-O-O-P-R y el contrato de los nueve agentes (lee, escribe, decide, nunca hace) y decir por qué quien hace no evalúa.",
+  "competencias": [
+    "explicar-metodo-loop-r",
+    "ler-contrato-de-agente",
+    "separar-quem-faz-de-quem-avalia"
+  ],
+  "aprende": [
+    {
+      "icone": "lista",
+      "t": "Localizar, Operar, Observar, Proponer, Reforzar"
+    },
+    {
+      "icone": "robo",
+      "t": "Los nueve agentes y el contrato de cada uno"
+    },
+    {
+      "icone": "escudo",
+      "t": "Por qué la separación impide que el loop se convenza a sí mismo"
+    },
+    {
+      "icone": "git",
+      "t": "Un ciclo real del ejemplo, leído en el ledger"
+    }
+  ],
+  "hero_alt": "Nueve pequeñas figuras de robot industrial con visor oscuro en círculo sobre una mesa técnica oscura.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "Las cinco letras, en el orden del ciclo",
+      "sub": "Haz clic en cada letra: qué pide y qué agentes entran en ella.",
+      "nos": [
+        {
+          "icone": "alvo",
+          "titulo": "L · Localizar",
+          "sub": "un proceso, un número",
+          "itens": [
+            {
+              "icone": "caneta",
+              "t": "Ficha: 5 preguntas, en loop-r.yaml"
+            },
+            {
+              "icone": "grafico",
+              "t": "De X a Y sin empeorar Z"
+            }
+          ],
+          "detalhe": "Elige un proceso que se repita mucho y escribe el objetivo con número: llevar X a Y sin empeorar Z. La ficha del loop tiene cinco respuestas que ningún sistema infiere con seguridad: objetivo con número, dónde nace la evidencia, qué nunca cambia solo, tope de costo y tiempo, y quién aprueba. Es el objetivo de la clase 1, con límite que no puede empeorar (guardarraíl)."
+        },
+        {
+          "icone": "robo",
+          "titulo": "O · Operar",
+          "sub": "ejecutar siempre de la misma manera",
+          "itens": [
+            {
+              "icone": "robo",
+              "t": "Ejecutor"
+            },
+            {
+              "icone": "arquivo",
+              "t": "Una versión actual, escrita"
+            }
+          ],
+          "detalhe": "El proceso gana una versión actual, un guion corto que se sigue en cada ejecución, para que dos ejecuciones sean comparables. El Ejecutor produce el artefacto y registra una línea. No opina, no sugiere, no cambia su propio prompt."
+        },
+        {
+          "icone": "lupa",
+          "titulo": "O · Observar",
+          "sub": "cada ejecución se vuelve una línea",
+          "itens": [
+            {
+              "icone": "lista",
+              "t": "El Observador cuenta el CSV"
+            },
+            {
+              "icone": "x",
+              "t": "No explica la causa"
+            }
+          ],
+          "detalhe": "Una línea por ejecución, siempre las mismas columnas, resultado en sí o no. El Observador transforma las líneas en evidencia: conteos por versión y variante, sin adjetivos. Si los datos no coinciden con el esquema, detiene el ciclo."
+        },
+        {
+          "icone": "cerebro",
+          "titulo": "P · Proponer",
+          "sub": "crítica fría, hipótesis, veto",
+          "forte": true,
+          "itens": [
+            {
+              "icone": "lupa",
+              "t": "Crítico · Optimizador"
+            },
+            {
+              "icone": "escudo",
+              "t": "Guardián: veto final"
+            }
+          ],
+          "detalhe": "El Crítico dice qué funcionó y qué falló, con la fuerza de la evidencia, sin proponer solución. El Optimizador escribe hipótesis en el formato SE, ENTÃO, PORQUE y MUDANÇA, sin repetir las descartadas. El Guardián veta lo que toca lo que nunca cambia o el tope; el veto es final y no negocia."
+        },
+        {
+          "icone": "check",
+          "titulo": "R · Reforzar",
+          "sub": "probar antes de incorporar",
+          "itens": [
+            {
+              "icone": "grafico",
+              "t": "Experimentador: A × B, muestra"
+            },
+            {
+              "icone": "check",
+              "t": "Evaluador: 3 respuestas"
+            }
+          ],
+          "detalhe": "El Experimentador diseña la prueba A contra B, con muestra mínima calculada de antemano. El Evaluador responde una de tres: B_GANHOU, A_SEGUE o AMOSTRA_INSUFICIENTE. No existe \"va ganando\". La Memoria registra todo sin borrar, y el Meta-agente mira el sistema (costo, vetos) y solo reporta."
+        }
+      ],
+      "volta": "Promovida o descartada, la decisión va a la memoria y el próximo ciclo empieza desde la nueva evidencia.",
+      "legenda": "Letras como se presentan en la pista 2 del video del LOOP-R; contratos de los agentes en loop-r/docs/04-agentes.md y .claude/agents/.",
+      "rolagem": true,
+      "rolagem_fim": {
+        "titulo": "Quien arma no es quien inspecciona",
+        "texto": "Nueve funciones separadas, cada una leyendo solo lo que el contrato manda. Es la separación, no un prompt más inteligente, lo que impide que el loop se convenza de que mejoró.",
+        "curto": "Separar funciones es la verificación del LOOP-R."
+      }
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "El contrato de los nueve, en una tabla",
+      "sub": "Resumen de loop-r/docs/02-arquitetura.md, §4. Cada agente es un archivo markdown en .claude/agents/.",
+      "blocos": [
+        {
+          "rot": "Contratos (docs/02 §4)",
+          "icone": "lista",
+          "conteudo": "| Agente         | Lê                                  | Escreve                    | Decide                  | Nunca faz                       |\n|----------------|-------------------------------------|----------------------------|-------------------------|---------------------------------|\n| Executor       | versoes/atual, entrada da tarefa    | artefato + linha no CSV    | nada                    | mudar o próprio prompt          |\n| Observador     | CSV, esquema                        | evidencia.md               | nada                    | interpretar causa               |\n| Crítico        | evidência, versão atual, memória    | critica.md                 | se há padrão com N      | propor solução                  |\n| Otimizador     | crítica, memória (descartados!)     | hipoteses.md               | nada                    | repetir hipótese descartada     |\n| Guardião       | hipóteses, yaml (guarda-corpos, teto)| veto/aprovação por hipótese| veto é final            | ser convencido                  |\n| Experimentador | hipóteses aprovadas, amostra mínima | experimento.md             | desenho do teste        | rodar sem N calculado           |\n| Avaliador      | resultados A/B, rubrica, calibração | veredito.md                | uma das 3 respostas     | \"parece melhor\"                 |\n| Memória        | tudo do ciclo                       | ledger + 3 arquivos        | nada                    | apagar registro                 |\n| Meta-agente    | manifestos de todos os ciclos       | relatorio-meta.md          | nada (v0.1/v1)          | alterar agentes                 |"
+        },
+        {
+          "rot": "Terminal · clonar y revisar los agentes",
+          "icone": "terminal",
+          "conteudo": "git clone https://github.com/inematds/loop-r ~/projetos/loop-r\ncd ~/projetos/loop-r\nls .claude/agents/*.md | wc -l\ngrep -h '^description:' .claude/agents/*.md | cut -c1-110"
+        },
+        {
+          "rot": "Terminal · leer el ejemplo (datos sintéticos)",
+          "icone": "git",
+          "conteudo": "cd ~/projetos/loop-r/exemplos/vendas-whatsapp\ngrep -c '^| 2026' memoria/ledger.md\ngrep -oE '\\| (VETADA|EM TESTE|AGUARDANDO|DESCARTADA|PROMOVIDA v2) \\|' memoria/ledger.md | sort | uniq -c"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Salida capturada (19/10/2026)",
+            "html": "<pre>$ ls .claude/agents/*.md | wc -l\n9\n\n$ grep -c '^| 2026' memoria/ledger.md\n8\n\n$ grep -oE '...' memoria/ledger.md | sort | uniq -c\n      2 | AGUARDANDO |\n      1 | DESCARTADA |\n      2 | EM TESTE |\n      1 | PROMOVIDA v2 |\n      2 | VETADA |</pre><p>Cuatro ciclos, ocho líneas de decisión: dos hipótesis vetadas por el Guardián antes de cualquier prueba, una descartada por el Evaluador, una promovida a la v2.</p>"
+          },
+          {
+            "rot": "Qué es real y qué es simulado",
+            "html": "<p>En el ejemplo <code>vendas-whatsapp</code>, los <b>agentes corrieron de verdad</b>; los <b>datos son sintéticos</b> (1.500 líneas generadas) y las <b>decisiones humanas son simuladas</b>. El README del ejemplo separa lo que es real de lo que es simulado. Úsalo para leer el mecanismo, no como prueba de ganancia.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Un descarte que enseña",
+      "sub": "Ciclo 0002 del ejemplo: la métrica subió y aun así la versión nueva no entró.",
+      "passos": [
+        {
+          "titulo": "La hipótesis",
+          "sub": "Optimizador",
+          "texto": [
+            "Propuestas de máximo 80 palabras. Pasó por el Guardián y fue a prueba, A contra B, 300 ejecuciones de cada lado."
+          ]
+        },
+        {
+          "titulo": "El resultado",
+          "sub": "Observador",
+          "texto": [
+            "Tasa de respuesta 19,3% en A contra 29,7% en B: diferencia significativa en el objetivo.",
+            "Pero reclamos: 6 de 300 contra 1 de 300, con tolerancia cero en la ficha."
+          ]
+        },
+        {
+          "titulo": "El veredicto",
+          "sub": "Evaluador",
+          "texto": [
+            "A_SEGUE: B solo gana si el objetivo sube y ningún límite que no puede empeorar (guardarraíl) cae más allá de la tolerancia. Los dos juntos.",
+            "Sin esa regla, el loop aprende a hacer trampa con el número."
+          ]
+        },
+        {
+          "titulo": "La lección registrada",
+          "sub": "Memoria",
+          "texto": [
+            "La hipótesis pasó a descartadas, con los números, para no volver a probarla. Y la tolerancia de evento raro se corrigió para las próximas pruebas, porque cero no separa efecto de azar.",
+            "Promover y volver de versión es el tema del curso 5."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "video",
+      "titulo": "Video: las cinco letras del método",
+      "sub": "Ruta 2 de LOOP-R en video. Hecha para gerentes, con ejemplos de negocio; el método es el mismo que usa un loop de ingeniería.",
+      "chave": "loop-r-t2"
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Práctica",
+      "sub": "En tu máquina. Solo lectura en el repositorio de LOOP-R.",
+      "exercicios": [
+        {
+          "id": "e1",
+          "titulo": "E1 · Los nueve contratos",
+          "min": "15 min",
+          "texto": "Clona el loop-r y abre tres agentes: executor.md, guardiao.md y avaliador.md. Para cada uno, anota en agentes.md la línea \"nunca\" del archivo.",
+          "pronto": "<code>ls ~/projetos/loop-r/.claude/agents/*.md | wc -l</code> → <code>9</code>, y <code>grep -ci nunca agentes.md</code> → <code>3</code> o más."
+        },
+        {
+          "id": "e2",
+          "titulo": "E2 · Leer un ciclo por el ledger",
+          "min": "15 min",
+          "texto": "En el ejemplo vendas-whatsapp, lee el ledger y el veredicto del ciclo 0002. Escribe en una frase por qué la hipótesis fue descartada aunque la tasa de respuesta subió.",
+          "pronto": "<code>grep -c '^| 2026' memoria/ledger.md</code> → <code>8</code>, y tu frase cita el límite que no puede empeorar (reclamos) y la tolerancia."
+        },
+        {
+          "id": "e3",
+          "titulo": "E3 · Separar a quien hace de quien evalúa",
+          "min": "10 min",
+          "texto": "Piensa en un loop tuyo (código, contenido, atención al cliente). Escribe en agentes.md dos líneas, una que empiece por <code>executa:</code> y otra por <code>avalia:</code>, y di qué lee el evaluador que el ejecutor no escribe.",
+          "pronto": "<code>grep -cE '^(executa|avalia):' agentes.md</code> → <code>2</code>, y la línea \"avalia:\" apunta a una fuente que el ejecutor no controla (prueba, planilla, rúbrica)."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Prueba de la lección",
+      "perguntas": [
+        {
+          "p": "¿Por qué LOOP-R usa nueve agentes en vez de un agente que hace y revisa?",
+          "opcoes": [
+            "Porque nueve agentes en paralelo terminan el ciclo más rápido",
+            "Porque Claude Code exige un agente por función",
+            "Porque separar impide que un agente se convenza de que mejoró",
+            "Porque cada modelo solo aguanta una tarea a la vez sin perderse"
+          ],
+          "certa": 2,
+          "explica": "El doc 04 dice: cada uno lee solo lo que el contrato lista y rechaza lo que está en \"nunca\". El agente que evalúa su propio trabajo tiende a aprobarlo; separar funciones es la verificación incorporada en el diseño.",
+          "ref": "diagrama",
+          "cert": true
+        },
+        {
+          "p": "B subió la métrica objetivo con margen significativo, pero empeoró un límite que no puede empeorar (guardarraíl) más allá de la tolerancia. ¿Cuál es el veredicto del Evaluador?",
+          "opcoes": [
+            "A_SEGUE",
+            "AMOSTRA_INSUFICIENTE",
+            "Depende del humano",
+            "B_GANHOU"
+          ],
+          "certa": 0,
+          "explica": "B solo gana si el objetivo sube Y ningún límite que no puede empeorar cae más allá de la tolerancia. Fue el caso del ciclo 0002 del ejemplo.",
+          "ref": "passos"
+        },
+        {
+          "p": "¿Qué agente tiene una decisión que nadie revisa dentro del ciclo?",
+          "opcoes": [
+            "Guardián",
+            "Evaluador",
+            "Crítico",
+            "Meta-agente"
+          ],
+          "certa": 0,
+          "explica": "El veto del Guardián es final, no negocia y ante la duda veta. El Meta-agente, al contrario, no decide nada en las versiones actuales: solo informa.",
+          "ref": "codigo"
+        },
+        {
+          "p": "¿Qué demuestra el ejemplo vendas-whatsapp?",
+          "opcoes": [
+            "Que LOOP-R aumenta las ventas de una tienda real en WhatsApp",
+            "Que el mecanismo corre con agentes reales, sobre datos sintéticos",
+            "Nada: es solo documentación, los agentes no corrieron de verdad",
+            "Que 300 ejecuciones bastan para que cualquier loop llegue a un veredicto confiable"
+          ],
+          "certa": 1,
+          "explica": "Los agentes corrieron de verdad; los datos se generaron y las aprobaciones fueron simuladas. Sirve para leer el mecanismo, no como prueba de una ganancia real.",
+          "ref": "codigo",
+          "cert": true
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "En tres frases",
+      "itens": [
+        {
+          "t": "Cinco letras",
+          "texto": "Localizar el proceso y el número, Operar siempre igual, Observar en líneas, Proponer con crítica y veto, Reforzar solo con prueba."
+        },
+        {
+          "t": "Nueve contratos",
+          "texto": "Cada agente lee, escribe y decide solo lo que el contrato manda, y tiene una lista de lo que nunca hace."
+        },
+        {
+          "t": "No regresión",
+          "texto": "El LOOP-R no garantiza que el número suba; garantiza que una versión peor no reemplace a la actual por decisión del sistema."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Para ir más allá",
+      "links": [
+        {
+          "t": "LOOP-R en GitHub (framework, agentes, ejemplo)",
+          "href": "https://github.com/inematds/loop-r",
+          "icone": "git"
+        },
+        {
+          "t": "Guía del LOOP-R",
+          "href": "https://inematds.github.io/loop-r/guia/",
+          "icone": "camadas"
+        },
+        {
+          "t": "LOOP-R en video: 5 rutas, PT/EN/ES",
+          "href": "https://inematds.github.io/loop-r/videos/",
+          "icone": "video"
+        },
+        {
+          "t": "Curso 5 de la formación: el loop que aprende (promoción y rollback)",
+          "href": "https://inematds.github.io/loop-r-eng-aprende-v72/es/",
+          "icone": "grafico"
+        }
+      ]
+    }
+  ]
+}

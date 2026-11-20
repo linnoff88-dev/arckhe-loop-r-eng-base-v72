@@ -1,0 +1,336 @@
+{
+  "slug": "pecas",
+  "num": 1,
+  "menu": "Piezas",
+  "titulo": "El loop en 5 piezas: objetivo, estado, acción, verificación, parada",
+  "titulo_curto": "Las 5 piezas del loop",
+  "minutos": 15,
+  "lead": "Todo loop de agente que funciona tiene las mismas cinco piezas, del /goal al lazo de shell. Cuando un loop falla, casi siempre falta una: no dice adónde quiere llegar, olvida dónde estaba, se aprueba solo o no sabe parar. Aquí aprendes a verlas y ejecutas un loop de juguete, sin modelo, que las muestra.",
+  "objetivo": "identificar las 5 piezas en cualquier loop de agente y ejecutar un loop de juguete que se detiene solo por la prueba o por el tope.",
+  "competencias": [
+    "identificar-pecas-do-loop",
+    "diagnosticar-peca-faltando",
+    "rodar-loop-com-parada"
+  ],
+  "aprende": [
+    {
+      "icone": "alvo",
+      "t": "Las cinco piezas y la pregunta que responde cada una"
+    },
+    {
+      "icone": "lupa",
+      "t": "Qué pieza falta cuando el loop gira en vano o se detiene antes de tiempo"
+    },
+    {
+      "icone": "terminal",
+      "t": "Un loop de juguete en bash que se detiene por la prueba o por el tope"
+    },
+    {
+      "icone": "camadas",
+      "t": "Dónde se profundiza cada pieza en los seis cursos"
+    }
+  ],
+  "hero_alt": "Cable negro trenzado pasando por cinco presillas de metal distintas sobre una placa oscura.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "Las cinco piezas de todo loop",
+      "sub": "Haz clic en cada bloque: la pregunta que responde la pieza y lo que pasa cuando falta.",
+      "nos": [
+        {
+          "icone": "alvo",
+          "titulo": "Objetivo",
+          "sub": "adónde quiero llegar",
+          "itens": [
+            {
+              "icone": "check",
+              "t": "Un estado final que se puede comprobar"
+            },
+            {
+              "icone": "x",
+              "t": "Sin él: \"mejorar\" no termina"
+            }
+          ],
+          "detalhe": "Una frase con un final que se puede verificar: un archivo con 5 líneas, una suite de tests pasando, una cola vacía. Sin eso el loop no tiene cómo saber que terminó, y se detiene cuando se acaba la cuota o cuando el modelo cree que ya está bien."
+        },
+        {
+          "icone": "memoria",
+          "titulo": "Estado",
+          "sub": "dónde estoy ahora",
+          "itens": [
+            {
+              "icone": "arquivo",
+              "t": "Vive en un archivo y en git"
+            },
+            {
+              "icone": "x",
+              "t": "Sin él: rehace o salta trabajo"
+            }
+          ],
+          "detalhe": "Lo que ya se hizo, lo que falta y cómo retomar. En un loop largo el contexto del modelo se compacta, se resetea o se cambia de sesión; lo que solo está en la conversación se pierde. Por eso el estado vive fuera del modelo (clase 5)."
+        },
+        {
+          "icone": "robo",
+          "titulo": "Acción",
+          "sub": "un paso a la vez",
+          "itens": [
+            {
+              "icone": "terminal",
+              "t": "Edita, ejecuta, llama a una herramienta"
+            },
+            {
+              "icone": "git",
+              "t": "Un paso pequeño por ciclo"
+            }
+          ],
+          "detalhe": "Lo que hace el agente en este ciclo: editar un archivo, ejecutar un comando, pedir una herramienta. Un paso pequeño es un paso verificable; cinco cambios a la vez no dicen cuál de ellos rompió algo."
+        },
+        {
+          "icone": "check",
+          "titulo": "Verificación",
+          "sub": "¿salió bien? prueba",
+          "forte": true,
+          "itens": [
+            {
+              "icone": "terminal",
+              "t": "Un comando con salida esperada"
+            },
+            {
+              "icone": "x",
+              "t": "Sin ella: el agente se aprueba solo"
+            }
+          ],
+          "detalhe": "Quien dice que el paso salió bien es un comando, no la opinión del agente: el test corre e imprime \"6 passed\", el wc cuenta 5 líneas. Es la pieza que más falta y la que más cuesta cuando falta. La escala de 0 a 4 está en la clase 6; cómo armar el evaluador, en el curso 1."
+        },
+        {
+          "icone": "portao",
+          "titulo": "Parada",
+          "sub": "cuándo salir del loop",
+          "itens": [
+            {
+              "icone": "check",
+              "t": "Listo: la verificación pasó"
+            },
+            {
+              "icone": "relogio",
+              "t": "Tope: ciclos, tiempo, memoria, costo"
+            }
+          ],
+          "detalhe": "Dos salidas, siempre: la buena (el objetivo se verificó) y la de seguridad (se alcanzó un tope o dejó de avanzar). Un loop sin tope es el que gira toda la noche en el mismo test roto. Los cinco topes están en la clase 7."
+        }
+      ],
+      "volta": "¿No terminó y ningún tope se alcanzó? Relee el estado y empieza otro ciclo.",
+      "legenda": "Vale para un loop de shell, para el /goal de Claude Code, para el codex exec dentro de un script y para los nueve agentes del LOOP-R.",
+      "rolagem": true,
+      "rolagem_fim": {
+        "titulo": "Cinco preguntas por ciclo",
+        "texto": "¿Adónde quiero llegar? ¿Dónde estoy? ¿Cuál es el próximo paso? ¿Salió bien, con prueba? ¿Paro o sigo? El loop que responde las cinco con un archivo y un comando trabaja solo; el que responde con la memoria del modelo depende de la suerte.",
+        "curto": "Objetivo, estado, acción, verificación, parada."
+      }
+    },
+    {
+      "tipo": "passos",
+      "titulo": "¿Qué pieza falta?",
+      "sub": "Cuatro síntomas que todos ya vieron, y la pieza que los resuelve.",
+      "passos": [
+        {
+          "titulo": "Dice \"listo\" sin prueba",
+          "sub": "falta verificación",
+          "texto": [
+            "El agente termina con un resumen seguro de sí mismo y el test ni corrió. El objetivo existía, pero nadie lo comprobó.",
+            "Corrección: la parada depende de un comando que imprime el resultado, y la prueba aparece en la salida."
+          ],
+          "exemplo": {
+            "rot": "Antes → después",
+            "texto": "\"deja los tests pasando\" → \"python3 -m pytest -q imprime 6 passed\""
+          }
+        },
+        {
+          "titulo": "Gira toda la noche",
+          "sub": "falta parada",
+          "texto": [
+            "El mismo test roto, el mismo intento, ciclo tras ciclo, hasta que se acaba la cuota.",
+            "Corrección: tope de ciclos y regla de estancamiento, por ejemplo 3 ciclos sin avance medido = parar y llamarte."
+          ]
+        },
+        {
+          "titulo": "Rehace lo que ya hizo",
+          "sub": "falta estado",
+          "texto": [
+            "Después de una compactación o de una sesión nueva, el agente vuelve a empezar un ítem que ya estaba listo o se salta uno pendiente.",
+            "Corrección: el estado va a un archivo y a git, y todo ciclo empieza releyéndolo (lección 5)."
+          ]
+        },
+        {
+          "titulo": "No para de mejorar",
+          "sub": "falta objetivo",
+          "texto": [
+            "\"Mejora el código\" no tiene fin: cada ciclo encuentra una cosa más.",
+            "Corrección: un estado final que se comprueba con un comando. Si no puedes escribir el comando, la tarea todavía no está lista para convertirse en loop."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "Las cinco piezas en 15 líneas de bash",
+      "sub": "Sin ningún modelo: la \"acción\" es una línea de shell. El objetivo es ver las piezas, no el agente.",
+      "blocos": [
+        {
+          "rot": "loop-brinquedo.sh",
+          "icone": "arquivo",
+          "conteudo": "#!/usr/bin/env bash\n# Loop de juguete: las 5 piezas sin ningún modelo. El \"agente\" es una línea de shell.\nset -u\nOBJETIVO=5                         # 1. objetivo: saida.txt con 5 líneas\nESTADO=estado.txt                  # 2. estado: queda en un archivo, no en la memoria\nMAX_CICLOS=8                       # 5. parada: tope de ciclos\ntouch saida.txt\nciclo=$(cat \"$ESTADO\" 2>/dev/null || echo 0)\nwhile true; do\n  feitas=$(wc -l < saida.txt)      # 4. verificación: un comando, antes de actuar\n  echo \"ciclo $ciclo: $feitas de $OBJETIVO linhas\"\n  if [ \"$feitas\" -ge \"$OBJETIVO\" ]; then echo \"PRONTO no ciclo $ciclo\"; exit 0; fi\n  if [ \"$ciclo\" -ge \"$MAX_CICLOS\" ]; then echo \"PARADO: teto de $MAX_CICLOS ciclos\"; exit 2; fi\n  ciclo=$((ciclo + 1)); echo \"$ciclo\" > \"$ESTADO\"\n  echo \"item $ciclo\" >> saida.txt  # 3. acción\ndone"
+        },
+        {
+          "rot": "Terminal · ejecutar en una carpeta vacía",
+          "icone": "terminal",
+          "conteudo": "mkdir -p ~/ensaio-loop/pecas && cd ~/ensaio-loop/pecas\n# pega el script de arriba en loop-brinquedo.sh y ejecútalo:\nbash loop-brinquedo.sh; echo \"rc=$?\"\nbash loop-brinquedo.sh; echo \"rc=$?\"   # otra vez: ya está listo, no actúa"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Salida capturada (19/10/2026)",
+            "html": "<pre>$ bash loop-brinquedo.sh; echo \"rc=$?\"\nciclo 0: 0 de 5 linhas\nciclo 1: 1 de 5 linhas\nciclo 2: 2 de 5 linhas\nciclo 3: 3 de 5 linhas\nciclo 4: 4 de 5 linhas\nciclo 5: 5 de 5 linhas\nPRONTO no ciclo 5\nrc=0\n\n$ bash loop-brinquedo.sh; echo \"rc=$?\"\nciclo 5: 5 de 5 linhas\nPRONTO no ciclo 5\nrc=0</pre><p>La segunda ejecución no agrega nada: el estado está en el archivo y la verificación viene antes de la acción.</p>"
+          },
+          {
+            "rot": "Con OBJETIVO=20",
+            "html": "<pre>$ bash loop-brinquedo.sh | tail -3; echo \"rc=${PIPESTATUS[0]}\"\nciclo 7: 7 de 20 linhas\nciclo 8: 8 de 20 linhas\nPARADO: teto de 8 ciclos\nrc=2</pre><p>El objetivo no cabe en el tope: el loop sale por la puerta de seguridad, con un código distinto de 0, en vez de girar para siempre.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "texto",
+      "titulo": "Dónde se profundiza cada pieza",
+      "paragrafos": [
+        "Este curso da la anatomía; los otros cinco profundizan una pieza cada uno. <b>Verificación</b>: curso 1 (evaluador separado, pruebas congeladas, reward hacking). <b>Estado y objetivo</b> en una ejecución de horas: curso 2 (el kit de siete archivos y el goal.md).",
+        "<b>Acción</b> dividida entre varios agentes: curso 3. <b>Límites</b> de lo que el agente puede hacer: curso 4. Y el loop que mejora su propio proceso, con promoción y rollback: curso 5."
+      ]
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Práctica",
+      "sub": "En tu máquina. Pasa al siguiente solo cuando el \"listo cuando\" sea verdad.",
+      "exercicios": [
+        {
+          "id": "e1",
+          "titulo": "E1 · El loop de juguete para por la prueba",
+          "min": "10 min",
+          "texto": "Crea ~/ensaio-loop/pecas, pega el loop-brinquedo.sh y ejecútalo dos veces seguidas.",
+          "pronto": "La primera ejecución termina con <code>PRONTO no ciclo 5</code> y <code>rc=0</code>; la segunda imprime solo <code>ciclo 5: 5 de 5 linhas</code> y <code>PRONTO no ciclo 5</code>, y <code>wc -l &lt; saida.txt</code> → <code>5</code>."
+        },
+        {
+          "id": "e2",
+          "titulo": "E2 · El loop para por el tope",
+          "min": "5 min",
+          "texto": "Borra saida.txt y estado.txt, cambia OBJETIVO=5 por OBJETIVO=20 y ejecútalo de nuevo.",
+          "pronto": "La última línea es <code>PARADO: teto de 8 ciclos</code> y <code>echo $?</code> justo después → <code>2</code>."
+        },
+        {
+          "id": "e3",
+          "titulo": "E3 · Diagnóstico de un loop tuyo",
+          "min": "15 min",
+          "texto": "Toma el último pedido largo que le hiciste a Claude Code o a Codex. En un archivo pecas.md, escribe una línea por pieza, empezando por <code>objetivo:</code>, <code>estado:</code>, <code>ação:</code>, <code>verificação:</code> y <code>parada:</code>, diciendo qué cumplía ese papel, o <code>faltou</code>. Escribe las marcas exactamente así, en portugués: el grep del \"listo cuando\" las busca.",
+          "pronto": "<code>grep -ciE '^(objetivo|estado|ação|verificação|parada):' pecas.md</code> → <code>5</code>, y al menos una línea dice \"faltou\" o apunta a un comando de verdad."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Prueba de la lección",
+      "perguntas": [
+        {
+          "p": "El agente terminó diciendo \"implementé y todo está funcionando\", pero ninguna prueba aparece en la salida. ¿Qué pieza faltó?",
+          "opcoes": [
+            "Objetivo",
+            "Estado",
+            "Acción",
+            "Verificación"
+          ],
+          "certa": 3,
+          "explica": "Había objetivo y acción; faltó un comando que lo probara. Sin verificación, quien decide que terminó es la opinión del agente. El error común es culpar al objetivo: puede estar claro y aun así nadie comprobar.",
+          "ref": "diagrama",
+          "cert": true
+        },
+        {
+          "p": "En el loop de juguete, ¿por qué la segunda ejecución no agrega la 6.ª línea?",
+          "opcoes": [
+            "Porque MAX_CICLOS es 8 y el loop se detiene antes de la 6ª línea",
+            "Porque bash recuerda la ronda anterior y salta lo que ya hizo",
+            "Porque saida.txt se borra al inicio de cada ronda",
+            "Porque verifica antes de actuar y el estado queda en un archivo"
+          ],
+          "certa": 3,
+          "explica": "El script relee estado.txt y saida.txt, comprueba primero y solo actúa si falta algo. El proceso de bash no guarda nada entre ejecuciones: la memoria es el archivo. Si la verificación viniera después de la acción, la segunda ejecución escribiría una línea de más antes de darse cuenta.",
+          "ref": "codigo"
+        },
+        {
+          "p": "Un loop tiene objetivo verificable, estado en archivo y prueba por ciclo, pero ningún tope. ¿Qué puede salir mal?",
+          "opcoes": [
+            "Se va a aprobar solo, aunque la prueba falle",
+            "Pierde el estado entre un ciclo y otro",
+            "Girar sin fin si el objetivo es imposible o el agente se atasca",
+            "Nada: si la prueba es buena, el loop siempre termina solo cuando pasa"
+          ],
+          "certa": 2,
+          "explica": "Un buen test garantiza que no termina antes de tiempo, no que termine. Un objetivo imposible o un agente atascado en el mismo error solo se detienen por un tope: ciclos, tiempo, memoria, estancamiento o costo.",
+          "ref": "diagrama"
+        },
+        {
+          "p": "¿Qué objetivo está listo para convertirse en loop?",
+          "opcoes": [
+            "Dejar el código más limpio",
+            "Revisar todo con cuidado",
+            "Mejorar la calidad del módulo de login",
+            "python3 -m pytest -q tests/auth imprime 0 failed y el número de tests no disminuye"
+          ],
+          "certa": 3,
+          "explica": "Es el único con un final que un comando puede comprobar. Los otros no terminan o dependen de una opinión. La escala completa, con lo que vuelve a prueba de atajos a un criterio, está en la lección 6.",
+          "ref": "passos",
+          "cert": true
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "En tres frases",
+      "itens": [
+        {
+          "t": "Cinco piezas",
+          "texto": "Objetivo, estado, acción, verificación y parada: todo loop que funciona tiene las cinco."
+        },
+        {
+          "t": "Comando, no opinión",
+          "texto": "Quien decide que un paso salió bien es la salida de un comando; quien decide parar es el test o un tope."
+        },
+        {
+          "t": "Dos salidas",
+          "texto": "Listo por la verificación o detenido por el tope, con un código de salida distinto para cada una."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Para ir más allá",
+      "links": [
+        {
+          "t": "Anthropic: harnesses para agentes de larga duración (26/11/2025)",
+          "href": "https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents",
+          "icone": "lupa"
+        },
+        {
+          "t": "Kit execucao-longa: objetivo con prueba, estado en archivos y reglas de parada",
+          "href": "https://github.com/inematds/execucao-longa",
+          "icone": "git"
+        },
+        {
+          "t": "Curso 1 de la formación: verificación y evals",
+          "href": "https://inematds.github.io/loop-r-eng-verificacao-v72/es/",
+          "icone": "check"
+        }
+      ]
+    }
+  ]
+}

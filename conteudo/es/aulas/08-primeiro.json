@@ -1,0 +1,329 @@
+{
+  "slug": "primeiro",
+  "num": 8,
+  "menu": "Primer loop",
+  "titulo": "Tu primer loop: objetivo pequeño con criterio nivel 3",
+  "titulo_curto": "Tu primer loop",
+  "minutos": 20,
+  "lead": "Es hora de juntar las piezas en un loop de verdad, pequeño a propósito: una función para contar palabras, seis tests congelados con hash y una condición de /goal nivel 3 con tope de turnos. Lo bastante pequeño para terminar en minutos; lo bastante completo para tener las cinco piezas. Al final, el mapa de la formación y tu plan con fechas.",
+  "objetivo": "correr tu primer loop con /goal en un proyecto pequeño, con tests congelados, criterio nivel 3 y tope de turnos, y salir con el plan de la formación.",
+  "competencias": [
+    "montar-primeiro-loop",
+    "congelar-testes-com-hash",
+    "conferir-loop-por-conta-propria"
+  ],
+  "aprende": [
+    {
+      "icone": "pasta",
+      "t": "Montar el proyecto con tests congelados y hash"
+    },
+    {
+      "icone": "alvo",
+      "t": "Escribir la condición del /goal en el nivel 3, con tope"
+    },
+    {
+      "icone": "check",
+      "t": "Verificar por tu cuenta, sin creer en el resumen"
+    },
+    {
+      "icone": "calendario",
+      "t": "El mapa de los seis cursos y tu plan con fechas"
+    }
+  ],
+  "hero_alt": "Una placa de circuito pequeña sobre una mesa oscura, con un cable fino cerrando un lazo alrededor de ella.",
+  "secoes": [
+    {
+      "tipo": "mapa",
+      "titulo": "Lo que montaste en este curso",
+      "sub": "Cuatro entregas que se vuelven tu primer loop. Haz clic en un ejercicio para ver el \"listo cuando\".",
+      "degraus": [
+        {
+          "aula": "pecas",
+          "icone": "alvo",
+          "quando": "Clase 1",
+          "titulo": "Piezas",
+          "sub": "objetivo, estado, acción, verificación, parada",
+          "saida": "Un loop que se detiene por el test o por el tope.",
+          "passo": "El esqueleto: las cinco piezas en un lazo de bash, con dos puertas de salida y un código de salida distinto para cada una."
+        },
+        {
+          "aula": "estado",
+          "icone": "git",
+          "quando": "Clase 5",
+          "titulo": "Estado",
+          "sub": "archivos y git",
+          "saida": "Ciclo descartable que retoma sin rehacer.",
+          "passo": "La memoria fuera del modelo: lista con passes, progreso y un commit por ítem verificado."
+        },
+        {
+          "aula": "criterio",
+          "icone": "cadeado",
+          "quando": "Clase 6",
+          "titulo": "Criterio",
+          "sub": "escala 0–4",
+          "saida": "Criterio nivel 3 que corre y traba el atajo.",
+          "passo": "La verificación que no se burla: comando, conteo mínimo y archivo congelado."
+        },
+        {
+          "aula": "tetos",
+          "icone": "relogio",
+          "quando": "Clase 7",
+          "titulo": "Topes",
+          "sub": "turnos, tiempo, memoria, estancamiento, costo",
+          "saida": "Loop que se detiene solo cuando se atasca.",
+          "passo": "La puerta de seguridad: cada tope atrapa una forma en que el loop no termina, y la puerta humana atrapa lo que no se puede hacer sin ti."
+        }
+      ],
+      "resultado": {
+        "titulo": "Al final del curso 0",
+        "texto": "Un loop pequeño corriendo con las cinco piezas, criterio nivel 3 y tope, y el vocabulario de los otros cinco cursos.",
+        "total": "24 ejercicios"
+      },
+      "rolagem_fim": {
+        "titulo": "Las cuatro entregas juntas",
+        "texto": "Piezas, estado, criterio y topes son lo que usas a continuación. El resto de las clases (harness, motores, LOOP-R) dice dónde vive cada pieza y qué curso la profundiza."
+      },
+      "legenda": "Los ejercicios de las clases 2, 3 y 4 entran en el plan de abajo."
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "El proyecto del primer loop",
+      "sub": "Una carpeta, un archivo de pruebas congelado por hash y ninguna línea de la función. Quien escribe la función es el agente.",
+      "blocos": [
+        {
+          "rot": "Terminal · crear la carpeta y congelar las pruebas",
+          "icone": "terminal",
+          "conteudo": "mkdir -p ~/ensaio-loop/conta/tests && cd ~/ensaio-loop/conta && git init -q\n# pega el archivo de pruebas del próximo bloque en tests/test_conta.py, después:\nsha256sum tests/test_conta.py > tests.sha256\ngit add -A && git commit -qm \"testes congelados\"\npython3 -m pytest -q -p no:cacheprovider tests/ | tail -1   # todavía falla: conta.py no existe"
+        },
+        {
+          "rot": "tests/test_conta.py",
+          "icone": "arquivo",
+          "conteudo": "from conta import conta_palavras\n\n\ndef test_vazio():\n    assert conta_palavras(\"\") == 0\n\n\ndef test_uma():\n    assert conta_palavras(\"loop\") == 1\n\n\ndef test_espacos_repetidos():\n    assert conta_palavras(\"  o   loop  para \") == 3\n\n\ndef test_quebra_de_linha_e_tab():\n    assert conta_palavras(\"objetivo\\nestado\\tação\") == 3\n\n\ndef test_pontuacao_nao_e_palavra():\n    assert conta_palavras(\"pronto , quando - passa\") == 3\n\n\ndef test_acentos():\n    assert conta_palavras(\"verificação e parada\") == 3"
+        },
+        {
+          "rot": "Claude Code · la condición del /goal (nivel 3, con tope)",
+          "icone": "alvo",
+          "conteudo": "/goal python3 -m pytest -q -p no:cacheprovider tests/ imprime 6 passed, sha256sum -c tests.sha256 imprime OK y git diff --exit-code -- tests/ sale con código 0, con las tres salidas impresas en la conversación, o detente después de 8 turnos"
+        },
+        {
+          "rot": "Terminal · tú lo verificas, sin creer en el resumen",
+          "icone": "check",
+          "conteudo": "cd ~/ensaio-loop/conta\npython3 -m pytest -q -p no:cacheprovider tests/ | tail -1\nsha256sum -c tests.sha256\ngit diff --exit-code -- tests/; echo \"rc=$?\""
+        },
+        {
+          "rot": "loop-codex.sh · el mismo loop con codex exec (ejercicio 3)",
+          "icone": "voltar",
+          "conteudo": "#!/usr/bin/env bash\n# Laço seu: no máximo 3 ciclos de codex exec; quem decide parar são os três comandos.\nset -u\ncd ~/ensaio-loop/conta\npasses() {\n  python3 -m pytest -q -p no:cacheprovider tests/ 2>&1 | tail -1 | grep -q '^6 passed' &&\n  sha256sum -c --quiet tests.sha256 &&\n  git diff --quiet -- tests/\n}\nfor ciclo in 1 2 3; do\n  if passes; then echo \"PRONTO no ciclo $((ciclo - 1))\"; exit 0; fi\n  echo \"ciclo $ciclo: codex exec\"\n  timeout 15m codex exec --sandbox workspace-write \\\n    \"Crie conta.py com conta_palavras(texto) que faça os testes de tests/ passarem. Não altere nada em tests/.\"\ndone\nif passes; then echo \"PRONTO no ciclo 3\"; exit 0; fi\necho \"PARADO: teto de 3 ciclos\"; exit 2"
+        }
+      ],
+      "saida": {
+        "selo": "real",
+        "abas": [
+          {
+            "rot": "Ejecutado el 19/10/2026",
+            "html": "<p>Con la misma condición, en modo sin interfaz (<code>claude -p \"/goal …\"</code>), el agente escribió <code>conta.py</code> y terminó imprimiendo:</p><pre>- python3 -m pytest -q -p no:cacheprovider tests/ → 6 passed in 0.01s\n- sha256sum -c tests.sha256 → tests/test_conta.py: OK\n- git diff --exit-code -- tests/ → saiu com código 0</pre><p>Su función y la tuya pueden ser diferentes; lo que tiene que coincidir son las tres salidas.</p>"
+          },
+          {
+            "rot": "La traba atrapando el atajo",
+            "html": "<pre>$ echo \"def test_x(): pass\" &gt; tests/test_conta.py\n$ sha256sum -c tests.sha256\ntests/test_conta.py: FAILED\nsha256sum: WARNING: 1 computed checksum did NOT match\n$ echo $?\n1</pre><p>Cambiar la prueba por una vacía haría que pytest pasara, pero el hash y el git diff lo delatan. Es la diferencia entre el nivel 2 y el nivel 3.</p>"
+          },
+          {
+            "rot": "Las cinco piezas aquí",
+            "html": "<ul><li><b>Objetivo</b>: la condición del /goal.</li><li><b>Estado</b>: los archivos y el commit de las pruebas.</li><li><b>Acción</b>: el agente editando conta.py.</li><li><b>Verificación</b>: pytest con conteo, hash y git diff, impresos en la conversación.</li><li><b>Parada</b>: el evaluador del /goal o el tope de 8 turnos.</li></ul>"
+          }
+        ]
+      }
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Práctica",
+      "sub": "En tu máquina. El ejercicio 2 gasta poco de tu cuota.",
+      "exercicios": [
+        {
+          "id": "e1",
+          "titulo": "E1 · El proyecto listo para el loop",
+          "min": "10 min",
+          "texto": "Crea la carpeta, el archivo de pruebas, el hash y el primer commit. Corre pytest antes de que exista la función.",
+          "pronto": "<code>sha256sum -c tests.sha256</code> → <code>tests/test_conta.py: OK</code>, <code>git log --oneline | wc -l</code> → <code>1</code>, y pytest todavía falla (la función no existe)."
+        },
+        {
+          "id": "e2",
+          "titulo": "E2 · El primer loop corriendo",
+          "min": "15 min",
+          "texto": "Abre Claude Code en la carpeta y pega la condición del /goal. Déjalo correr sin interferir; si Claude pide permiso para correr pytest, apruébalo.",
+          "pronto": "El estado del goal muestra la condición alcanzada, y los tres comandos de verificación, corridos por ti, dan <code>6 passed</code>, <code>tests/test_conta.py: OK</code> y <code>rc=0</code>."
+        },
+        {
+          "id": "e3",
+          "titulo": "E3 · El mismo loop con Codex",
+          "min": "15 min",
+          "texto": "Borra conta.py y ejecuta el mismo pedido con codex exec con sandbox de escritura, usando el loop-codex.sh del bloque de arriba: máximo 3 ciclos, parando cuando los tres comandos pasan.",
+          "pronto": "Tu ciclo termina antes de la 3.ª vuelta, y los mismos tres comandos dan <code>6 passed</code>, <code>OK</code> y <code>rc=0</code>; <code>git diff --stat -- tests/</code> sale vacío."
+        }
+      ]
+    },
+    {
+      "tipo": "gerador",
+      "titulo": "Genera tu plan con fechas",
+      "sub": "Elige la fecha de inicio y cuánto tiempo tienes por semana. El plan lista los ejercicios de las ocho clases en orden.",
+      "curso": "Base: anatomía del loop",
+      "horas_padrao": 4,
+      "degraus": [
+        {
+          "titulo": "Clase 1 · Las 5 piezas",
+          "aula": "pecas"
+        },
+        {
+          "titulo": "Clase 2 · Harness",
+          "aula": "harness"
+        },
+        {
+          "titulo": "Clase 3 · Motores de loop",
+          "aula": "motores"
+        },
+        {
+          "titulo": "Clase 4 · LOOP-R",
+          "aula": "loopr"
+        },
+        {
+          "titulo": "Clase 5 · Estado en archivos",
+          "aula": "estado"
+        },
+        {
+          "titulo": "Clase 6 · Criterio 0–4",
+          "aula": "criterio"
+        },
+        {
+          "titulo": "Clase 7 · Topes",
+          "aula": "tetos"
+        },
+        {
+          "titulo": "Clase 8 · Primer loop",
+          "aula": "primeiro"
+        }
+      ],
+      "txt": {
+        "titulo": "Plan — Base: anatomía del loop",
+        "inicio": "Inicio",
+        "ritmo": "Ritmo",
+        "termino": "Fecha prevista",
+        "ate": "hasta",
+        "pronto": "listo cuando",
+        "semanas": "semanas",
+        "travou": "## Qué se trabó y la regla que creé",
+        "h": "h por semana",
+        "exs": "ejercicios"
+      }
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Prueba de la lección",
+      "perguntas": [
+        {
+          "p": "¿Por qué la condición del /goal pide \"las tres salidas impresas en la conversación\"?",
+          "opcoes": [
+            "Para que el log quede completo y fácil de auditar después",
+            "Porque pytest no imprime nada si nadie pide la salida en la condición",
+            "Para gastar menos tokens en el turno de evaluación",
+            "Porque el evaluador solo lee la conversación, no ejecuta los comandos"
+          ],
+          "certa": 3,
+          "explica": "Es la pregunta 4 de la escala: ¿la prueba aparece en la salida? El evaluador no ejecuta los comandos; quien los ejecuta es el agente, y la salida tiene que estar ahí para ser juzgada.",
+          "ref": "codigo",
+          "cert": true
+        },
+        {
+          "p": "¿Qué le agrega el hash en tests.sha256 al \"6 passed\"?",
+          "opcoes": [
+            "Velocidad: pytest salta pruebas cuyo hash no cambió",
+            "Prueba de que el archivo de pruebas es el mismo que congelaste",
+            "Compatibilidad con Codex, que solo acepta pruebas con hash verificado",
+            "Nada: 6 passed ya prueba que el código está correcto"
+          ],
+          "certa": 1,
+          "explica": "\"6 passed\" solo es nivel 2: un agente puede cambiar los tests por otros seis que pasan. El hash y el git diff traban el archivo. Juntos, nivel 3.",
+          "ref": "codigo"
+        },
+        {
+          "p": "El /goal terminó con la condición cumplida. ¿Cuál es el siguiente paso?",
+          "opcoes": [
+            "Ejecutar tú mismo los tres comandos de verificación",
+            "Pedirle al agente que verifique de nuevo y muestre la salida",
+            "Confiar en el evaluador y seguir",
+            "Abrir el PR directo, ya que la condición se cumplió"
+          ],
+          "certa": 0,
+          "explica": "Quien cierra eres tú: el evaluador juzgó la conversación, tú verificas la máquina. Es lo que el kit execucao-longa pide al cierre de toda ejecución.",
+          "ref": "pratica",
+          "cert": true
+        },
+        {
+          "p": "Después de este curso, ¿cuál es el siguiente en el orden sugerido de la formación?",
+          "opcoes": [
+            "Curso 3: multiagente",
+            "Curso 1: verificación y evals",
+            "Ninguno",
+            "Curso 5: el loop que aprende"
+          ],
+          "certa": 1,
+          "explica": "El orden sugerido es 0 → 1 → 2 → 3 → 4 → 5. El curso 1 toma la pieza que más falta, la verificación, y la lleva hasta el nivel 4.",
+          "ref": "mapa"
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "En tres frases",
+      "itens": [
+        {
+          "t": "Pequeño y completo",
+          "texto": "El primer loop tiene las cinco piezas en un problema que termina en minutos."
+        },
+        {
+          "t": "Congelar antes de soltar",
+          "texto": "Tests con hash y commit antes de que el agente empiece: es lo que hace que el criterio sea nivel 3."
+        },
+        {
+          "t": "Tú cierras",
+          "texto": "El evaluador juzga la conversación; tú ejecutas la verificación en la máquina."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Para ir más allá",
+      "links": [
+        {
+          "t": "Siguiente: curso 1 de la formación, verificación y evals",
+          "href": "https://inematds.github.io/loop-r-eng-verificacao-v72/es/",
+          "icone": "check"
+        },
+        {
+          "t": "Curso 2: ejecución larga",
+          "href": "https://inematds.github.io/loop-r-eng-execucao-longa-v72/es/",
+          "icone": "relogio"
+        },
+        {
+          "t": "Curso 3: multiagente y orquestación",
+          "href": "https://inematds.github.io/loop-r-eng-multiagente-v72/es/",
+          "icone": "robo"
+        },
+        {
+          "t": "Curso 4: seguridad del loop autónomo",
+          "href": "https://inematds.github.io/loop-r-eng-seguranca-v72/es/",
+          "icone": "escudo"
+        },
+        {
+          "t": "Curso 5: el loop que aprende",
+          "href": "https://inematds.github.io/loop-r-eng-aprende-v72/es/",
+          "icone": "grafico"
+        },
+        {
+          "t": "Área LOOP-R Ingeniería en eventos.inema.pro",
+          "href": "https://eventos.inema.pro/loop-r-engenharia/",
+          "icone": "camadas"
+        }
+      ]
+    }
+  ]
+}

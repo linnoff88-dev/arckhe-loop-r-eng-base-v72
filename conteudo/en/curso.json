@@ -1,0 +1,279 @@
+{
+  "id": "loop-r-eng-base-v72",
+  "lang": "en",
+  "url": "https://inematds.github.io/loop-r-eng-base-v72/en/",
+  "nome": "Base: anatomy of the loop",
+  "sub": "LOOP-R Engineering Track · course 0",
+  "volta": {
+    "t": "LOOP-R Engineering Area",
+    "href": "https://eventos.inema.pro/loop-r-engenharia/"
+  },
+  "lado_card": {
+    "rot": "The framework behind the track",
+    "t": "LOOP-R (open source)",
+    "texto": "Nine agents with contracts, a loop sheet, and a worked example with synthetic data. Lesson 4 builds on it.",
+    "link": "Open the LOOP-R guide",
+    "href": "https://inematds.github.io/loop-r/guia/"
+  },
+  "rodape": "INEMA.CLUB · open and free content · INEMA Learning v7.2 format · LOOP-R Engineering Track, course 0 of 6 · <a href=\"https://eventos.inema.pro/loop-r-engenharia/\">eventos.inema.pro/loop-r-engenharia</a> · <a href=\"https://github.com/inematds/loop-r\">LOOP-R on GitHub</a> · <a href=\"https://github.com/inematds/execucao-longa\">execucao-longa kit on GitHub</a> · <a href=\"https://inema.club/\">inema.club</a>",
+  "videos": {
+    "ai-harness": {
+      "titulo": "AI harness: who does the AI's work",
+      "duracao": "8 min 15 s",
+      "mp4": "https://github.com/inematds/ai-harness/releases/download/video-v2.0.0/ai-harness-profissional-16x9.mp4",
+      "vtt": "assets/vtt/ai-harness.vtt",
+      "poster": "assets/img/ai-harness.jpg",
+      "pagina": "https://inematds.github.io/ai-harness/videos/",
+      "idiomas": {
+        "en": {
+          "mp4": "https://github.com/inematds/ai-harness/releases/download/video-v2.0.0/ai-harness-profissional-16x9-en.mp4",
+          "vtt": "assets/vtt/ai-harness-en.vtt",
+          "duracao": "5 min 58 s",
+          "pagina": "https://inematds.github.io/ai-harness/videos/en/"
+        },
+        "es": {
+          "mp4": "https://github.com/inematds/ai-harness/releases/download/video-v2.0.0/ai-harness-profissional-16x9-es.mp4",
+          "vtt": "assets/vtt/ai-harness-es.vtt",
+          "duracao": "7 min",
+          "pagina": "https://inematds.github.io/ai-harness/videos/es/"
+        }
+      }
+    },
+    "loop-r-t2": {
+      "titulo": "LOOP-R, track 2: the five letters",
+      "duracao": "17 min",
+      "mp4": "https://github.com/inematds/loop-r/releases/download/video-v2.0.0/loop-r-t2-pt.mp4",
+      "vtt": "assets/vtt/loop-r-t2.vtt",
+      "poster": "assets/img/loop-r-t2.jpg",
+      "pagina": "https://inematds.github.io/loop-r/videos/",
+      "idiomas": {
+        "en": {
+          "mp4": "https://github.com/inematds/loop-r/releases/download/video-v2.0.0/loop-r-t2-en-en.mp4",
+          "vtt": "assets/vtt/loop-r-t2-en.vtt",
+          "duracao": "17 min 44 s",
+          "pagina": "https://inematds.github.io/loop-r/videos/en.html"
+        },
+        "es": {
+          "mp4": "https://github.com/inematds/loop-r/releases/download/video-v2.0.0/loop-r-t2-es-es.mp4",
+          "vtt": "assets/vtt/loop-r-t2-es.vtt",
+          "duracao": "15 min 44 s",
+          "pagina": "https://inematds.github.io/loop-r/videos/es.html"
+        }
+      }
+    }
+  },
+  "inicio": {
+    "kicker": "LOOP-R Engineering Track · course 0 of 6 · 8 lessons",
+    "titulo": "Base: the anatomy of an agent loop that works, checks itself, and knows when to stop",
+    "lead": "Goal, state, action, verification, and stop. The harness around the model, today's loop engines and the limits of each, LOOP-R with its nine agents, done criterion from 0 to 4, and caps. Each lesson points to the track course that goes deeper on the topic.",
+    "cta": "Start with lesson 1",
+    "cta2": {
+      "t": "See the track area",
+      "href": "https://eventos.inema.pro/loop-r-engenharia/"
+    },
+    "capa_alt": "Dark workbench with a braided cable looped in a knot, a laptop showing a terminal, and a panel with two gauges.",
+    "numeros": [
+      {
+        "v": "8",
+        "t": "lessons"
+      },
+      {
+        "v": "6",
+        "t": "courses in the track"
+      },
+      {
+        "v": "5",
+        "t": "parts of every loop"
+      },
+      {
+        "v": "2",
+        "t": "videos"
+      }
+    ],
+    "cursos": {
+      "titulo": "The 6 courses in the track",
+      "sub": "This is course 0. Each lesson here points to the course that owns the topic. Suggested order: 0 → 1 → 2 → 3 → 4 → 5.",
+      "abrir": "Open the course",
+      "itens": [
+        {
+          "rot": "Course 0 · you are here",
+          "t": "Base: anatomy of the loop",
+          "l": "The five parts, the harness, loop engines, LOOP-R, done criterion from 0 to 4, and caps.",
+          "href": "https://inematds.github.io/loop-r-eng-base-v72/en/",
+          "img": "assets/img/cursos/base.jpg"
+        },
+        {
+          "rot": "Course 1",
+          "t": "Verification and evals",
+          "l": "A separate, skeptical evaluator, frozen tests, reward hacking, the gold set, and a calibrated judge.",
+          "href": "https://inematds.github.io/loop-r-eng-verificacao-v72/en/",
+          "img": "assets/img/cursos/verificacao.jpg"
+        },
+        {
+          "rot": "Course 2",
+          "t": "Long-running execution",
+          "l": "The seven-file kit, goal.md level 3+, context in bands, handoff, headless loop, and measurement.",
+          "href": "https://inematds.github.io/loop-r-eng-execucao-longa-v72/en/",
+          "img": "assets/img/cursos/execucao-longa.jpg"
+        },
+        {
+          "rot": "Course 3",
+          "t": "Multi-agent and orchestration",
+          "l": "When not to use it, subagents, generator × evaluator, worktrees, queues, and the Claude + Codex team.",
+          "href": "https://inematds.github.io/loop-r-eng-multiagente-v72/en/",
+          "img": "assets/img/cursos/multiagente.jpg"
+        },
+        {
+          "rot": "Course 4",
+          "t": "Security for the autonomous loop",
+          "l": "Lethal trifecta, Rule of Two, injection through the content it reads, guard hooks and sandbox.",
+          "href": "https://inematds.github.io/loop-r-eng-seguranca-v72/en/",
+          "img": "assets/img/cursos/seguranca.jpg"
+        },
+        {
+          "rot": "Course 5",
+          "t": "The loop that learns",
+          "l": "Hypothesis with a number, experiment, promotion and rollback, lessons, and the risk of optimizing against the meter.",
+          "href": "https://inematds.github.io/loop-r-eng-aprende-v72/en/",
+          "img": "assets/img/cursos/aprende.jpg"
+        }
+      ]
+    },
+    "aulas_titulo": "The lessons",
+    "aulas_sub": "From concept to your first running loop: the pieces, what sits around the model, the engines, LOOP-R, state, criterion, caps, and the final practice.",
+    "blocos": [
+      {
+        "t": "Who it's for",
+        "itens": [
+          "People who already use Claude Code or Codex in the terminal and want the agent to work on its own for more than one turn.",
+          "People who have seen the agent say \"done\" with no proof, or spin on the same error until the quota runs out.",
+          "People who will take the LOOP-R Engineering Track and need the shared vocabulary of the six courses."
+        ]
+      },
+      {
+        "t": "What you'll be able to do",
+        "itens": [
+          "Point out the five pieces in any loop and say which one is missing.",
+          "Choose between /goal, /loop, Ralph, routines and codex exec based on what each one does and doesn't do.",
+          "Rate a done criterion from 0 to 4 and rewrite the vague one up to level 3.",
+          "Run your first loop with frozen tests, a turn cap and proof in the output."
+        ]
+      },
+      {
+        "t": "Before you start",
+        "itens": [
+          "Linux or macOS with bash, git and Python 3 (pytest for lesson 8).",
+          "Claude Code or Codex installed and signed in through your subscription. The practices in lessons 1, 5 and 7 don't use any quota.",
+          "No previous course needed: this is the entry point of the track."
+        ]
+      }
+    ]
+  },
+  "ui": {
+    "pular": "Skip to content",
+    "aulas": "Lessons",
+    "concluido": "completed",
+    "aula": "Lesson",
+    "nesta_aula": "In this lesson, you will learn:",
+    "objetivo": "Goal:",
+    "proxima_aula": "Next lesson",
+    "aula_anterior": "Previous lesson",
+    "voltar_inicio": "Back to the start of the course",
+    "marcar_concluida": "Mark lesson as completed",
+    "dg_dica": "Click each block in the diagram to see what it does.",
+    "copiar": "Copy",
+    "copiado": "Copied",
+    "selo_simulacao": "Simulation: illustrative example",
+    "selo_real": "Example from the repository",
+    "pronto_quando": "Done when:",
+    "fiz": "I did this exercise",
+    "video_pagina": "Video page with script",
+    "pergunta": "Question",
+    "de": "of",
+    "cert_tag": "competency",
+    "correto": "Correct",
+    "errado": "Not that one",
+    "quiz_aguarda": "Choose one answer. The explanation appears after you try.",
+    "proxima_pergunta": "Next question",
+    "quiz_ver": "See result",
+    "quiz_fim": "Quiz complete",
+    "quiz_total": "You got {a} of {n} right. Get them all right and the lesson is marked as complete.",
+    "aparencia": "Appearance",
+    "tamanho_texto": "Text size",
+    "tema": "Theme",
+    "tema_escuro": "Dark",
+    "tema_papel": "Light paper",
+    "role_dica": "Scroll the page: each step below lights up its part of the diagram.",
+    "pre_requisito": "requires",
+    "ver_aula": "View the lesson",
+    "mapa_dica": "Click an exercise to see what to do and the \"done when\".",
+    "etapas": "Steps",
+    "exercicios": "exercises",
+    "rever": "Review:",
+    "revisar_erradas": "Review the wrong ones",
+    "refazer": "Retake the quiz",
+    "h_semana": "h per week",
+    "data_inicio": "Start date",
+    "ritmo": "Time available",
+    "gerar_plano": "Generate my plan",
+    "baixar_md": "Download plan.md",
+    "baixar_ics": "Download to calendar (.ics)",
+    "ind_estudo": "Study (lessons)",
+    "ind_pratica": "Self-reported practice",
+    "ind_nota": "Practice = exercises you marked as done. Proof comes in the certification exam.",
+    "estudo": {
+      "titulo": "Your study",
+      "continuar": "Pick up where I left off",
+      "comecar": "Start with lesson 1",
+      "cta_continuar": "Continue lesson {n}",
+      "hoje": "today",
+      "ontem": "yesterday",
+      "ha_dias": "{n} days ago",
+      "desempenho": "Quiz performance",
+      "notas": "My notes",
+      "dados": "Copy my data",
+      "sem_testes": "No quiz taken yet. The quiz is at the end of each lesson.",
+      "nao_fez": "quiz not taken yet",
+      "ultimo": "Latest",
+      "melhor": "Best",
+      "tentativas": "attempts",
+      "tentativa": "attempt",
+      "tudo_certo": "You got everything right on the latest quiz.",
+      "rever": "To review",
+      "resposta": "Correct answer:",
+      "ir_teste": "Retake the quiz",
+      "sem_notas": "No notes yet. In the lesson, select a passage of text and tap Highlight or Note.",
+      "so_marcado": "(highlight only)",
+      "marcar": "Highlight",
+      "anotar": "Note",
+      "salvar": "Save",
+      "apagar": "Remove highlight",
+      "fechar": "Close",
+      "nota_ph": "Write your note about this passage…",
+      "um_bloco": "Highlight within a single paragraph only.",
+      "nao_marca": "This passage can't be highlighted.",
+      "dados_exp": "Your progress, your notes, and your quiz scores stay only in this browser. Download a copy (.json) to keep or to continue on another computer or browser; there, load the copy. Loading adds to what already exists and doesn't erase anything.",
+      "exportar": "Download copy",
+      "importar": "Load copy",
+      "import_ok": "Copy loaded ({n} items). Refreshing the page…",
+      "import_erro": "File not recognized. Nothing was changed.",
+      "import_outro": "This copy is from a different course. Nothing was changed.",
+      "export_ok": "Copy downloaded."
+    },
+    "conv_dica": "Choose your answer. The feedback appears right after, and the conversation continues based on your choice.",
+    "conv_voce": "You",
+    "conv_escolha": "Your answer",
+    "conv_boa": "Good choice",
+    "conv_meio": "Could be better",
+    "conv_ruim": "Weak choice",
+    "conv_fim": "End of the conversation",
+    "conv_placar": "You scored {p} of {m} possible points.",
+    "conv_licao": "Lesson:",
+    "conv_recomecar": "Restart the conversation",
+    "conv_feita": "Your best score: {p} of {m} points.",
+    "comecar": "Start the lesson",
+    "nesta_vai": "In this lesson you will",
+    "trocar_tema": "Switch light/dark theme"
+  },
+  "icone": "camadas"
+}

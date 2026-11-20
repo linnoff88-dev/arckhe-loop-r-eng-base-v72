@@ -1,0 +1,295 @@
+{
+  "slug": "criterio",
+  "num": 6,
+  "menu": "Criterion",
+  "titulo": "Done criterion on the 0–4 scale",
+  "titulo_curto": "Done criterion 0–4",
+  "minutos": 16,
+  "lead": "A loop ends when the done criterion says it ended. If the criterion is vague, the loop never ends or ends too early; if it can be met by a shortcut, the agent finds the shortcut: it deletes the test that was failing, generates an empty page. The 0-to-4 scale of the execucao-longa kit names each step and shows the minimum accepted: level 3, a command with a lock.",
+  "objetivo": "classify done criteria from 0 to 4 with the 5 questions and rewrite a vague criterion up to level 3, with a command and a lock.",
+  "competencias": [
+    "classify-criterion-0-to-4",
+    "rewrite-criterion-level-3",
+    "lock-the-agent-shortcut"
+  ],
+  "aprende": [
+    {
+      "icone": "lista",
+      "t": "The five steps, from vague to independent"
+    },
+    {
+      "icone": "lupa",
+      "t": "The 5 questions that drop a level"
+    },
+    {
+      "icone": "cadeado",
+      "t": "Locks that close the shortcut: count, frozen file, validator"
+    },
+    {
+      "icone": "alvo",
+      "t": "Function, regression and limit in one criterion"
+    }
+  ],
+  "hero_alt": "A dial indicator resting on a machined part, next to five metal steps of increasing height.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "The done criterion ladder",
+      "sub": "Click each step: how it sounds, how the agent games it and what to do.",
+      "estilo": "escada",
+      "nos": [
+        {
+          "icone": "x",
+          "titulo": "0 · vague",
+          "sub": "\"make it good\", \"improve\"",
+          "itens": [
+            {
+              "icone": "caneta",
+              "t": "Rewrite"
+            }
+          ],
+          "detalhe": "There is no end you can check. The loop stops when the quota runs out or when the agent decides it's good enough. Example: \"improve performance\"."
+        },
+        {
+          "icone": "chat",
+          "titulo": "1 · subjective",
+          "sub": "\"reviewed and clean\"",
+          "itens": [
+            {
+              "icone": "caneta",
+              "t": "Rewrite"
+            }
+          ],
+          "detalhe": "It looks like a criterion, but the agent's opinion decides: it approves itself. Example: \"code reviewed and free of problems\"."
+        },
+        {
+          "icone": "terminal",
+          "titulo": "2 · gameable",
+          "sub": "\"0 failures\", \"20 pages\"",
+          "itens": [
+            {
+              "icone": "cadeado",
+              "t": "Add a lock"
+            }
+          ],
+          "detalhe": "It already has a command, but you can meet it without doing the work: deleting the failing test gives \"0 failures\"; twenty empty pages give \"20 pages\". It's the most dangerous step because it looks done."
+        },
+        {
+          "icone": "cadeado",
+          "titulo": "3 · protected",
+          "sub": "command + lock",
+          "forte": true,
+          "itens": [
+            {
+              "icone": "check",
+              "t": "Minimum accepted"
+            }
+          ],
+          "detalhe": "A command plus a lock that closes the shortcut: a minimum count (\"≥ 48 tests\"), a frozen file or checked hash, a content validator. Example from the kit: \"0 failures and ≥ 48 tests and tests/ untouched\", not just \"0 failures\"."
+        },
+        {
+          "icone": "escudo",
+          "titulo": "4 · independent",
+          "sub": "level 3 + external check",
+          "itens": [
+            {
+              "icone": "usuario",
+              "t": "When a mistake is costly"
+            }
+          ],
+          "detalhe": "Level 3 plus someone or something outside checking: a real end-to-end test, a separate evaluator, a sample checked by a person. Use it when a mistake is costly. How to set up the separate evaluator is course 1."
+        }
+      ],
+      "legenda": "Scale from the goal.md template in the execucao-longa kit. Minimum accepted: level 3.",
+      "rolagem": true,
+      "rolagem_fim": {
+        "titulo": "Always climb to 3",
+        "texto": "Vague and subjective get rewritten; gameable gets a lock; protected is the minimum for leaving an agent alone; independent is for when a mistake is costly.",
+        "curto": "Minimum: command + lock."
+      }
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "The scale and the 5 questions, as they are in the template",
+      "sub": "Excerpt from execucao-longa/templates/goal.md. Paste it into your goal.md or the agent's rules.",
+      "blocos": [
+        {
+          "rot": "templates/goal.md · scale and questions",
+          "icone": "arquivo",
+          "conteudo": "SCALE (delete when filling in)\n  0 vague ......... \"make it good\", \"improve\"                    → rewrite\n  1 subjective .... \"reviewed and clean\" (the agent approves itself)  → rewrite\n  2 gameable ..... \"0 failures\", \"20 pages\" (deletes a test, empty page) → add a lock\n  3 protected .... command + lock (minimum count, frozen file/hash, content validator) → minimum accepted\n  4 independent . level 3 + external check (real e2e, separate evaluator, human sample) → when a mistake is costly\n\n5 QUESTIONS — each \"no\" drops the level\n  1. Can you check it with a command?\n  2. Is the answer yes/no (no \"it improved\")?\n  3. Is it impossible to meet without doing the work?\n  4. Does the proof show up in the output? (the /goal evaluator in Claude only reads the conversation)\n  5. Are function + regression + limit covered?\n\nSIGNS OF A BAD CRITERION: \"good/clean/adequate/complete\"; depends on the agent saying it finished;\ncount only without checking content; doesn't say what must NOT change; verification takes hours."
+        },
+        {
+          "rot": "Level 3 criterion · the three layers",
+          "icone": "check",
+          "conteudo": "**Function** — does what it should\n- [ ] python3 -m pytest -q tests/ | tail -1 → 6 passed (and never fewer than 6)\n\n**Regression** — didn't break what already worked\n- [ ] python3 -m pytest -q | tail -1 → no \"failed\"\n\n**Limit** — didn't touch where it shouldn't\n- [ ] git diff --exit-code -- tests/; echo $? → 0\n- [ ] sha256sum -c tests.sha256 → tests/test_conta.py: OK"
+        }
+      ]
+    },
+    {
+      "tipo": "passos",
+      "titulo": "From 0 to 3, one step at a time",
+      "sub": "The same request rewritten until it's shortcut-proof.",
+      "passos": [
+        {
+          "titulo": "0 → 1",
+          "sub": "give it a target",
+          "texto": [
+            "\"Improve the word-counting function\" becomes \"the function counts words correctly\".",
+            "It's still opinion: who says \"correctly\"?"
+          ]
+        },
+        {
+          "titulo": "1 → 2",
+          "sub": "add a command",
+          "texto": [
+            "\"python3 -m pytest -q prints 0 failed\".",
+            "Now you can check it. But deleting the tests also prints 0 failed."
+          ]
+        },
+        {
+          "titulo": "2 → 3",
+          "sub": "close the shortcut",
+          "texto": [
+            "\"pytest prints 6 passed, tests/ did not change (git diff empty) and the test file hash matches\".",
+            "Minimum count and a frozen file: there is no way to meet it without doing the work."
+          ],
+          "exemplo": {
+            "rot": "Level 3",
+            "texto": "pytest -q tests/ → 6 passed · git diff --exit-code -- tests/ → 0 · sha256sum -c tests.sha256 → OK"
+          }
+        },
+        {
+          "titulo": "3 → 4",
+          "sub": "if getting it wrong is costly",
+          "texto": [
+            "Add a check the agent doesn't control: another agent that only evaluates, an end-to-end test in the real environment, a sample you check yourself.",
+            "This step is the subject of course 1."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Practice",
+      "sub": "On your machine. Exercise 2 uses a project of yours that has tests.",
+      "exercicios": [
+        {
+          "id": "e1",
+          "titulo": "E1 · Classify and rewrite",
+          "min": "15 min",
+          "texto": "In criterios.md, write three criteria you have already used (or seen) to say that a task was finished. Next to each one, put the level from 0 to 4 and, on a line that starts with <code>nível 3</code>, the rewritten version. Write the marker <code>nível 3</code> exactly like this, in Portuguese: it is what the grep counts.",
+          "pronto": "<code>grep -c 'nível 3' criterios.md</code> → <code>3</code>, and <code>grep -ciE '\\b(good|clean|adequate|complete|proper)\\b' criterios.md</code> only finds words in the lines of the original criteria, never in the rewritten ones."
+        },
+        {
+          "id": "e2",
+          "titulo": "E2 · A level 3 criterion that runs",
+          "min": "15 min",
+          "texto": "In a project of yours that has tests, run the full criterion: the suite with a minimum count and the lock that the tests did not change.",
+          "pronto": "<code>python3 -m pytest -q | tail -1</code> (or your project's test command) shows the number of tests, with no <code>failed</code>, and <code>git diff --exit-code -- tests/; echo $?</code> → <code>0</code>."
+        },
+        {
+          "id": "e3",
+          "titulo": "E3 · Prove the lock catches it",
+          "min": "10 min",
+          "texto": "In the same folder, simulate the shortcut: replace the content of a test with an empty test, run the locks, and then undo it with git checkout.",
+          "pronto": "With the test replaced, <code>git diff --exit-code -- tests/; echo $?</code> → <code>1</code>; after <code>git checkout -- tests/</code>, the same command → <code>0</code>."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Lesson quiz",
+      "perguntas": [
+        {
+          "p": "\"python3 -m pytest -q prints 0 failed\". What level is it?",
+          "opcoes": [
+            "3 · protected",
+            "2 · gameable",
+            "4 · independent",
+            "1 · subjective"
+          ],
+          "certa": 1,
+          "explica": "It has a command, but deleting the tests also gives 0 failed. The lock is missing: minimum count and untouched tests. The common mistake is thinking a command is already level 3.",
+          "ref": "diagrama",
+          "cert": true
+        },
+        {
+          "p": "Which of the 5 questions knocks down \"the agent confirms it reviewed everything\"?",
+          "opcoes": [
+            "Only 4",
+            "None: if the agent confirms in writing, it's already level 3",
+            "Only 5",
+            "Q1: no command exists; Q3: can be met without doing it"
+          ],
+          "certa": 3,
+          "explica": "There is no command, the answer depends on the agent saying it finished (a sign of a bad criterion), and it can say so without having done it. Level 1.",
+          "ref": "codigo"
+        },
+        {
+          "p": "Why does question 4 (\"does the proof show up in the output?\") matter in Claude Code's /goal?",
+          "opcoes": [
+            "Because the printed output makes the log easier to review later",
+            "Because /goal runs the tests itself and needs to see the output",
+            "Because the evaluator only reads the conversation, it runs nothing",
+            "It doesn't matter: /goal checks the files at the end"
+          ],
+          "certa": 2,
+          "explica": "According to the docs, the evaluator doesn't run commands or read files. The proof has to be printed in the conversation. Course 1 goes deeper.",
+          "ref": "codigo"
+        },
+        {
+          "p": "A criterion covers function and regression, but says nothing about files that could not change. What is missing?",
+          "opcoes": [
+            "Nothing: function and regression already cover what matters",
+            "The limit layer, like git diff --exit-code -- tests/",
+            "More function tests, covering the edge cases that were missed",
+            "A better model that doesn't touch what it shouldn't"
+          ],
+          "certa": 1,
+          "explica": "Function, regression and limit: without a limit, the agent can meet the rest by touching where it shouldn't. \"Doesn't say what must NOT change\" is among the signs of a bad criterion.",
+          "ref": "codigo",
+          "cert": true
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "In three sentences",
+      "itens": [
+        {
+          "t": "Five steps",
+          "texto": "Vague, subjective, gameable, protected, independent. Minimum to leave the agent on its own: 3."
+        },
+        {
+          "t": "A lock closes the shortcut",
+          "texto": "Minimum count, frozen file or hash, content validator: what keeps it from being met without doing the work."
+        },
+        {
+          "t": "Three layers",
+          "texto": "Function, regression and limit, with the proof printed in the output."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Going further",
+      "links": [
+        {
+          "t": "goal.md template from the execucao-longa kit (with the scale)",
+          "href": "https://github.com/inematds/execucao-longa/blob/main/templates/goal.md",
+          "icone": "arquivo"
+        },
+        {
+          "t": "Track course 1: verification and evals (level 4, separate evaluator)",
+          "href": "https://inematds.github.io/loop-r-eng-verificacao-v72/en/",
+          "icone": "check"
+        },
+        {
+          "t": "Track course 2: writing the complete level 3+ goal.md",
+          "href": "https://inematds.github.io/loop-r-eng-execucao-longa-v72/en/",
+          "icone": "alvo"
+        }
+      ]
+    }
+  ]
+}

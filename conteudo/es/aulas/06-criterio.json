@@ -1,0 +1,295 @@
+{
+  "slug": "criterio",
+  "num": 6,
+  "menu": "Criterio",
+  "titulo": "Criterio de terminado en la escala 0–4",
+  "titulo_curto": "Criterio de terminado 0–4",
+  "minutos": 16,
+  "lead": "Un loop termina cuando el criterio de terminado dice que terminó. Si el criterio es vago, el loop no termina o termina antes de tiempo; si se puede cumplir por atajo, el agente encuentra el atajo: borra la prueba que fallaba, genera una página vacía. La escala de 0 a 4 del kit execucao-longa le pone nombre a cada nivel y muestra el mínimo aceptado: nivel 3, comando con traba.",
+  "objetivo": "clasificar criterios de terminado de 0 a 4 con las 5 preguntas y reescribir un criterio vago hasta el nivel 3, con comando y traba.",
+  "competencias": [
+    "clasificar-criterio-0-a-4",
+    "reescribir-criterio-nivel-3",
+    "trabar-atajo-del-agente"
+  ],
+  "aprende": [
+    {
+      "icone": "lista",
+      "t": "Los cinco niveles, de lo vago a lo independiente"
+    },
+    {
+      "icone": "lupa",
+      "t": "Las 5 preguntas que derriban un nivel"
+    },
+    {
+      "icone": "cadeado",
+      "t": "Trabas que cierran el atajo: conteo, archivo congelado, validador"
+    },
+    {
+      "icone": "alvo",
+      "t": "Función, regresión y límite en un solo criterio"
+    }
+  ],
+  "hero_alt": "Reloj comparador apoyado en una pieza maquinada, junto a cinco escalones de metal de alturas crecientes.",
+  "secoes": [
+    {
+      "tipo": "diagrama",
+      "titulo": "La escalera del criterio de terminado",
+      "sub": "Haz clic en cada nivel: cómo suena, cómo el agente lo burla y qué hacer.",
+      "estilo": "escada",
+      "nos": [
+        {
+          "icone": "x",
+          "titulo": "0 · vago",
+          "sub": "\"dejar bien\", \"mejorar\"",
+          "itens": [
+            {
+              "icone": "caneta",
+              "t": "Reescribir"
+            }
+          ],
+          "detalhe": "No tiene un final que se pueda comprobar. El loop se detiene cuando se acaba la cuota o cuando el agente cree que ya está bien. Ejemplo: \"mejorar el rendimiento\"."
+        },
+        {
+          "icone": "chat",
+          "titulo": "1 · subjetivo",
+          "sub": "\"revisado y limpio\"",
+          "itens": [
+            {
+              "icone": "caneta",
+              "t": "Reescribir"
+            }
+          ],
+          "detalhe": "Parece un criterio, pero quien decide es la opinión del agente: se autoaprueba. Ejemplo: \"código revisado y sin problemas\"."
+        },
+        {
+          "icone": "terminal",
+          "titulo": "2 · burlable",
+          "sub": "\"0 fallos\", \"20 páginas\"",
+          "itens": [
+            {
+              "icone": "cadeado",
+              "t": "Poner traba"
+            }
+          ],
+          "detalhe": "Ya tiene comando, pero se puede cumplir sin hacer el trabajo: borrar la prueba que falla da \"0 falhas\"; veinte páginas vacías dan \"20 páginas\". Es el nivel más peligroso porque parece terminado."
+        },
+        {
+          "icone": "cadeado",
+          "titulo": "3 · protegido",
+          "sub": "comando + traba",
+          "forte": true,
+          "itens": [
+            {
+              "icone": "check",
+              "t": "Mínimo aceptado"
+            }
+          ],
+          "detalhe": "Comando más una traba que cierra el atajo: conteo mínimo (\"≥ 48 testes\"), archivo congelado o hash verificado, validador del contenido. Ejemplo del kit: \"0 falhas e ≥ 48 testes e tests/ intocado\", no solo \"0 falhas\"."
+        },
+        {
+          "icone": "escudo",
+          "titulo": "4 · independiente",
+          "sub": "nivel 3 + verificación externa",
+          "itens": [
+            {
+              "icone": "usuario",
+              "t": "Cuando el error sale caro"
+            }
+          ],
+          "detalhe": "Nivel 3 más alguien o algo de afuera verificando: prueba de punta a punta real, evaluador separado, muestra revisada por una persona. Úsalo cuando el error sale caro. Cómo montar el evaluador separado es el curso 1."
+        }
+      ],
+      "legenda": "Escala de la plantilla goal.md del kit execucao-longa. Mínimo aceptado: nivel 3.",
+      "rolagem": true,
+      "rolagem_fim": {
+        "titulo": "Sube hasta el 3, siempre",
+        "texto": "Lo vago y lo subjetivo se reescriben; lo burlable gana una traba; lo protegido es el mínimo para dejar a un agente solo; lo independiente es para cuando equivocarse sale caro.",
+        "curto": "Mínimo: comando + traba."
+      }
+    },
+    {
+      "tipo": "codigo",
+      "titulo": "La escala y las 5 preguntas, tal como están en la plantilla",
+      "sub": "Fragmento de execucao-longa/templates/goal.md. Pégalo en tu goal.md o en las reglas del agente.",
+      "blocos": [
+        {
+          "rot": "templates/goal.md · escala e perguntas",
+          "icone": "arquivo",
+          "conteudo": "ESCALA (borrar al completar)\n  0 vago ......... \"dejarlo bien\", \"mejorar\"                  → reescribir\n  1 subjetivo .... \"revisado y limpio\" (el agente se autoaprueba)  → reescribir\n  2 burlable ..... \"0 fallos\", \"20 páginas\" (borra el test, página vacía) → poner traba\n  3 protegido .... comando + traba (conteo mínimo, archivo congelado/hash, validador del contenido) → mínimo aceptado\n  4 independiente . nivel 3 + chequeo externo (e2e real, evaluador separado, muestra humana) → cuando el error cuesta caro\n\n5 PREGUNTAS — cada \"no\" baja el nivel\n  1. ¿Se puede chequear con un comando?\n  2. ¿La respuesta es sí/no (sin \"mejoró\")?\n  3. ¿Es imposible cumplirlo sin hacer el trabajo?\n  4. ¿La prueba aparece en la salida? (el evaluador del /goal en Claude solo lee la conversación)\n  5. ¿Están cubiertos función + regresión + límite?\n\nSEÑALES DE UN CRITERIO MALO: \"bueno/limpio/adecuado/completo\"; depende de que el agente diga que terminó;\nsolo conteo sin chequear el contenido; no dice qué NO puede cambiar; la verificación tarda horas."
+        },
+        {
+          "rot": "Criterio nivel 3 · las tres capas",
+          "icone": "check",
+          "conteudo": "**Función** — hace lo que debía\n- [ ] python3 -m pytest -q tests/ | tail -1 → 6 passed (e nunca menos de 6)\n\n**Regresión** — no rompió lo que ya funcionaba\n- [ ] python3 -m pytest -q | tail -1 → sem \"failed\"\n\n**Límite** — no tocó donde no debía\n- [ ] git diff --exit-code -- tests/; echo $? → 0\n- [ ] sha256sum -c tests.sha256 → tests/test_conta.py: OK"
+        }
+      ]
+    },
+    {
+      "tipo": "passos",
+      "titulo": "Del 0 al 3, un nivel a la vez",
+      "sub": "El mismo pedido reescrito hasta quedar a prueba de atajos.",
+      "passos": [
+        {
+          "titulo": "0 → 1",
+          "sub": "dar un objetivo",
+          "texto": [
+            "\"Mejorar la función que cuenta palabras\" se vuelve \"la función cuenta las palabras correctamente\".",
+            "Todavía es opinión: ¿quién dice \"correctamente\"?"
+          ]
+        },
+        {
+          "titulo": "1 → 2",
+          "sub": "poner un comando",
+          "texto": [
+            "\"python3 -m pytest -q imprime 0 failed\".",
+            "Ahora ya se puede comprobar. Pero borrar los tests también imprime 0 failed."
+          ]
+        },
+        {
+          "titulo": "2 → 3",
+          "sub": "cerrar el atajo",
+          "texto": [
+            "\"pytest imprime 6 passed, tests/ no cambió (git diff vacío) y el hash del archivo de test coincide\".",
+            "Cantidad mínima y archivo congelado: no hay forma de cumplirlo sin hacer el trabajo."
+          ],
+          "exemplo": {
+            "rot": "Nivel 3",
+            "texto": "pytest -q tests/ → 6 passed · git diff --exit-code -- tests/ → 0 · sha256sum -c tests.sha256 → OK"
+          }
+        },
+        {
+          "titulo": "3 → 4",
+          "sub": "si falla, sale caro",
+          "texto": [
+            "Agrega una comprobación que el agente no controla: otro agente que solo evalúa, una prueba de punta a punta en el entorno real, una muestra que revisas tú.",
+            "Ese nivel es el tema del curso 1."
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "pratica",
+      "titulo": "Práctica",
+      "sub": "En tu máquina. El ejercicio 2 usa un proyecto tuyo con tests.",
+      "exercicios": [
+        {
+          "id": "e1",
+          "titulo": "E1 · Clasificar y reescribir",
+          "min": "15 min",
+          "texto": "Escribe en criterios.md tres criterios que ya usaste (o viste) para decir que una tarea terminó. Al lado de cada uno, el nivel de 0 a 4 y, en una línea que empieza con <code>nível 3</code>, la versión reescrita. Escribe la marca <code>nível 3</code> exactamente así, en portugués: es la que cuenta el grep.",
+          "pronto": "<code>grep -c 'nível 3' criterios.md</code> → <code>3</code>, y <code>grep -ciE '\\b(bueno|buena|limpio|adecuado|completo)\\b' criterios.md</code> solo encuentra palabras en las líneas de los criterios originales, nunca en las reescritas."
+        },
+        {
+          "id": "e2",
+          "titulo": "E2 · Un criterio nivel 3 que corre",
+          "min": "15 min",
+          "texto": "En un proyecto tuyo con tests, corre el criterio completo: la suite con cantidad mínima y la traba de que los tests no cambiaron.",
+          "pronto": "<code>python3 -m pytest -q | tail -1</code> (o el comando de test de tu proyecto) muestra el número de tests, sin <code>failed</code>, y <code>git diff --exit-code -- tests/; echo $?</code> → <code>0</code>."
+        },
+        {
+          "id": "e3",
+          "titulo": "E3 · Probar que la traba funciona",
+          "min": "10 min",
+          "texto": "En la misma carpeta, simula el atajo: cambia el contenido de un test por un test vacío, corre las trabas y luego deshaz con git checkout.",
+          "pronto": "Con el test cambiado, <code>git diff --exit-code -- tests/; echo $?</code> → <code>1</code>; después de <code>git checkout -- tests/</code>, el mismo comando → <code>0</code>."
+        }
+      ]
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Prueba de la lección",
+      "perguntas": [
+        {
+          "p": "\"python3 -m pytest -q imprime 0 failed\". ¿Cuál es el nivel?",
+          "opcoes": [
+            "3 · protegido",
+            "2 · burlable",
+            "4 · independiente",
+            "1 · subjetivo"
+          ],
+          "certa": 1,
+          "explica": "Tiene comando, pero borrar los tests también da 0 failed. Falta la traba: cantidad mínima y tests intactos. El error común es creer que tener un comando ya es nivel 3.",
+          "ref": "diagrama",
+          "cert": true
+        },
+        {
+          "p": "¿Cuál de las 5 preguntas derriba \"el agente confirma que revisó todo\"?",
+          "opcoes": [
+            "Solo la 4",
+            "Ninguna: si el agente confirma por escrito, ya es nivel 3",
+            "Solo la 5",
+            "La 1: no hay comando; y la 3: se puede cumplir sin hacerlo"
+          ],
+          "certa": 3,
+          "explica": "No hay comando, la respuesta depende de que el agente diga que terminó (señal de criterio malo) y puede decirlo sin haberlo hecho. Nivel 1.",
+          "ref": "codigo"
+        },
+        {
+          "p": "¿Por qué importa la pregunta 4 (\"¿la prueba aparece en la salida?\") en el /goal de Claude Code?",
+          "opcoes": [
+            "Porque la salida impresa deja el log más fácil de revisar después",
+            "Porque el /goal corre las pruebas solo y necesita ver la salida",
+            "Porque el evaluador solo lee la conversación, no ejecuta nada",
+            "No importa: el /goal verifica los archivos al final"
+          ],
+          "certa": 2,
+          "explica": "Según la doc, el evaluador no corre comandos ni lee archivos. La prueba tiene que estar impresa en la conversación. El curso 1 lo profundiza.",
+          "ref": "codigo"
+        },
+        {
+          "p": "Un criterio cubre función y regresión, pero no dice nada sobre archivos que no podían cambiar. ¿Qué falta?",
+          "opcoes": [
+            "Nada: función y regresión ya cubren lo que importa",
+            "La capa de límite, como git diff --exit-code -- tests/",
+            "Más pruebas de función, cubriendo los casos borde que faltaron",
+            "Un modelo mejor, que no toque donde no debe"
+          ],
+          "certa": 1,
+          "explica": "Función, regresión y límite: sin límite, el agente puede cumplir el resto tocando donde no debía. \"No dice qué NO puede cambiar\" está entre las señales de criterio malo.",
+          "ref": "codigo",
+          "cert": true
+        }
+      ]
+    },
+    {
+      "tipo": "resumo",
+      "titulo": "En tres frases",
+      "itens": [
+        {
+          "t": "Cinco niveles",
+          "texto": "Vago, subjetivo, burlable, protegido, independiente. Mínimo para dejar al agente solo: 3."
+        },
+        {
+          "t": "La traba cierra el atajo",
+          "texto": "Conteo mínimo, archivo congelado o hash, validador del contenido: lo que impide cumplir sin hacer."
+        },
+        {
+          "t": "Tres capas",
+          "texto": "Función, regresión y límite, con la prueba impresa en la salida."
+        }
+      ]
+    },
+    {
+      "tipo": "links",
+      "titulo": "Para ir más allá",
+      "links": [
+        {
+          "t": "Plantilla goal.md del kit execucao-longa (con la escala)",
+          "href": "https://github.com/inematds/execucao-longa/blob/main/templates/goal.md",
+          "icone": "arquivo"
+        },
+        {
+          "t": "Curso 1 de la formación: verificación y evals (nivel 4, evaluador separado)",
+          "href": "https://inematds.github.io/loop-r-eng-verificacao-v72/es/",
+          "icone": "check"
+        },
+        {
+          "t": "Curso 2 de la formación: escribir el goal.md nivel 3+ completo",
+          "href": "https://inematds.github.io/loop-r-eng-execucao-longa-v72/es/",
+          "icone": "alvo"
+        }
+      ]
+    }
+  ]
+}
