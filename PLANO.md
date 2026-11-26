@@ -20,4 +20,4 @@ Simulações: `simfila` na aula 5 (ciclos descartáveis com interrupçêo e reto
 Vídeos publicados: "AI harness" (aula 2), LOOP-R trilha 2 (as cinco letras, aula 4). PT; EN/ES com mp4/vtt por idioma se o motor permitir.
 Imagens: capa + inicio + 8 heroes pelo Codex (uma por vez), sem texto. Cartões dos 6 cursos: capa do piloto (curso 2) e recortes das fotos deste curso para os irmêos ainda sem capa.
 Dono de cada assunto (aponta, nêo repete): verificaçêo/avaliador/testes congelados → curso 1; kit de 7 arquivos, goal.md completo, faixas, headless (`loop-longrun.sh`) → curso 2; subagentes → curso 3; permissões/hooks de guarda → curso 4; promoçêo/rollback → curso 5.
-Próximo curso da ordem: `https://inematds.github.io/loop-r-eng-verificacao-v72/` (curso 1; ainda nêo publicado em 19/10).
+Próximo curso da ordem: `https://linnoff88-dev.github.io/arckhe-/` (curso 1; ainda nêo publicado em 19/10).

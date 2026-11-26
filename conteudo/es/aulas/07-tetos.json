@@ -403,7 +403,7 @@
       "links": [
         {
           "t": "Kit execucao-longa: reglas de parada y loop headless con tope",
-          "href": "https://github.com/inematds/execucao-longa",
+          "href": "https://github.com/linnoff88-dev/execucao-longa",
           "icone": "git"
         },
         {
@@ -413,12 +413,12 @@
         },
         {
           "t": "Curso 2 de la formación: loop headless con flock, timeout y MemoryMax",
-          "href": "https://inematds.github.io/loop-r-eng-execucao-longa-v72/es/",
+          "href": "https://linnoff88-dev.github.io/arckhe-/es/",
           "icone": "terminal"
         },
         {
           "t": "Curso 4 de la formación: seguridad del loop autónomo",
-          "href": "https://inematds.github.io/loop-r-eng-seguranca-v72/es/",
+          "href": "https://linnoff88-dev.github.io/arckhe-/es/",
           "icone": "escudo"
         }
       ]

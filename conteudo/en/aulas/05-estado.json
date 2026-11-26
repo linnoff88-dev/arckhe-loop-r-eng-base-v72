@@ -307,12 +307,12 @@
         },
         {
           "t": "Course 2 of the track: long execution (the seven files of the kit)",
-          "href": "https://inematds.github.io/loop-r-eng-execucao-longa-v72/en/",
+          "href": "https://linnoff88-dev.github.io/arckhe-/en/",
           "icone": "pasta"
         },
         {
           "t": "LOOP-R, docs/02: files, not a database; git as promotion and rollback",
-          "href": "https://github.com/inematds/loop-r/blob/main/docs/02-arquitetura.md",
+          "href": "https://github.com/linnoff88-dev/loop-r/blob/main/docs/02-arquitetura.md",
           "icone": "git"
         }
       ]

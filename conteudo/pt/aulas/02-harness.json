@@ -234,7 +234,7 @@
       "tipo": "links",
       "titulo": "Para ir além",
       "links": [
-        { "t": "Vídeo AI harness (quadro branco e profissional, PT/EN/ES)", "href": "https://inematds.github.io/ai-harness/videos/", "icone": "video" },
+        { "t": "Vídeo AI harness (quadro branco e profissional, PT/EN/ES)", "href": "https://linnoff88-dev.github.io/arckhe-/videos/", "icone": "video" },
         { "t": "Anthropic: design de harness para apps de longa duraçêo (24/03/2026)", "href": "https://anthropic.com/engineering/harness-design-long-running-apps", "icone": "lupa" },
         { "t": "Anthropic: engenharia de contexto para agentes (29/09/2025)", "href": "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents", "icone": "lupa" }      ]
     }

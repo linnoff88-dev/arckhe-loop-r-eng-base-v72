@@ -230,8 +230,8 @@
       "titulo": "Para ir além",
       "links": [
         { "t": "Anthropic: harnesses para agentes de longa duraçêo (26/11/2025)", "href": "https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents", "icone": "lupa" },
-        { "t": "Curso 2 da formaçêo: execuçêo longa (os sete arquivos do kit)", "href": "https://inematds.github.io/loop-r-eng-execucao-longa-v72/", "icone": "pasta" },
-        { "t": "LOOP-R, docs/02: arquivos, nêo banco; git como promoçêo e rollback", "href": "https://github.com/inematds/loop-r/blob/main/docs/02-arquitetura.md", "icone": "git" }
+        { "t": "Curso 2 da formaçêo: execuçêo longa (os sete arquivos do kit)", "href": "https://linnoff88-dev.github.io/arckhe-/", "icone": "pasta" },
+        { "t": "LOOP-R, docs/02: arquivos, nêo banco; git como promoçêo e rollback", "href": "https://github.com/linnoff88-dev/loop-r/blob/main/docs/02-arquitetura.md", "icone": "git" }
       ]
     }
   ]

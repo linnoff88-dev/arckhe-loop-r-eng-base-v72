@@ -228,12 +228,12 @@
       "tipo": "links",
       "titulo": "Para ir além",
       "links": [
-        { "t": "Próximo: curso 1 da formaçêo, verificaçêo e evals", "href": "https://inematds.github.io/loop-r-eng-verificacao-v72/", "icone": "check" },
-        { "t": "Curso 2: execuçêo longa", "href": "https://inematds.github.io/loop-r-eng-execucao-longa-v72/", "icone": "relogio" },
-        { "t": "Curso 3: multiagente e orquestraçêo", "href": "https://inematds.github.io/loop-r-eng-multiagente-v72/", "icone": "robo" },
-        { "t": "Curso 4: segurança do loop autônomo", "href": "https://inematds.github.io/loop-r-eng-seguranca-v72/", "icone": "escudo" },
-        { "t": "Curso 5: o loop que aprende", "href": "https://inematds.github.io/loop-r-eng-aprende-v72/", "icone": "grafico" },
-        { "t": "Área LOOP-R Engenharia no eventos.inema.pro", "href": "https://eventos.inema.pro/loop-r-engenharia/", "icone": "camadas" }
+        { "t": "Próximo: curso 1 da formaçêo, verificaçêo e evals", "href": "https://linnoff88-dev.github.io/arckhe-/", "icone": "check" },
+        { "t": "Curso 2: execuçêo longa", "href": "https://linnoff88-dev.github.io/arckhe-/", "icone": "relogio" },
+        { "t": "Curso 3: multiagente e orquestraçêo", "href": "https://linnoff88-dev.github.io/arckhe-/", "icone": "robo" },
+        { "t": "Curso 4: segurança do loop autônomo", "href": "https://linnoff88-dev.github.io/arckhe-/", "icone": "escudo" },
+        { "t": "Curso 5: o loop que aprende", "href": "https://linnoff88-dev.github.io/arckhe-/", "icone": "grafico" },
+        { "t": "Área LOOP-R Engenharia no eventos.ARCKHÉ.pro", "href": "https://eventos.ARCKHÉ.pro/loop-r-engenharia/", "icone": "camadas" }
       ]
     }
   ]

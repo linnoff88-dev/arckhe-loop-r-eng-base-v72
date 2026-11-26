@@ -290,10 +290,10 @@
       "tipo": "links",
       "titulo": "Para ir além",
       "links": [
-        { "t": "Kit execucao-longa: regras de parada e loop headless com teto", "href": "https://github.com/inematds/execucao-longa", "icone": "git" },
+        { "t": "Kit execucao-longa: regras de parada e loop headless com teto", "href": "https://github.com/linnoff88-dev/execucao-longa", "icone": "git" },
         { "t": "Claude Code: /goal (teto de turnos na condiçêo)", "href": "https://code.claude.com/docs/en/goal", "icone": "alvo" },
-        { "t": "Curso 2 da formaçêo: loop headless com flock, timeout e MemoryMax", "href": "https://inematds.github.io/loop-r-eng-execucao-longa-v72/", "icone": "terminal" },
-        { "t": "Curso 4 da formaçêo: segurança do loop autônomo", "href": "https://inematds.github.io/loop-r-eng-seguranca-v72/", "icone": "escudo" }
+        { "t": "Curso 2 da formaçêo: loop headless com flock, timeout e MemoryMax", "href": "https://linnoff88-dev.github.io/arckhe-/", "icone": "terminal" },
+        { "t": "Curso 4 da formaçêo: segurança do loop autônomo", "href": "https://linnoff88-dev.github.io/arckhe-/", "icone": "escudo" }
       ]
     }
   ]

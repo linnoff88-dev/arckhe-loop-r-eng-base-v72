@@ -295,32 +295,32 @@
       "links": [
         {
           "t": "Next: course 1 of the track, verification and evals",
-          "href": "https://inematds.github.io/loop-r-eng-verificacao-v72/en/",
+          "href": "https://linnoff88-dev.github.io/arckhe-/en/",
           "icone": "check"
         },
         {
           "t": "Course 2: long runs",
-          "href": "https://inematds.github.io/loop-r-eng-execucao-longa-v72/en/",
+          "href": "https://linnoff88-dev.github.io/arckhe-/en/",
           "icone": "relogio"
         },
         {
           "t": "Course 3: multi-agent and orchestration",
-          "href": "https://inematds.github.io/loop-r-eng-multiagente-v72/en/",
+          "href": "https://linnoff88-dev.github.io/arckhe-/en/",
           "icone": "robo"
         },
         {
           "t": "Course 4: security of the autonomous loop",
-          "href": "https://inematds.github.io/loop-r-eng-seguranca-v72/en/",
+          "href": "https://linnoff88-dev.github.io/arckhe-/en/",
           "icone": "escudo"
         },
         {
           "t": "Course 5: the loop that learns",
-          "href": "https://inematds.github.io/loop-r-eng-aprende-v72/en/",
+          "href": "https://linnoff88-dev.github.io/arckhe-/en/",
           "icone": "grafico"
         },
         {
-          "t": "LOOP-R Engineering area at eventos.inema.pro",
-          "href": "https://eventos.inema.pro/loop-r-engenharia/",
+          "t": "LOOP-R Engineering area at eventos.ARCKHÉ.pro",
+          "href": "https://eventos.ARCKHÉ.pro/loop-r-engenharia/",
           "icone": "camadas"
         }
       ]

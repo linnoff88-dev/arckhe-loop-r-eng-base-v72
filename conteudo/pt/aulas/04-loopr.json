@@ -5,7 +5,7 @@
   "titulo": "LOOP-R: as cinco letras e os nove agentes",
   "titulo_curto": "LOOP-R: letras e agentes",
   "minutos": 18,
-  "lead": "Um agente que avalia o próprio trabalho tende a se aprovar. O LOOP-R, framework aberto do INEMA que dá nome a esta formaçêo, resolve isso separando funções: nove agentes, cada um com o que lê, o que escreve, o que decide e o que nunca faz. As cinco letras dêo a ordem do método. Aqui você vê o desenho; a parte de promover e voltar versões é do curso 5.",
+  "lead": "Um agente que avalia o próprio trabalho tende a se aprovar. O LOOP-R, framework aberto do ARCKHÉ que dá nome a esta formaçêo, resolve isso separando funções: nove agentes, cada um com o que lê, o que escreve, o que decide e o que nunca faz. As cinco letras dêo a ordem do método. Aqui você vê o desenho; a parte de promover e voltar versões é do curso 5.",
   "objetivo": "explicar as letras L-O-O-P-R e o contrato dos nove agentes (lê, escreve, decide, nunca faz) e dizer por que quem faz nêo avalia.",
   "competencias": [
     "explicar-metodo-loop-r",
@@ -99,7 +99,7 @@
         {
           "rot": "Terminal · clonar e conferir os agentes",
           "icone": "terminal",
-          "conteudo": "git clone https://github.com/inematds/loop-r ~/projetos/loop-r\ncd ~/projetos/loop-r\nls .claude/agents/*.md | wc -l\ngrep -h '^description:' .claude/agents/*.md | cut -c1-110"
+          "conteudo": "git clone https://github.com/linnoff88-dev/loop-r ~/projetos/loop-r\ncd ~/projetos/loop-r\nls .claude/agents/*.md | wc -l\ngrep -h '^description:' .claude/agents/*.md | cut -c1-110"
         },
         {
           "rot": "Terminal · ler o exemplo (dados sintéticos)",
@@ -242,10 +242,10 @@
       "tipo": "links",
       "titulo": "Para ir além",
       "links": [
-        { "t": "LOOP-R no GitHub (framework, agentes, exemplo)", "href": "https://github.com/inematds/loop-r", "icone": "git" },
-        { "t": "Guia do LOOP-R", "href": "https://inematds.github.io/loop-r/guia/", "icone": "camadas" },
-        { "t": "LOOP-R em vídeo: 5 trilhas, PT/EN/ES", "href": "https://inematds.github.io/loop-r/videos/", "icone": "video" },
-        { "t": "Curso 5 da formaçêo: o loop que aprende (promoçêo e rollback)", "href": "https://inematds.github.io/loop-r-eng-aprende-v72/", "icone": "grafico" }
+        { "t": "LOOP-R no GitHub (framework, agentes, exemplo)", "href": "https://github.com/linnoff88-dev/loop-r", "icone": "git" },
+        { "t": "Guia do LOOP-R", "href": "https://linnoff88-dev.github.io/arckhe-/guia/", "icone": "camadas" },
+        { "t": "LOOP-R em vídeo: 5 trilhas, PT/EN/ES", "href": "https://linnoff88-dev.github.io/arckhe-/videos/", "icone": "video" },
+        { "t": "Curso 5 da formaçêo: o loop que aprende (promoçêo e rollback)", "href": "https://linnoff88-dev.github.io/arckhe-/", "icone": "grafico" }
       ]
     }
   ]

@@ -276,17 +276,17 @@
       "links": [
         {
           "t": "goal.md template from the execucao-longa kit (with the scale)",
-          "href": "https://github.com/inematds/execucao-longa/blob/main/templates/goal.md",
+          "href": "https://github.com/linnoff88-dev/execucao-longa/blob/main/templates/goal.md",
           "icone": "arquivo"
         },
         {
           "t": "Track course 1: verification and evals (level 4, separate evaluator)",
-          "href": "https://inematds.github.io/loop-r-eng-verificacao-v72/en/",
+          "href": "https://linnoff88-dev.github.io/arckhe-/en/",
           "icone": "check"
         },
         {
           "t": "Track course 2: writing the complete level 3+ goal.md",
-          "href": "https://inematds.github.io/loop-r-eng-execucao-longa-v72/en/",
+          "href": "https://linnoff88-dev.github.io/arckhe-/en/",
           "icone": "alvo"
         }
       ]

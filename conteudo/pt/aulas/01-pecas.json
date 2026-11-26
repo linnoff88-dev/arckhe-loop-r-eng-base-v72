@@ -242,8 +242,8 @@
       "titulo": "Para ir além",
       "links": [
         { "t": "Anthropic: harnesses para agentes de longa duraçêo (26/11/2025)", "href": "https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents", "icone": "lupa" },
-        { "t": "Kit execucao-longa: objetivo com prova, estado em arquivos e regras de parada", "href": "https://github.com/inematds/execucao-longa", "icone": "git" },
-        { "t": "Curso 1 da formaçêo: verificaçêo e evals", "href": "https://inematds.github.io/loop-r-eng-verificacao-v72/", "icone": "check" }
+        { "t": "Kit execucao-longa: objetivo com prova, estado em arquivos e regras de parada", "href": "https://github.com/linnoff88-dev/execucao-longa", "icone": "git" },
+        { "t": "Curso 1 da formaçêo: verificaçêo e evals", "href": "https://linnoff88-dev.github.io/arckhe-/", "icone": "check" }
       ]
     }
   ]

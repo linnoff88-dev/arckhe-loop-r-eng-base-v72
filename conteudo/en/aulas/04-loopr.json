@@ -5,7 +5,7 @@
   "titulo": "LOOP-R: the five letters and the nine agents",
   "titulo_curto": "LOOP-R: letters and agents",
   "minutos": 18,
-  "lead": "An agent that evaluates its own work tends to approve itself. LOOP-R, the open INEMA framework that gives this track its name, solves this by separating roles: nine agents, each with what it reads, what it writes, what it decides and what it never does. The five letters give the order of the method. Here you see the design; promoting and rolling back versions belongs to course 5.",
+  "lead": "An agent that evaluates its own work tends to approve itself. LOOP-R, the open ARCKHÉ framework that gives this track its name, solves this by separating roles: nine agents, each with what it reads, what it writes, what it decides and what it never does. The five letters give the order of the method. Here you see the design; promoting and rolling back versions belongs to course 5.",
   "objetivo": "explain the letters L-O-O-P-R and the contract of the nine agents (reads, writes, decides, never does) and say why the one who does doesn't evaluate.",
   "competencias": [
     "explicar-metodo-loop-r",
@@ -141,7 +141,7 @@
         {
           "rot": "Terminal · clone and check the agents",
           "icone": "terminal",
-          "conteudo": "git clone https://github.com/inematds/loop-r ~/projetos/loop-r\ncd ~/projetos/loop-r\nls .claude/agents/*.md | wc -l\ngrep -h '^description:' .claude/agents/*.md | cut -c1-110"
+          "conteudo": "git clone https://github.com/linnoff88-dev/loop-r ~/projetos/loop-r\ncd ~/projetos/loop-r\nls .claude/agents/*.md | wc -l\ngrep -h '^description:' .claude/agents/*.md | cut -c1-110"
         },
         {
           "rot": "Terminal · read the example (synthetic data)",
@@ -315,22 +315,22 @@
       "links": [
         {
           "t": "LOOP-R on GitHub (framework, agents, example)",
-          "href": "https://github.com/inematds/loop-r",
+          "href": "https://github.com/linnoff88-dev/loop-r",
           "icone": "git"
         },
         {
           "t": "LOOP-R guide",
-          "href": "https://inematds.github.io/loop-r/guia/",
+          "href": "https://linnoff88-dev.github.io/arckhe-/guia/",
           "icone": "camadas"
         },
         {
           "t": "LOOP-R on video: 5 tracks, PT/EN/ES",
-          "href": "https://inematds.github.io/loop-r/videos/",
+          "href": "https://linnoff88-dev.github.io/arckhe-/videos/",
           "icone": "video"
         },
         {
           "t": "Course 5 of the track: the loop that learns (promotion and rollback)",
-          "href": "https://inematds.github.io/loop-r-eng-aprende-v72/en/",
+          "href": "https://linnoff88-dev.github.io/arckhe-/en/",
           "icone": "grafico"
         }
       ]
