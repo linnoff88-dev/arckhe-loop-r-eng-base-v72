@@ -5,8 +5,8 @@
   "titulo": "LOOP-R: as cinco letras e os nove agentes",
   "titulo_curto": "LOOP-R: letras e agentes",
   "minutos": 18,
-  "lead": "Um agente que avalia o próprio trabalho tende a se aprovar. O LOOP-R, framework aberto do INEMA que dá nome a esta formação, resolve isso separando funções: nove agentes, cada um com o que lê, o que escreve, o que decide e o que nunca faz. As cinco letras dão a ordem do método. Aqui você vê o desenho; a parte de promover e voltar versões é do curso 5.",
-  "objetivo": "explicar as letras L-O-O-P-R e o contrato dos nove agentes (lê, escreve, decide, nunca faz) e dizer por que quem faz não avalia.",
+  "lead": "Um agente que avalia o próprio trabalho tende a se aprovar. O LOOP-R, framework aberto do INEMA que dá nome a esta formaçêo, resolve isso separando funções: nove agentes, cada um com o que lê, o que escreve, o que decide e o que nunca faz. As cinco letras dêo a ordem do método. Aqui você vê o desenho; a parte de promover e voltar versões é do curso 5.",
+  "objetivo": "explicar as letras L-O-O-P-R e o contrato dos nove agentes (lê, escreve, decide, nunca faz) e dizer por que quem faz nêo avalia.",
   "competencias": [
     "explicar-metodo-loop-r",
     "ler-contrato-de-agente",
@@ -15,7 +15,7 @@
   "aprende": [
     { "icone": "lista", "t": "Localizar, Operar, Observar, Propor, Reforçar" },
     { "icone": "robo", "t": "Os nove agentes e o contrato de cada um" },
-    { "icone": "escudo", "t": "Por que a separação impede o loop de se convencer" },
+    { "icone": "escudo", "t": "Por que a separaçêo impede o loop de se convencer" },
     { "icone": "git", "t": "Um ciclo real do exemplo, lido no ledger" }
   ],
   "hero_alt": "Nove pequenas figuras de robô industrial com visor escuro em círculo sobre uma mesa técnica escura.",
@@ -41,19 +41,19 @@
           "sub": "executar sempre do mesmo jeito",
           "itens": [
             { "icone": "robo", "t": "Executor" },
-            { "icone": "arquivo", "t": "Uma versão atual, escrita" }
+            { "icone": "arquivo", "t": "Uma versêo atual, escrita" }
           ],
-          "detalhe": "O processo ganha uma versão atual, um roteiro curto seguido em toda execução, para que duas execuções sejam comparáveis. O Executor produz o artefato e registra uma linha. Não opina, não sugere, não muda o próprio prompt."
+          "detalhe": "O processo ganha uma versêo atual, um roteiro curto seguido em toda execuçêo, para que duas execuções sejam comparáveis. O Executor produz o artefato e registra uma linha. Nêo opina, nêo sugere, nêo muda o próprio prompt."
         },
         {
           "icone": "lupa",
           "titulo": "O · Observar",
-          "sub": "cada execução vira uma linha",
+          "sub": "cada execuçêo vira uma linha",
           "itens": [
             { "icone": "lista", "t": "Observador conta o CSV" },
-            { "icone": "x", "t": "Não explica causa" }
+            { "icone": "x", "t": "Nêo explica causa" }
           ],
-          "detalhe": "Uma linha por execução, sempre as mesmas colunas, resultado em sim ou não. O Observador transforma as linhas em evidência: contagens por versão e variante, sem adjetivo. Se os dados não batem com o esquema, ele para o ciclo."
+          "detalhe": "Uma linha por execuçêo, sempre as mesmas colunas, resultado em sim ou nêo. O Observador transforma as linhas em evidência: contagens por versêo e variante, sem adjetivo. Se os dados nêo batem com o esquema, ele para o ciclo."
         },
         {
           "icone": "cerebro",
@@ -62,9 +62,9 @@
           "forte": true,
           "itens": [
             { "icone": "lupa", "t": "Crítico · Otimizador" },
-            { "icone": "escudo", "t": "Guardião: veto final" }
+            { "icone": "escudo", "t": "Guardiêo: veto final" }
           ],
-          "detalhe": "O Crítico diz o que funcionou e o que falhou, com a força da evidência, sem propor solução. O Otimizador escreve hipóteses no formato SE, ENTÃO, PORQUE e MUDANÇA, sem repetir as descartadas. O Guardião veta o que toca no que nunca muda ou no teto; o veto é final e ele não negocia."
+          "detalhe": "O Crítico diz o que funcionou e o que falhou, com a força da evidência, sem propor soluçêo. O Otimizador escreve hipóteses no formato SE, ENTêO, PORQUE e MUDANÇA, sem repetir as descartadas. O Guardiêo veta o que toca no que nunca muda ou no teto; o veto é final e ele nêo negocia."
         },
         {
           "icone": "check",
@@ -74,16 +74,16 @@
             { "icone": "grafico", "t": "Experimentador: A × B, amostra" },
             { "icone": "check", "t": "Avaliador: 3 respostas" }
           ],
-          "detalhe": "O Experimentador desenha o teste A contra B, com amostra mínima calculada antes. O Avaliador responde uma de três: B_GANHOU, A_SEGUE ou AMOSTRA_INSUFICIENTE. Não existe \"está ganhando\". A Memória registra tudo sem apagar, e o Meta-agente olha o sistema (custo, vetos) e só relata."
+          "detalhe": "O Experimentador desenha o teste A contra B, com amostra mínima calculada antes. O Avaliador responde uma de três: B_GANHOU, A_SEGUE ou AMOSTRA_INSUFICIENTE. Nêo existe \"está ganhando\". A Memória registra tudo sem apagar, e o Meta-agente olha o sistema (custo, vetos) e só relata."
         }
       ],
-      "volta": "Promovida ou descartada, a decisão vai para a memória e o próximo ciclo começa da nova evidência.",
+      "volta": "Promovida ou descartada, a decisêo vai para a memória e o próximo ciclo começa da nova evidência.",
       "legenda": "Letras como apresentadas na trilha 2 do vídeo do LOOP-R; contratos dos agentes em loop-r/docs/04-agentes.md e .claude/agents/.",
       "rolagem": true,
       "rolagem_fim": {
-        "titulo": "Quem monta não é quem inspeciona",
-        "texto": "Nove funções separadas, cada uma lendo só o que o contrato manda. É a separação, não um prompt mais esperto, que impede o loop de se convencer de que melhorou.",
-        "curto": "Separar funções é a verificação do LOOP-R."
+        "titulo": "Quem monta nêo é quem inspeciona",
+        "texto": "Nove funções separadas, cada uma lendo só o que o contrato manda. É a separaçêo, nêo um prompt mais esperto, que impede o loop de se convencer de que melhorou.",
+        "curto": "Separar funções é a verificaçêo do LOOP-R."
       }
     },
     {
@@ -94,7 +94,7 @@
         {
           "rot": "Contratos (docs/02 §4)",
           "icone": "lista",
-          "conteudo": "| Agente         | Lê                                  | Escreve                    | Decide                  | Nunca faz                       |\n|----------------|-------------------------------------|----------------------------|-------------------------|---------------------------------|\n| Executor       | versoes/atual, entrada da tarefa    | artefato + linha no CSV    | nada                    | mudar o próprio prompt          |\n| Observador     | CSV, esquema                        | evidencia.md               | nada                    | interpretar causa               |\n| Crítico        | evidência, versão atual, memória    | critica.md                 | se há padrão com N      | propor solução                  |\n| Otimizador     | crítica, memória (descartados!)     | hipoteses.md               | nada                    | repetir hipótese descartada     |\n| Guardião       | hipóteses, yaml (guarda-corpos, teto)| veto/aprovação por hipótese| veto é final            | ser convencido                  |\n| Experimentador | hipóteses aprovadas, amostra mínima | experimento.md             | desenho do teste        | rodar sem N calculado           |\n| Avaliador      | resultados A/B, rubrica, calibração | veredito.md                | uma das 3 respostas     | \"parece melhor\"                 |\n| Memória        | tudo do ciclo                       | ledger + 3 arquivos        | nada                    | apagar registro                 |\n| Meta-agente    | manifestos de todos os ciclos       | relatorio-meta.md          | nada (v0.1/v1)          | alterar agentes                 |"
+          "conteudo": "| Agente         | Lê                                  | Escreve                    | Decide                  | Nunca faz                       |\n|----------------|-------------------------------------|----------------------------|-------------------------|---------------------------------|\n| Executor       | versoes/atual, entrada da tarefa    | artefato + linha no CSV    | nada                    | mudar o próprio prompt          |\n| Observador     | CSV, esquema                        | evidencia.md               | nada                    | interpretar causa               |\n| Crítico        | evidência, versêo atual, memória    | critica.md                 | se há padrêo com N      | propor soluçêo                  |\n| Otimizador     | crítica, memória (descartados!)     | hipoteses.md               | nada                    | repetir hipótese descartada     |\n| Guardiêo       | hipóteses, yaml (guarda-corpos, teto)| veto/aprovaçêo por hipótese| veto é final            | ser convencido                  |\n| Experimentador | hipóteses aprovadas, amostra mínima | experimento.md             | desenho do teste        | rodar sem N calculado           |\n| Avaliador      | resultados A/B, rubrica, calibraçêo | veredito.md                | uma das 3 respostas     | \"parece melhor\"                 |\n| Memória        | tudo do ciclo                       | ledger + 3 arquivos        | nada                    | apagar registro                 |\n| Meta-agente    | manifestos de todos os ciclos       | relatorio-meta.md          | nada (v0.1/v1)          | alterar agentes                 |"
         },
         {
           "rot": "Terminal · clonar e conferir os agentes",
@@ -112,11 +112,11 @@
         "abas": [
           {
             "rot": "Saída capturada (19/10/2026)",
-            "html": "<pre>$ ls .claude/agents/*.md | wc -l\n9\n\n$ grep -c '^| 2026' memoria/ledger.md\n8\n\n$ grep -oE '...' memoria/ledger.md | sort | uniq -c\n      2 | AGUARDANDO |\n      1 | DESCARTADA |\n      2 | EM TESTE |\n      1 | PROMOVIDA v2 |\n      2 | VETADA |</pre><p>Quatro ciclos, oito linhas de decisão: duas hipóteses vetadas pelo Guardião antes de qualquer teste, uma descartada pelo Avaliador, uma promovida para a v2.</p>"
+            "html": "<pre>$ ls .claude/agents/*.md | wc -l\n9\n\n$ grep -c '^| 2026' memoria/ledger.md\n8\n\n$ grep -oE '...' memoria/ledger.md | sort | uniq -c\n      2 | AGUARDANDO |\n      1 | DESCARTADA |\n      2 | EM TESTE |\n      1 | PROMOVIDA v2 |\n      2 | VETADA |</pre><p>Quatro ciclos, oito linhas de decisêo: duas hipóteses vetadas pelo Guardiêo antes de qualquer teste, uma descartada pelo Avaliador, uma promovida para a v2.</p>"
           },
           {
             "rot": "O que é real e o que é simulado",
-            "html": "<p>No exemplo <code>vendas-whatsapp</code>, os <b>agentes rodaram de verdade</b>; os <b>dados são sintéticos</b> (1.500 linhas geradas) e as <b>decisões humanas são simuladas</b>. O README do exemplo separa o que é real do que é simulado. Use-o para ler o mecanismo, não como prova de ganho.</p>"
+            "html": "<p>No exemplo <code>vendas-whatsapp</code>, os <b>agentes rodaram de verdade</b>; os <b>dados sêo sintéticos</b> (1.500 linhas geradas) e as <b>decisões humanas sêo simuladas</b>. O README do exemplo separa o que é real do que é simulado. Use-o para ler o mecanismo, nêo como prova de ganho.</p>"
           }
         ]
       }
@@ -124,13 +124,13 @@
     {
       "tipo": "passos",
       "titulo": "Um descarte que ensina",
-      "sub": "Ciclo 0002 do exemplo: a métrica subiu e mesmo assim a versão nova não entrou.",
+      "sub": "Ciclo 0002 do exemplo: a métrica subiu e mesmo assim a versêo nova nêo entrou.",
       "passos": [
         {
           "titulo": "A hipótese",
           "sub": "Otimizador",
           "texto": [
-            "Propostas com no máximo 80 palavras. Passou pelo Guardião e foi a teste, A contra B, 300 execuções de cada lado."
+            "Propostas com no máximo 80 palavras. Passou pelo Guardiêo e foi a teste, A contra B, 300 execuções de cada lado."
           ]
         },
         {
@@ -150,11 +150,11 @@
           ]
         },
         {
-          "titulo": "A lição registrada",
+          "titulo": "A liçêo registrada",
           "sub": "Memória",
           "texto": [
-            "A hipótese foi para descartados, com os números, para não ser testada de novo. E a tolerância de evento raro foi corrigida para os próximos testes, porque zero não separa efeito de acaso.",
-            "Promover e voltar versão é o assunto do curso 5."
+            "A hipótese foi para descartados, com os números, para nêo ser testada de novo. E a tolerância de evento raro foi corrigida para os próximos testes, porque zero nêo separa efeito de acaso.",
+            "Promover e voltar versêo é o assunto do curso 5."
           ]
         }
       ]
@@ -188,8 +188,8 @@
           "id": "e3",
           "titulo": "E3 · Separar quem faz de quem avalia",
           "min": "10 min",
-          "texto": "Pense num loop seu (código, conteúdo, atendimento). Escreva em agentes.md duas linhas, uma começando por <code>executa:</code> e outra por <code>avalia:</code>, e diga o que o avaliador lê que o executor não escreve.",
-          "pronto": "<code>grep -cE '^(executa|avalia):' agentes.md</code> → <code>2</code>, e a linha \"avalia:\" aponta uma fonte que o executor não controla (teste, planilha, rubrica)."
+          "texto": "Pense num loop seu (código, conteúdo, atendimento). Escreva em agentes.md duas linhas, uma começando por <code>executa:</code> e outra por <code>avalia:</code>, e diga o que o avaliador lê que o executor nêo escreve.",
+          "pronto": "<code>grep -cE '^(executa|avalia):' agentes.md</code> → <code>2</code>, e a linha \"avalia:\" aponta uma fonte que o executor nêo controla (teste, planilha, rubrica)."
         }
       ]
     },
@@ -199,9 +199,9 @@
       "perguntas": [
         {
           "p": "Por que o LOOP-R usa nove agentes em vez de um agente que faz e confere?",
-          "opcoes": ["Porque nove agentes em paralelo terminam o ciclo mais rápido", "Porque o Claude Code exige um agente por função", "Porque separar impede um agente de se convencer de que melhorou", "Porque cada modelo só aguenta uma tarefa de cada vez sem se perder"],
+          "opcoes": ["Porque nove agentes em paralelo terminam o ciclo mais rápido", "Porque o Claude Code exige um agente por funçêo", "Porque separar impede um agente de se convencer de que melhorou", "Porque cada modelo só aguenta uma tarefa de cada vez sem se perder"],
           "certa": 2,
-          "explica": "A doc 04 diz: cada um lê só o que o contrato lista e recusa o que está em \"nunca\". O agente que avalia o próprio trabalho tende a aprová-lo; separar funções é a verificação embutida no desenho.",
+          "explica": "A doc 04 diz: cada um lê só o que o contrato lista e recusa o que está em \"nunca\". O agente que avalia o próprio trabalho tende a aprová-lo; separar funções é a verificaçêo embutida no desenho.",
           "ref": "diagrama",
           "cert": true
         },
@@ -213,17 +213,17 @@
           "ref": "passos"
         },
         {
-          "p": "Qual agente tem decisão que ninguém revisa dentro do ciclo?",
-          "opcoes": ["Guardião", "Avaliador", "Crítico", "Meta-agente"],
+          "p": "Qual agente tem decisêo que ninguém revisa dentro do ciclo?",
+          "opcoes": ["Guardiêo", "Avaliador", "Crítico", "Meta-agente"],
           "certa": 0,
-          "explica": "O veto do Guardião é final, ele não negocia e em dúvida veta. O Meta-agente, ao contrário, não decide nada nas versões atuais: só relata.",
+          "explica": "O veto do Guardiêo é final, ele nêo negocia e em dúvida veta. O Meta-agente, ao contrário, nêo decide nada nas versões atuais: só relata.",
           "ref": "codigo"
         },
         {
           "p": "O que o exemplo vendas-whatsapp prova?",
-          "opcoes": ["Que o LOOP-R aumenta as vendas de uma loja real no WhatsApp", "Que o mecanismo roda com agentes reais, sobre dados sintéticos", "Nada: é só documentação, os agentes não rodaram de verdade", "Que 300 execuções bastam para qualquer loop chegar a um veredito confiável"],
+          "opcoes": ["Que o LOOP-R aumenta as vendas de uma loja real no WhatsApp", "Que o mecanismo roda com agentes reais, sobre dados sintéticos", "Nada: é só documentaçêo, os agentes nêo rodaram de verdade", "Que 300 execuções bastam para qualquer loop chegar a um veredito confiável"],
           "certa": 1,
-          "explica": "Os agentes rodaram de verdade; os dados foram gerados e as aprovações, simuladas. Serve para ler o mecanismo, não como prova de ganho real.",
+          "explica": "Os agentes rodaram de verdade; os dados foram gerados e as aprovações, simuladas. Serve para ler o mecanismo, nêo como prova de ganho real.",
           "ref": "codigo",
           "cert": true
         }
@@ -235,7 +235,7 @@
       "itens": [
         { "t": "Cinco letras", "texto": "Localizar o processo e o número, Operar sempre igual, Observar em linhas, Propor com crítica e veto, Reforçar só com teste." },
         { "t": "Nove contratos", "texto": "Cada agente lê, escreve e decide só o que o contrato manda, e tem uma lista do que nunca faz." },
-        { "t": "Não-regressão", "texto": "O LOOP-R não garante que o número sobe; garante que versão pior não substitui a atual por decisão do sistema." }
+        { "t": "Nêo-regressêo", "texto": "O LOOP-R nêo garante que o número sobe; garante que versêo pior nêo substitui a atual por decisêo do sistema." }
       ]
     },
     {
@@ -245,7 +245,7 @@
         { "t": "LOOP-R no GitHub (framework, agentes, exemplo)", "href": "https://github.com/inematds/loop-r", "icone": "git" },
         { "t": "Guia do LOOP-R", "href": "https://inematds.github.io/loop-r/guia/", "icone": "camadas" },
         { "t": "LOOP-R em vídeo: 5 trilhas, PT/EN/ES", "href": "https://inematds.github.io/loop-r/videos/", "icone": "video" },
-        { "t": "Curso 5 da formação: o loop que aprende (promoção e rollback)", "href": "https://inematds.github.io/loop-r-eng-aprende-v72/", "icone": "grafico" }
+        { "t": "Curso 5 da formaçêo: o loop que aprende (promoçêo e rollback)", "href": "https://inematds.github.io/loop-r-eng-aprende-v72/", "icone": "grafico" }
       ]
     }
   ]

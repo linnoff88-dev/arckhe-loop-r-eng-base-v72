@@ -154,7 +154,7 @@
         "abas": [
           {
             "rot": "Captured output (10/19/2026)",
-            "html": "<pre>$ python3 ciclo.py\nreleu features.json: 0 feitos, 3 pendentes\nfaz: f1 (ler o CSV)\ncommit: feito: f1\n--- (sessão descartada; outra começa do zero)\n$ python3 ciclo.py\nreleu features.json: 1 feitos, 2 pendentes\nfaz: f2 (contar linhas)\ncommit: feito: f2\n$ python3 ciclo.py\nreleu features.json: 2 feitos, 1 pendentes\nfaz: f3 (gravar o resumo)\ncommit: feito: f3\n$ python3 ciclo.py\nnada pendente: objetivo cumprido\n\n$ git log --oneline\n58d590c feito: f3\n16ff9e9 feito: f2\n7345668 feito: f1\n7f9664d inicio</pre><p>The hashes will differ on your machine; the order and the messages will not.</p>"
+            "html": "<pre>$ python3 ciclo.py\nreleu features.json: 0 feitos, 3 pendentes\nfaz: f1 (ler o CSV)\ncommit: feito: f1\n--- (sessêo descartada; outra começa do zero)\n$ python3 ciclo.py\nreleu features.json: 1 feitos, 2 pendentes\nfaz: f2 (contar linhas)\ncommit: feito: f2\n$ python3 ciclo.py\nreleu features.json: 2 feitos, 1 pendentes\nfaz: f3 (gravar o resumo)\ncommit: feito: f3\n$ python3 ciclo.py\nnada pendente: objetivo cumprido\n\n$ git log --oneline\n58d590c feito: f3\n16ff9e9 feito: f2\n7345668 feito: f1\n7f9664d inicio</pre><p>The hashes will differ on your machine; the order and the messages will not.</p>"
           },
           {
             "rot": "In an agent loop",

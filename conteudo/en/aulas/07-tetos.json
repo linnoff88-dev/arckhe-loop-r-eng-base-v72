@@ -318,8 +318,8 @@
           "id": "e3",
           "titulo": "E3 · The caps for your next loop",
           "min": "10 min",
-          "texto": "In a tetos.md file, write the value of each cap for a loop of your own, and what will always need you, one line for each: <code>turnos:</code>, <code>tempo:</code>, <code>memória:</code>, <code>estagnação:</code>, <code>custo:</code> and <code>humano:</code>.",
-          "pronto": "<code>grep -cE '^(turnos|tempo|memória|estagnação|custo|humano):' tetos.md</code> → <code>6</code>, and the stagnation line has a number of cycles."
+          "texto": "In a tetos.md file, write the value of each cap for a loop of your own, and what will always need you, one line for each: <code>turnos:</code>, <code>tempo:</code>, <code>memória:</code>, <code>estagnaçêo:</code>, <code>custo:</code> and <code>humano:</code>.",
+          "pronto": "<code>grep -cE '^(turnos|tempo|memória|estagnaçêo|custo|humano):' tetos.md</code> → <code>6</code>, and the stagnation line has a number of cycles."
         }
       ]
     },

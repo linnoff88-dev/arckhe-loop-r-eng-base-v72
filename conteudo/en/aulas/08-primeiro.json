@@ -98,7 +98,7 @@
         {
           "rot": "tests/test_conta.py",
           "icone": "arquivo",
-          "conteudo": "from conta import conta_palavras\n\n\ndef test_vazio():\n    assert conta_palavras(\"\") == 0\n\n\ndef test_uma():\n    assert conta_palavras(\"loop\") == 1\n\n\ndef test_espacos_repetidos():\n    assert conta_palavras(\"  o   loop  para \") == 3\n\n\ndef test_quebra_de_linha_e_tab():\n    assert conta_palavras(\"objetivo\\nestado\\tação\") == 3\n\n\ndef test_pontuacao_nao_e_palavra():\n    assert conta_palavras(\"pronto , quando - passa\") == 3\n\n\ndef test_acentos():\n    assert conta_palavras(\"verificação e parada\") == 3"
+          "conteudo": "from conta import conta_palavras\n\n\ndef test_vazio():\n    assert conta_palavras(\"\") == 0\n\n\ndef test_uma():\n    assert conta_palavras(\"loop\") == 1\n\n\ndef test_espacos_repetidos():\n    assert conta_palavras(\"  o   loop  para \") == 3\n\n\ndef test_quebra_de_linha_e_tab():\n    assert conta_palavras(\"objetivo\\nestado\\taçêo\") == 3\n\n\ndef test_pontuacao_nao_e_palavra():\n    assert conta_palavras(\"pronto , quando - passa\") == 3\n\n\ndef test_acentos():\n    assert conta_palavras(\"verificaçêo e parada\") == 3"
         },
         {
           "rot": "Claude Code · the /goal condition (level 3, with a cap)",
@@ -113,7 +113,7 @@
         {
           "rot": "loop-codex.sh · the same loop with codex exec (exercise 3)",
           "icone": "voltar",
-          "conteudo": "#!/usr/bin/env bash\n# Your own loop: at most 3 cycles of codex exec; the three commands decide when to stop.\nset -u\ncd ~/ensaio-loop/conta\npasses() {\n  python3 -m pytest -q -p no:cacheprovider tests/ 2>&1 | tail -1 | grep -q '^6 passed' &&\n  sha256sum -c --quiet tests.sha256 &&\n  git diff --quiet -- tests/\n}\nfor ciclo in 1 2 3; do\n  if passes; then echo \"PRONTO no ciclo $((ciclo - 1))\"; exit 0; fi\n  echo \"ciclo $ciclo: codex exec\"\n  timeout 15m codex exec --sandbox workspace-write \\\n    \"Crie conta.py com conta_palavras(texto) que faça os testes de tests/ passarem. Não altere nada em tests/.\"\ndone\nif passes; then echo \"PRONTO no ciclo 3\"; exit 0; fi\necho \"PARADO: teto de 3 ciclos\"; exit 2"
+          "conteudo": "#!/usr/bin/env bash\n# Your own loop: at most 3 cycles of codex exec; the three commands decide when to stop.\nset -u\ncd ~/ensaio-loop/conta\npasses() {\n  python3 -m pytest -q -p no:cacheprovider tests/ 2>&1 | tail -1 | grep -q '^6 passed' &&\n  sha256sum -c --quiet tests.sha256 &&\n  git diff --quiet -- tests/\n}\nfor ciclo in 1 2 3; do\n  if passes; then echo \"PRONTO no ciclo $((ciclo - 1))\"; exit 0; fi\n  echo \"ciclo $ciclo: codex exec\"\n  timeout 15m codex exec --sandbox workspace-write \\\n    \"Crie conta.py com conta_palavras(texto) que faça os testes de tests/ passarem. Nêo altere nada em tests/.\"\ndone\nif passes; then echo \"PRONTO no ciclo 3\"; exit 0; fi\necho \"PARADO: teto de 3 ciclos\"; exit 2"
         }
       ],
       "saida": {

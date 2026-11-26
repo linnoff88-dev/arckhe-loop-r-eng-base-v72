@@ -5,7 +5,7 @@
   "titulo": "Estado fora do modelo: arquivos e git como memória",
   "titulo_curto": "Estado em arquivos e git",
   "minutos": 16,
-  "lead": "Num loop longo, o contexto do modelo vai ser compactado, resetado ou trocado por uma sessão nova. O que só existia na conversa some ou volta como resumo, misturando fato e palpite. A saída: sessão descartável, estado em arquivos e no git, e todo ciclo começa relendo. Você monta um ciclo assim e o interrompe de propósito.",
+  "lead": "Num loop longo, o contexto do modelo vai ser compactado, resetado ou trocado por uma sessêo nova. O que só existia na conversa some ou volta como resumo, misturando fato e palpite. A saída: sessêo descartável, estado em arquivos e no git, e todo ciclo começa relendo. Você monta um ciclo assim e o interrompe de propósito.",
   "objetivo": "montar um ciclo descartável que relê o estado em arquivo, faz um item, verifica e commita, e retomar depois de interromper sem refazer nada.",
   "competencias": [
     "guardar-estado-fora-do-modelo",
@@ -13,7 +13,7 @@
     "retomar-loop-interrompido"
   ],
   "aprende": [
-    { "icone": "memoria", "t": "Por que a memória do modelo não aguenta um loop longo" },
+    { "icone": "memoria", "t": "Por que a memória do modelo nêo aguenta um loop longo" },
     { "icone": "lista", "t": "A lista de itens com passes, o arquivo de progresso e o git log" },
     { "icone": "voltar", "t": "Interromper e retomar sem refazer nem pular" },
     { "icone": "git", "t": "Git como desfazer e como histórico do loop" }
@@ -22,18 +22,18 @@
   "secoes": [
     {
       "tipo": "diagrama",
-      "titulo": "Uma sessão descartável, um estado que fica",
+      "titulo": "Uma sessêo descartável, um estado que fica",
       "sub": "Clique em cada passo do ciclo: o que ele lê e o que deixa gravado.",
       "nos": [
         {
           "icone": "robo",
-          "titulo": "Sessão nova",
-          "sub": "não lembra de nada",
+          "titulo": "Sessêo nova",
+          "sub": "nêo lembra de nada",
           "itens": [
             { "icone": "x", "t": "Sem a conversa anterior" },
             { "icone": "check", "t": "Pode cair a qualquer hora" }
           ],
-          "detalhe": "Pode ser um /clear, uma compactação, um codex exec novo, o Ralph chamando de novo ou outra pessoa assumindo. O desenho parte do pior caso: a sessão não lembra de nada e pode ser interrompida no meio."
+          "detalhe": "Pode ser um /clear, uma compactaçêo, um codex exec novo, o Ralph chamando de novo ou outra pessoa assumindo. O desenho parte do pior caso: a sessêo nêo lembra de nada e pode ser interrompida no meio."
         },
         {
           "icone": "arquivo",
@@ -44,7 +44,7 @@
             { "icone": "lista", "t": "features.json: itens com passes" },
             { "icone": "git", "t": "git log e progress.md" }
           ],
-          "detalhe": "No harness de longa duração da Anthropic (26/11/2025), toda sessão começa assim: onde estou (pwd), o que foi feito (git log e o arquivo de progresso), qual o próximo item, e um teste básico antes de codar. A lista de itens é JSON com o campo passes; o post diz que o modelo sobrescreve JSON menos que Markdown."
+          "detalhe": "No harness de longa duraçêo da Anthropic (26/11/2025), toda sessêo começa assim: onde estou (pwd), o que foi feito (git log e o arquivo de progresso), qual o próximo item, e um teste básico antes de codar. A lista de itens é JSON com o campo passes; o post diz que o modelo sobrescreve JSON menos que Markdown."
         },
         {
           "icone": "terminal",
@@ -52,19 +52,19 @@
           "sub": "o primeiro pendente",
           "itens": [
             { "icone": "seta", "t": "Um só por ciclo" },
-            { "icone": "x", "t": "Não reabre item com passes true" }
+            { "icone": "x", "t": "Nêo reabre item com passes true" }
           ],
-          "detalhe": "Escolhe o primeiro item pendente e faz só ele. No post da Anthropic, as sessões seguintes só podem mudar o campo passes; não reescrevem nem apagam itens da lista."
+          "detalhe": "Escolhe o primeiro item pendente e faz só ele. No post da Anthropic, as sessões seguintes só podem mudar o campo passes; nêo reescrevem nem apagam itens da lista."
         },
         {
           "icone": "check",
           "titulo": "Verifica e marca",
           "sub": "passes só com prova",
           "itens": [
-            { "icone": "check", "t": "passes: true se a verificação passou" },
+            { "icone": "check", "t": "passes: true se a verificaçêo passou" },
             { "icone": "arquivo", "t": "Uma linha em progress.md" }
           ],
-          "detalhe": "O item só vira passes: true se a verificação daquele item passou. A linha no progresso diz quando e o resultado. Se falhou, o item continua pendente e o motivo fica registrado."
+          "detalhe": "O item só vira passes: true se a verificaçêo daquele item passou. A linha no progresso diz quando e o resultado. Se falhou, o item continua pendente e o motivo fica registrado."
         },
         {
           "icone": "git",
@@ -74,22 +74,22 @@
             { "icone": "git", "t": "Um commit por item" },
             { "icone": "voltar", "t": "git revert desfaz" }
           ],
-          "detalhe": "O commit é o checkpoint: se a próxima sessão cair, nada do que foi verificado se perde; se um item saiu errado, git revert desfaz. O LOOP-R usa o mesmo princípio para versões do processo (\"git é o mecanismo de promoção e rollback\"; detalhe no curso 5)."
+          "detalhe": "O commit é o checkpoint: se a próxima sessêo cair, nada do que foi verificado se perde; se um item saiu errado, git revert desfaz. O LOOP-R usa o mesmo princípio para versões do processo (\"git é o mecanismo de promoçêo e rollback\"; detalhe no curso 5)."
         }
       ],
-      "volta": "A sessão acaba ou cai; a próxima começa relendo os arquivos e segue do primeiro pendente.",
+      "volta": "A sessêo acaba ou cai; a próxima começa relendo os arquivos e segue do primeiro pendente.",
       "legenda": "O kit execucao-longa leva a ideia para sete arquivos (goal, plan, state, progress, failures, decisions, canal): é a aula 1 do curso 2.",
       "rolagem": true,
       "rolagem_fim": {
-        "titulo": "Relê a pasta, não a conversa",
-        "texto": "A sessão é descartável; o estado não. O que precisa sobreviver a uma compactação, a um reset ou a uma troca de modelo vai para arquivo e commit antes do fim do ciclo.",
+        "titulo": "Relê a pasta, nêo a conversa",
+        "texto": "A sessêo é descartável; o estado nêo. O que precisa sobreviver a uma compactaçêo, a um reset ou a uma troca de modelo vai para arquivo e commit antes do fim do ciclo.",
         "curto": "Arquivo + commit a cada item."
       }
     },
     {
       "tipo": "codigo",
       "titulo": "Um ciclo descartável em Python",
-      "sub": "Cada execução é uma \"sessão\" que não lembra de nada: relê, faz um item, verifica, grava e commita. Sem modelo: a ação é escrever um arquivo.",
+      "sub": "Cada execuçêo é uma \"sessêo\" que nêo lembra de nada: relê, faz um item, verifica, grava e commita. Sem modelo: a açêo é escrever um arquivo.",
       "blocos": [
         {
           "rot": "Terminal · preparar a pasta",
@@ -99,7 +99,7 @@
         {
           "rot": "ciclo.py",
           "icone": "arquivo",
-          "conteudo": "#!/usr/bin/env python3\n\"\"\"Um ciclo que começa do zero toda vez: relê o estado nos arquivos, faz UM item, grava e commita.\"\"\"\nimport json, subprocess, sys, datetime, pathlib\n\nestado = pathlib.Path(\"features.json\")\nitens = json.loads(estado.read_text())\npendentes = [i for i in itens if not i[\"passes\"]]\nif not pendentes:\n    print(\"nada pendente: objetivo cumprido\")\n    sys.exit(0)\nitem = pendentes[0]\nprint(f\"releu features.json: {len(itens) - len(pendentes)} feitos, {len(pendentes)} pendentes\")\nprint(f\"faz: {item['id']} ({item['descricao']})\")\npathlib.Path(f\"{item['id']}.txt\").write_text(item[\"descricao\"] + \"\\n\")   # a \"ação\"\nitem[\"passes\"] = pathlib.Path(f\"{item['id']}.txt\").exists()                # a \"verificação\"\nestado.write_text(json.dumps(itens, ensure_ascii=False, indent=2) + \"\\n\")\nagora = datetime.datetime.now().strftime(\"%Y-%m-%d %H:%M\")\nwith open(\"progress.md\", \"a\") as f:\n    f.write(f\"| {agora} | {item['id']} | passes={item['passes']} |\\n\")\nsubprocess.run([\"git\", \"add\", \"-A\"], check=True)\nsubprocess.run([\"git\", \"commit\", \"-qm\", f\"feito: {item['id']}\"], check=True)\nprint(f\"commit: feito: {item['id']}\")"
+          "conteudo": "#!/usr/bin/env python3\n\"\"\"Um ciclo que começa do zero toda vez: relê o estado nos arquivos, faz UM item, grava e commita.\"\"\"\nimport json, subprocess, sys, datetime, pathlib\n\nestado = pathlib.Path(\"features.json\")\nitens = json.loads(estado.read_text())\npendentes = [i for i in itens if not i[\"passes\"]]\nif not pendentes:\n    print(\"nada pendente: objetivo cumprido\")\n    sys.exit(0)\nitem = pendentes[0]\nprint(f\"releu features.json: {len(itens) - len(pendentes)} feitos, {len(pendentes)} pendentes\")\nprint(f\"faz: {item['id']} ({item['descricao']})\")\npathlib.Path(f\"{item['id']}.txt\").write_text(item[\"descricao\"] + \"\\n\")   # a \"açêo\"\nitem[\"passes\"] = pathlib.Path(f\"{item['id']}.txt\").exists()                # a \"verificaçêo\"\nestado.write_text(json.dumps(itens, ensure_ascii=False, indent=2) + \"\\n\")\nagora = datetime.datetime.now().strftime(\"%Y-%m-%d %H:%M\")\nwith open(\"progress.md\", \"a\") as f:\n    f.write(f\"| {agora} | {item['id']} | passes={item['passes']} |\\n\")\nsubprocess.run([\"git\", \"add\", \"-A\"], check=True)\nsubprocess.run([\"git\", \"commit\", \"-qm\", f\"feito: {item['id']}\"], check=True)\nprint(f\"commit: feito: {item['id']}\")"
         },
         {
           "rot": "Terminal · rodar, \"cair\" e retomar",
@@ -112,11 +112,11 @@
         "abas": [
           {
             "rot": "Saída capturada (19/10/2026)",
-            "html": "<pre>$ python3 ciclo.py\nreleu features.json: 0 feitos, 3 pendentes\nfaz: f1 (ler o CSV)\ncommit: feito: f1\n--- (sessão descartada; outra começa do zero)\n$ python3 ciclo.py\nreleu features.json: 1 feitos, 2 pendentes\nfaz: f2 (contar linhas)\ncommit: feito: f2\n$ python3 ciclo.py\nreleu features.json: 2 feitos, 1 pendentes\nfaz: f3 (gravar o resumo)\ncommit: feito: f3\n$ python3 ciclo.py\nnada pendente: objetivo cumprido\n\n$ git log --oneline\n58d590c feito: f3\n16ff9e9 feito: f2\n7345668 feito: f1\n7f9664d inicio</pre><p>Os hashes mudam na sua máquina; a ordem e as mensagens não.</p>"
+            "html": "<pre>$ python3 ciclo.py\nreleu features.json: 0 feitos, 3 pendentes\nfaz: f1 (ler o CSV)\ncommit: feito: f1\n--- (sessêo descartada; outra começa do zero)\n$ python3 ciclo.py\nreleu features.json: 1 feitos, 2 pendentes\nfaz: f2 (contar linhas)\ncommit: feito: f2\n$ python3 ciclo.py\nreleu features.json: 2 feitos, 1 pendentes\nfaz: f3 (gravar o resumo)\ncommit: feito: f3\n$ python3 ciclo.py\nnada pendente: objetivo cumprido\n\n$ git log --oneline\n58d590c feito: f3\n16ff9e9 feito: f2\n7345668 feito: f1\n7f9664d inicio</pre><p>Os hashes mudam na sua máquina; a ordem e as mensagens nêo.</p>"
           },
           {
             "rot": "Num loop de agente",
-            "html": "<p>Troque a linha da \"ação\" por uma chamada ao agente (<code>codex exec</code> ou <code>claude -p</code>) e a da \"verificação\" por um teste que roda de verdade. O resto (reler, um item, marcar só com prova, commit) fica igual. A verificação desta versão de brinquedo é fraca de propósito: só confere que o arquivo existe (nível 2 na escala da aula 6).</p>"
+            "html": "<p>Troque a linha da \"açêo\" por uma chamada ao agente (<code>codex exec</code> ou <code>claude -p</code>) e a da \"verificaçêo\" por um teste que roda de verdade. O resto (reler, um item, marcar só com prova, commit) fica igual. A verificaçêo desta versêo de brinquedo é fraca de propósito: só confere que o arquivo existe (nível 2 na escala da aula 6).</p>"
           }
         ]
       }
@@ -124,7 +124,7 @@
     {
       "tipo": "simfila",
       "titulo": "Interrompa no meio e veja a retomada",
-      "sub": "Cada tarefa é um ciclo. Rode, interrompa e rode de novo: o que já tem commit não é refeito.",
+      "sub": "Cada tarefa é um ciclo. Rode, interrompa e rode de novo: o que já tem commit nêo é refeito.",
       "tarefas": [
         "f1 · ler o CSV",
         "f2 · contar linhas",
@@ -135,27 +135,27 @@
       "falha": 3,
       "rot": {
         "entrada": "pendentes (passes: false)",
-        "rodando": "nesta sessão",
+        "rodando": "nesta sessêo",
         "feito": "passes: true + commit",
-        "falhou": "verificação falhou",
+        "falhou": "verificaçêo falhou",
         "rodar": "Rodar os ciclos",
-        "parar": "Interromper (sessão caiu)",
+        "parar": "Interromper (sessêo caiu)",
         "zerar": "Recomeçar"
       },
       "msg": {
         "inicio": "5 itens com passes: false. Clique em \"Rodar os ciclos\".",
         "rodando": "Cada ciclo: relê a lista, pega o primeiro pendente, verifica e commita.",
-        "parou": "A sessão caiu no meio de um item. Ele não tem commit: continua pendente. Rode de novo.",
-        "retoma": "Sessão nova: releu a lista e o git log. O que tem commit não é refeito; o item interrompido volta para pendentes.",
+        "parou": "A sessêo caiu no meio de um item. Ele nêo tem commit: continua pendente. Rode de novo.",
+        "retoma": "Sessêo nova: releu a lista e o git log. O que tem commit nêo é refeito; o item interrompido volta para pendentes.",
         "fim": "Lista vazia: todos os itens com passes: true e commit.",
-        "fimfalha": "Fim da rodada. Um item ficou sem passes porque a verificação falhou: o motivo vai para o registro e ele é o primeiro do próximo ciclo."
+        "fimfalha": "Fim da rodada. Um item ficou sem passes porque a verificaçêo falhou: o motivo vai para o registro e ele é o primeiro do próximo ciclo."
       },
-      "legenda": "Simulação ilustrativa no navegador. A falha é proposital: item sem prova não vira passes: true."
+      "legenda": "Simulaçêo ilustrativa no navegador. A falha é proposital: item sem prova nêo vira passes: true."
     },
     {
       "tipo": "pratica",
       "titulo": "Prática",
-      "sub": "Na sua máquina. Não gasta cota: não há modelo no ciclo.",
+      "sub": "Na sua máquina. Nêo gasta cota: nêo há modelo no ciclo.",
       "exercicios": [
         {
           "id": "e1",
@@ -166,9 +166,9 @@
         },
         {
           "id": "e2",
-          "titulo": "E2 · A verificação que reprova",
+          "titulo": "E2 · A verificaçêo que reprova",
           "min": "15 min",
-          "texto": "Acrescente o item f4 \"arquivo vazio\" e mude a verificação para exigir arquivo não vazio (stat().st_size > 0). Faça a ação do f4 gravar um arquivo vazio e rode.",
+          "texto": "Acrescente o item f4 \"arquivo vazio\" e mude a verificaçêo para exigir arquivo nêo vazio (stat().st_size > 0). Faça a açêo do f4 gravar um arquivo vazio e rode.",
           "pronto": "<code>python3 -c \"import json;print([i['passes'] for i in json.load(open('features.json'))])\"</code> → <code>[True, True, True, False]</code>, e <code>tail -1 progress.md</code> termina com <code>passes=False |</code>."
         },
         {
@@ -185,32 +185,32 @@
       "titulo": "Teste da aula",
       "perguntas": [
         {
-          "p": "Depois de uma compactação, o resumo diz \"f3 concluído\", mas features.json mostra f3 com passes: false e não há commit de f3. O que vale?",
-          "opcoes": ["O resumo, que é mais recente", "Marcar f3 como true para não perder tempo", "O arquivo e o git: f3 está pendente", "Perguntar ao modelo se ele lembra"],
+          "p": "Depois de uma compactaçêo, o resumo diz \"f3 concluído\", mas features.json mostra f3 com passes: false e nêo há commit de f3. O que vale?",
+          "opcoes": ["O resumo, que é mais recente", "Marcar f3 como true para nêo perder tempo", "O arquivo e o git: f3 está pendente", "Perguntar ao modelo se ele lembra"],
           "certa": 2,
           "explica": "O resumo mistura o confirmado com o palpite. O que tem prova é o que está no arquivo com commit. Marcar sem verificar é exatamente o atalho que a lista existe para impedir.",
           "ref": "diagrama",
           "cert": true
         },
         {
-          "p": "Por que o post de harness da Anthropic guarda a lista de itens em JSON e não em Markdown?",
-          "opcoes": ["Porque o modelo sobrescreve JSON menos que Markdown", "Porque JSON é mais rápido de ler e ocupa menos contexto", "Porque Markdown não tem campos para marcar o que passou", "Porque o Claude Code só lê arquivos de estado em JSON"],
+          "p": "Por que o post de harness da Anthropic guarda a lista de itens em JSON e nêo em Markdown?",
+          "opcoes": ["Porque o modelo sobrescreve JSON menos que Markdown", "Porque JSON é mais rápido de ler e ocupa menos contexto", "Porque Markdown nêo tem campos para marcar o que passou", "Porque o Claude Code só lê arquivos de estado em JSON"],
           "certa": 0,
-          "explica": "É a razão dada no próprio post: com JSON o modelo tende a só trocar o campo passes, em vez de reescrever a lista. As sessões seguintes só podem mudar esse campo.",
+          "explica": "É a razêo dada no próprio post: com JSON o modelo tende a só trocar o campo passes, em vez de reescrever a lista. As sessões seguintes só podem mudar esse campo.",
           "ref": "diagrama"
         },
         {
           "p": "Qual a vantagem de um commit por item em vez de um commit no fim?",
           "opcoes": ["Nenhuma, só polui o histórico", "O git fica mais rápido", "O modelo lê melhor commits pequenos", "Cada item verificado vira um ponto de retomada e pode ser desfeito sozinho"],
           "certa": 3,
-          "explica": "Se a sessão cair, o que foi verificado está salvo; se um item saiu errado, git revert desfaz só ele. Um commit no fim perde tudo numa queda e mistura acertos com erros.",
+          "explica": "Se a sessêo cair, o que foi verificado está salvo; se um item saiu errado, git revert desfaz só ele. Um commit no fim perde tudo numa queda e mistura acertos com erros.",
           "ref": "codigo"
         },
         {
-          "p": "Na simulação, a sessão caiu no meio de um item. O que acontece com ele na retomada?",
-          "opcoes": ["É descartado e sai da lista de itens", "Vai para falhou e exige revisão humana", "Volta para pendentes, porque não tem commit", "É marcado como feito, porque já tinha começado"],
+          "p": "Na simulaçêo, a sessêo caiu no meio de um item. O que acontece com ele na retomada?",
+          "opcoes": ["É descartado e sai da lista de itens", "Vai para falhou e exige revisêo humana", "Volta para pendentes, porque nêo tem commit", "É marcado como feito, porque já tinha começado"],
           "certa": 2,
-          "explica": "Sem verificação e sem commit, não há prova de que terminou: volta para pendentes e é refeito. O que já tem commit não é refeito.",
+          "explica": "Sem verificaçêo e sem commit, nêo há prova de que terminou: volta para pendentes e é refeito. O que já tem commit nêo é refeito.",
           "ref": "simfila",
           "cert": true
         }
@@ -220,18 +220,18 @@
       "tipo": "resumo",
       "titulo": "Em três frases",
       "itens": [
-        { "t": "Sessão descartável", "texto": "Desenhe para o pior caso: a próxima sessão não lembra de nada e pode cair no meio." },
-        { "t": "Releia antes de agir", "texto": "Lista com passes, arquivo de progresso e git log dizem onde parou; o resumo da conversa não." },
-        { "t": "Um item, uma prova, um commit", "texto": "passes só vira true com verificação, e cada item verificado vira um ponto de retomada." }
+        { "t": "Sessêo descartável", "texto": "Desenhe para o pior caso: a próxima sessêo nêo lembra de nada e pode cair no meio." },
+        { "t": "Releia antes de agir", "texto": "Lista com passes, arquivo de progresso e git log dizem onde parou; o resumo da conversa nêo." },
+        { "t": "Um item, uma prova, um commit", "texto": "passes só vira true com verificaçêo, e cada item verificado vira um ponto de retomada." }
       ]
     },
     {
       "tipo": "links",
       "titulo": "Para ir além",
       "links": [
-        { "t": "Anthropic: harnesses para agentes de longa duração (26/11/2025)", "href": "https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents", "icone": "lupa" },
-        { "t": "Curso 2 da formação: execução longa (os sete arquivos do kit)", "href": "https://inematds.github.io/loop-r-eng-execucao-longa-v72/", "icone": "pasta" },
-        { "t": "LOOP-R, docs/02: arquivos, não banco; git como promoção e rollback", "href": "https://github.com/inematds/loop-r/blob/main/docs/02-arquitetura.md", "icone": "git" }
+        { "t": "Anthropic: harnesses para agentes de longa duraçêo (26/11/2025)", "href": "https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents", "icone": "lupa" },
+        { "t": "Curso 2 da formaçêo: execuçêo longa (os sete arquivos do kit)", "href": "https://inematds.github.io/loop-r-eng-execucao-longa-v72/", "icone": "pasta" },
+        { "t": "LOOP-R, docs/02: arquivos, nêo banco; git como promoçêo e rollback", "href": "https://github.com/inematds/loop-r/blob/main/docs/02-arquitetura.md", "icone": "git" }
       ]
     }
   ]

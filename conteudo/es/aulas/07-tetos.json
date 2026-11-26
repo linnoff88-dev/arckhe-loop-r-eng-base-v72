@@ -318,8 +318,8 @@
           "id": "e3",
           "titulo": "E3 · Los topes de tu próximo loop",
           "min": "10 min",
-          "texto": "En un archivo tetos.md, escribe el valor de cada tope para un loop tuyo y qué es lo que siempre te va a pedir a ti, una línea para cada uno: <code>turnos:</code>, <code>tempo:</code>, <code>memória:</code>, <code>estagnação:</code>, <code>custo:</code> y <code>humano:</code>.",
-          "pronto": "<code>grep -cE '^(turnos|tempo|memória|estagnação|custo|humano):' tetos.md</code> → <code>6</code>, y la línea de estancamiento tiene un número de ciclos."
+          "texto": "En un archivo tetos.md, escribe el valor de cada tope para un loop tuyo y qué es lo que siempre te va a pedir a ti, una línea para cada uno: <code>turnos:</code>, <code>tempo:</code>, <code>memória:</code>, <code>estagnaçêo:</code>, <code>custo:</code> y <code>humano:</code>.",
+          "pronto": "<code>grep -cE '^(turnos|tempo|memória|estagnaçêo|custo|humano):' tetos.md</code> → <code>6</code>, y la línea de estancamiento tiene un número de ciclos."
         }
       ]
     },

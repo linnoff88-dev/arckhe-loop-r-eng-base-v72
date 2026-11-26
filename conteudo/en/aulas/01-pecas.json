@@ -232,8 +232,8 @@
           "id": "e3",
           "titulo": "E3 · Diagnosis of a loop of your own",
           "min": "15 min",
-          "texto": "Take the last long request you made to Claude Code or Codex. In a file named pecas.md, write one line per piece, starting with <code>objetivo:</code>, <code>estado:</code>, <code>ação:</code>, <code>verificação:</code> and <code>parada:</code>, saying what filled that role, or <code>faltou</code>. Write the markers exactly like this, in Portuguese: the \"done when\" grep looks for them.",
-          "pronto": "<code>grep -ciE '^(objetivo|estado|ação|verificação|parada):' pecas.md</code> → <code>5</code>, and at least one line says \"faltou\" or points to a real command."
+          "texto": "Take the last long request you made to Claude Code or Codex. In a file named pecas.md, write one line per piece, starting with <code>objetivo:</code>, <code>estado:</code>, <code>açêo:</code>, <code>verificaçêo:</code> and <code>parada:</code>, saying what filled that role, or <code>faltou</code>. Write the markers exactly like this, in Portuguese: the \"done when\" grep looks for them.",
+          "pronto": "<code>grep -ciE '^(objetivo|estado|açêo|verificaçêo|parada):' pecas.md</code> → <code>5</code>, and at least one line says \"faltou\" or points to a real command."
         }
       ]
     },

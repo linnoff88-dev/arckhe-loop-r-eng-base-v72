@@ -185,17 +185,17 @@
         {
           "rot": "Terminal · Claude Code permissions and hooks (user and project; run in the project folder)",
           "icone": "cadeado",
-          "conteudo": "python3 - <<'PY'\nimport json, pathlib\nfor p in (pathlib.Path.home() / \".claude/settings.json\",   # user\n          pathlib.Path(\".claude/settings.json\"),            # project (goes to git)\n          pathlib.Path(\".claude/settings.local.json\")):     # project, only on this machine\n    if not p.exists():\n        print(f\"{p}: não existe\")\n        continue\n    d = json.loads(p.read_text())\n    perm = d.get(\"permissions\", {})\n    print(f\"{p}: hooks {sorted(d.get('hooks', {})) or 'nenhum'} · allow {len(perm.get('allow', []))} · deny {len(perm.get('deny', []))}\")\nPY"
+          "conteudo": "python3 - <<'PY'\nimport json, pathlib\nfor p in (pathlib.Path.home() / \".claude/settings.json\",   # user\n          pathlib.Path(\".claude/settings.json\"),            # project (goes to git)\n          pathlib.Path(\".claude/settings.local.json\")):     # project, only on this machine\n    if not p.exists():\n        print(f\"{p}: nêo existe\")\n        continue\n    d = json.loads(p.read_text())\n    perm = d.get(\"permissions\", {})\n    print(f\"{p}: hooks {sorted(d.get('hooks', {})) or 'nenhum'} · allow {len(perm.get('allow', []))} · deny {len(perm.get('deny', []))}\")\nPY"
         },
         {
           "rot": "Terminal · Codex sandbox and approval",
           "icone": "escudo",
-          "conteudo": "grep -nE '^(sandbox_mode|approval_policy)' ~/.codex/config.toml || echo \"padrão do Codex (sem chave no config)\""
+          "conteudo": "grep -nE '^(sandbox_mode|approval_policy)' ~/.codex/config.toml || echo \"padrêo do Codex (sem chave no config)\""
         },
         {
           "rot": "harness.md · template to fill in",
           "icone": "caneta",
-          "conteudo": "# My harness — <date>\ncontexto: <files with the rules the agent reads on startup>\nmemória: <how I keep what can't be lost: handoff, state files, nothing>\nferramentas: <MCP and skills I actually use>\nverificação: <the command that proves it worked in my main project>\npermissões: <hooks and allow/deny rules; Codex sandbox>\npeça mais fraca: <which one and why>"
+          "conteudo": "# My harness — <date>\ncontexto: <files with the rules the agent reads on startup>\nmemória: <how I keep what can't be lost: handoff, state files, nothing>\nferramentas: <MCP and skills I actually use>\nverificaçêo: <the command that proves it worked in my main project>\npermissões: <hooks and allow/deny rules; Codex sandbox>\npeça mais fraca: <which one and why>"
         }
       ]
     },
@@ -215,7 +215,7 @@
           "titulo": "E1 · Inventory",
           "min": "15 min",
           "texto": "Run the four inventory blocks and fill in harness.md with what showed up, one line per piece. Write the markers at the start of each line exactly as they appear in the template: the \"done when\" grep looks for them.",
-          "pronto": "<code>grep -cE '^(contexto|memória|ferramentas|verificação|permissões):' harness.md</code> → <code>5</code>, and <code>grep -c '&lt;' harness.md</code> → <code>0</code> (no template placeholder was left unfilled)."
+          "pronto": "<code>grep -cE '^(contexto|memória|ferramentas|verificaçêo|permissões):' harness.md</code> → <code>5</code>, and <code>grep -c '&lt;' harness.md</code> → <code>0</code> (no template placeholder was left unfilled)."
         },
         {
           "id": "e2",

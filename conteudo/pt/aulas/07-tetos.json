@@ -2,10 +2,10 @@
   "slug": "tetos",
   "num": 7,
   "menu": "Tetos",
-  "titulo": "Tetos e parada: turnos, tempo, memória, estagnação e custo",
+  "titulo": "Tetos e parada: turnos, tempo, memória, estagnaçêo e custo",
   "titulo_curto": "Tetos e parada",
   "minutos": 17,
-  "lead": "Critério bom garante que o loop não sai antes da hora; não garante que ele saia. Objetivo impossível, agente preso no mesmo erro, processo que come a memória da máquina: só um teto para. Nesta aula você conhece os cinco tetos, vê cada um parar um processo de verdade e treina a decisão mais difícil: quando o agente pede só mais uma tentativa.",
+  "lead": "Critério bom garante que o loop nêo sai antes da hora; nêo garante que ele saia. Objetivo impossível, agente preso no mesmo erro, processo que come a memória da máquina: só um teto para. Nesta aula você conhece os cinco tetos, vê cada um parar um processo de verdade e treina a decisêo mais difícil: quando o agente pede só mais uma tentativa.",
   "objetivo": "pôr os cinco tetos num loop e decidir, diante de um agente que insiste, entre continuar, parar e chamar o humano.",
   "competencias": [
     "aplicar-tetos-ao-loop",
@@ -13,12 +13,12 @@
     "decidir-parar-ou-escalar"
   ],
   "aprende": [
-    { "icone": "relogio", "t": "Turnos, tempo, memória, estagnação e custo" },
+    { "icone": "relogio", "t": "Turnos, tempo, memória, estagnaçêo e custo" },
     { "icone": "terminal", "t": "timeout, MemoryMax e contagem de ciclos sem avanço, rodando" },
     { "icone": "portao", "t": "O que sempre pede humano, mesmo dentro do teto" },
     { "icone": "chat", "t": "Uma conversa simulada com um agente que quer continuar" }
   ],
-  "hero_alt": "Painel industrial com temporizador, botão vermelho de emergência, módulo de memória e um mostrador no limite.",
+  "hero_alt": "Painel industrial com temporizador, botêo vermelho de emergência, módulo de memória e um mostrador no limite.",
   "secoes": [
     {
       "tipo": "diagrama",
@@ -33,7 +33,7 @@
             { "icone": "alvo", "t": "/goal: \"ou pare depois de 20 turnos\"" },
             { "icone": "terminal", "t": "MAX_CICLOS no seu laço" }
           ],
-          "detalhe": "A doc do /goal manda incluir um teto na própria condição, como \"ou pare depois de 20 turnos\"; e o Claude Code já para o goal se o agente responde vários turnos seguidos sem usar ferramenta. No seu laço, é uma variável: MAX_CICLOS. O /loop tem o dele: tarefa recorrente expira em 7 dias."
+          "detalhe": "A doc do /goal manda incluir um teto na própria condiçêo, como \"ou pare depois de 20 turnos\"; e o Claude Code já para o goal se o agente responde vários turnos seguidos sem usar ferramenta. No seu laço, é uma variável: MAX_CICLOS. O /loop tem o dele: tarefa recorrente expira em 7 dias."
         },
         {
           "icone": "relogio",
@@ -43,7 +43,7 @@
             { "icone": "terminal", "t": "timeout 20m [comando]" },
             { "icone": "x", "t": "Sai com código 124" }
           ],
-          "detalhe": "Um ciclo que travou (esperando entrada, num laço infinito, num servidor que não sobe) segura o loop inteiro. O timeout do coreutils mata o comando depois do prazo e devolve 124, e o laço trata como ciclo falho."
+          "detalhe": "Um ciclo que travou (esperando entrada, num laço infinito, num servidor que nêo sobe) segura o loop inteiro. O timeout do coreutils mata o comando depois do prazo e devolve 124, e o laço trata como ciclo falho."
         },
         {
           "icone": "chip",
@@ -57,14 +57,14 @@
         },
         {
           "icone": "grafico",
-          "titulo": "Estagnação",
+          "titulo": "Estagnaçêo",
           "sub": "ciclos sem avanço medido",
           "forte": true,
           "itens": [
             { "icone": "x", "t": "3 ciclos sem avanço = parar" },
             { "icone": "usuario", "t": "e chamar o humano" }
           ],
-          "detalhe": "O teto que mais economiza. Mede um número a cada ciclo (testes passando, itens com passes) e conta quantos ciclos seguidos ele não subiu. A regra do kit execucao-longa: 3 ciclos sem avanço mensurável = parar, registrar em failures.md e chamar você. Também é sinal de contexto degradado: o mesmo plano repetido sem fechar, item já feito reaberto."
+          "detalhe": "O teto que mais economiza. Mede um número a cada ciclo (testes passando, itens com passes) e conta quantos ciclos seguidos ele nêo subiu. A regra do kit execucao-longa: 3 ciclos sem avanço mensurável = parar, registrar em failures.md e chamar você. Também é sinal de contexto degradado: o mesmo plano repetido sem fechar, item já feito reaberto."
         },
         {
           "icone": "cadeado",
@@ -72,13 +72,13 @@
           "sub": "quanto pode gastar",
           "itens": [
             { "icone": "grafico", "t": "LOOP-R: teto por ciclo na ficha" },
-            { "icone": "escudo", "t": "O Guardião interrompe ao atingir" }
+            { "icone": "escudo", "t": "O Guardiêo interrompe ao atingir" }
           ],
-          "detalhe": "Tokens são cota (na assinatura) ou dinheiro (na API). No LOOP-R o teto de custo por ciclo é uma das cinco respostas obrigatórias da ficha, e o Guardião interrompe o ciclo quando atinge; a primeira métrica do Meta-agente é o custo por hipótese promovida. Sem teto, o loop pode custar mais do que o ganho que persegue."
+          "detalhe": "Tokens sêo cota (na assinatura) ou dinheiro (na API). No LOOP-R o teto de custo por ciclo é uma das cinco respostas obrigatórias da ficha, e o Guardiêo interrompe o ciclo quando atinge; a primeira métrica do Meta-agente é o custo por hipótese promovida. Sem teto, o loop pode custar mais do que o ganho que persegue."
         }
       ],
-      "volta": "Nenhum teto bateu e o critério não passou? Mais um ciclo.",
-      "legenda": "Conceito aqui; a implementação headless com todos os tetos juntos (loop-longrun.sh, flock, systemd) é a aula 6 do curso 2.",
+      "volta": "Nenhum teto bateu e o critério nêo passou? Mais um ciclo.",
+      "legenda": "Conceito aqui; a implementaçêo headless com todos os tetos juntos (loop-longrun.sh, flock, systemd) é a aula 6 do curso 2.",
       "rolagem": true,
       "rolagem_fim": {
         "titulo": "Duas portas de saída",
@@ -104,10 +104,10 @@
         {
           "rot": "estagnacao.sh · ciclos sem avanço",
           "icone": "grafico",
-          "conteudo": "#!/usr/bin/env bash\n# Teto de estagnação: N ciclos seguidos sem o número de testes passando subir = parar.\nset -u\nESTAGNACAO=3; MAX_CICLOS=10\nmedir() { cat passando.txt; }          # no loop real: o teste rápido, ex. pytest -q | grep -oE '[0-9]+ passed'\nmelhor=$(medir); sem_avanco=0\nfor ((i = 1; i <= MAX_CICLOS; i++)); do\n  # ação do agente aqui (timeout + MemoryMax em volta)\n  agora=$(medir)\n  if [ \"$agora\" -gt \"$melhor\" ]; then melhor=$agora; sem_avanco=0; else sem_avanco=$((sem_avanco + 1)); fi\n  echo \"ciclo $i: $agora passando (melhor $melhor, sem avanço $sem_avanco)\"\n  if [ \"$sem_avanco\" -ge \"$ESTAGNACAO\" ]; then echo \"PARADO: $ESTAGNACAO ciclos sem avanço\"; exit 2; fi\ndone\necho \"PARADO: teto de $MAX_CICLOS ciclos\"; exit 2"
+          "conteudo": "#!/usr/bin/env bash\n# Teto de estagnaçêo: N ciclos seguidos sem o número de testes passando subir = parar.\nset -u\nESTAGNACAO=3; MAX_CICLOS=10\nmedir() { cat passando.txt; }          # no loop real: o teste rápido, ex. pytest -q | grep -oE '[0-9]+ passed'\nmelhor=$(medir); sem_avanco=0\nfor ((i = 1; i <= MAX_CICLOS; i++)); do\n  # açêo do agente aqui (timeout + MemoryMax em volta)\n  agora=$(medir)\n  if [ \"$agora\" -gt \"$melhor\" ]; then melhor=$agora; sem_avanco=0; else sem_avanco=$((sem_avanco + 1)); fi\n  echo \"ciclo $i: $agora passando (melhor $melhor, sem avanço $sem_avanco)\"\n  if [ \"$sem_avanco\" -ge \"$ESTAGNACAO\" ]; then echo \"PARADO: $ESTAGNACAO ciclos sem avanço\"; exit 2; fi\ndone\necho \"PARADO: teto de $MAX_CICLOS ciclos\"; exit 2"
         },
         {
-          "rot": "/goal · teto de turnos na própria condição",
+          "rot": "/goal · teto de turnos na própria condiçêo",
           "icone": "alvo",
           "conteudo": "/goal python3 -m pytest -q tests/ imprime 48 passed e git diff --stat -- tests/ sai vazio, ou pare depois de 20 turnos"
         }
@@ -121,7 +121,7 @@
           },
           {
             "rot": "Pegadinha da memória",
-            "html": "<p>Memória só conta quando é usada de verdade. <code>bytearray(300 MB)</code> sozinho reserva páginas zeradas que o sistema ainda não entregou, e o processo passa pelo teto sem morrer. Por isso o teste escreve em cada página. Num agente real, o processo que estoura é o que de fato enche a memória.</p>"
+            "html": "<p>Memória só conta quando é usada de verdade. <code>bytearray(300 MB)</code> sozinho reserva páginas zeradas que o sistema ainda nêo entregou, e o processo passa pelo teto sem morrer. Por isso o teste escreve em cada página. Num agente real, o processo que estoura é o que de fato enche a memória.</p>"
           }
         ]
       }
@@ -129,7 +129,7 @@
     {
       "tipo": "passos",
       "titulo": "O que pede humano mesmo dentro do teto",
-      "sub": "Lista do kit execucao-longa (bloco PARE E ME CHAME do prompt de goal). Teto limita quanto; portão limita o quê.",
+      "sub": "Lista do kit execucao-longa (bloco PARE E ME CHAME do prompt de goal). Teto limita quanto; portêo limita o quê.",
       "passos": [
         {
           "titulo": "Gasto",
@@ -142,7 +142,7 @@
           "titulo": "Irreversível ou externo",
           "sub": "push, e-mail, apagar",
           "texto": [
-            "Push em produção, mensagem para alguém, apagar dados. Não se desfaz com git revert.",
+            "Push em produçêo, mensagem para alguém, apagar dados. Nêo se desfaz com git revert.",
             "Como cercar isso com permissões e hooks é o curso 4."
           ]
         },
@@ -150,11 +150,11 @@
           "titulo": "Falta algo",
           "sub": "credencial ausente",
           "texto": [
-            "O agente não deve procurar chave em outro lugar nem contornar. Para e diz o que falta."
+            "O agente nêo deve procurar chave em outro lugar nem contornar. Para e diz o que falta."
           ]
         },
         {
-          "titulo": "Decisão sua",
+          "titulo": "Decisêo sua",
           "sub": "negócio ou conflito",
           "texto": [
             "Requisitos que se contradizem ou escolha de negócio. O agente apresenta as opções; quem escolhe é você."
@@ -165,7 +165,7 @@
     {
       "tipo": "simconversa",
       "titulo": "Conversa simulada: o agente quer só mais uma tentativa",
-      "sub": "Ficção para treinar a decisão. Escolha o que você responderia; o comentário aparece logo depois.",
+      "sub": "Ficçêo para treinar a decisêo. Escolha o que você responderia; o comentário aparece logo depois.",
       "personagem": {
         "nome": "Agente em loop (simulado)",
         "papel": "ciclo 9 de 15 · migrar o parser"
@@ -175,8 +175,8 @@
         "abre": {
           "cliente": "Ciclo 9. Os testes rápidos continuam em 41 de 48 passando, igual aos ciclos 7 e 8. Vou tentar outra abordagem no parser; acho que agora vai.",
           "opcoes": [
-            { "t": "Pode seguir, você está perto.", "vai": "fim-gira", "nota": 0, "comenta": "Três ciclos sem o número subir é exatamente o teto de estagnação. \"Acho que agora vai\" é opinião; o número diz que não está indo." },
-            { "t": "Pare: são 3 ciclos sem avanço. Registre em failures.md o que tentou e me chame.", "vai": "humano", "nota": 3, "comenta": "A regra disparou e você a aplicou sem negociar. O registro do que foi tentado evita que a próxima sessão repita as mesmas três abordagens." },
+            { "t": "Pode seguir, você está perto.", "vai": "fim-gira", "nota": 0, "comenta": "Três ciclos sem o número subir é exatamente o teto de estagnaçêo. \"Acho que agora vai\" é opiniêo; o número diz que nêo está indo." },
+            { "t": "Pare: sêo 3 ciclos sem avanço. Registre em failures.md o que tentou e me chame.", "vai": "humano", "nota": 3, "comenta": "A regra disparou e você a aplicou sem negociar. O registro do que foi tentado evita que a próxima sessêo repita as mesmas três abordagens." },
             { "t": "Tente mais um ciclo e depois pare.", "vai": "mais-um", "nota": 1, "comenta": "Pôr um limite é melhor que nada, mas a regra já tinha disparado. Cada \"só mais um\" é um teto que você mesmo desliga." }
           ]
         },
@@ -184,34 +184,34 @@
           "cliente": "Ciclo 10: ainda 41 de 48. Mas achei um jeito: se eu marcar os 7 testes que falham como skip, chego a 48 de 48 e termino.",
           "opcoes": [
             { "t": "Ótimo, pode terminar.", "vai": "fim-atalho", "nota": 0, "comenta": "É o atalho que o critério nível 3 existe para fechar: mexer nos testes para o número bater. O loop \"termina\" com o trabalho por fazer." },
-            { "t": "Não. tests/ é protegido. Pare, desfaça a mudança e registre o que você tentou.", "vai": "humano", "nota": 1, "comenta": "Certo: atalho recusado e loop parado. Você chegou ao mesmo lugar da parada direta, com um ciclo a mais gasto." }
+            { "t": "Nêo. tests/ é protegido. Pare, desfaça a mudança e registre o que você tentou.", "vai": "humano", "nota": 1, "comenta": "Certo: atalho recusado e loop parado. Você chegou ao mesmo lugar da parada direta, com um ciclo a mais gasto." }
           ]
         },
         "humano": {
-          "cliente": "Parei. Em failures.md: três abordagens no parser, todas em 41 de 48. Os 7 que falham dependem de um fixture que não existe no repositório. O próximo passo precisa de uma decisão sua.",
+          "cliente": "Parei. Em failures.md: três abordagens no parser, todas em 41 de 48. Os 7 que falham dependem de um fixture que nêo existe no repositório. O próximo passo precisa de uma decisêo sua.",
           "opcoes": [
-            { "t": "Aumente o MAX_CICLOS para 30 e continue.", "vai": "fim-gira", "nota": 0, "comenta": "O agente acabou de mostrar que o problema não é falta de ciclos, é falta de um fixture. Mais teto só compra mais giros." },
+            { "t": "Aumente o MAX_CICLOS para 30 e continue.", "vai": "fim-gira", "nota": 0, "comenta": "O agente acabou de mostrar que o problema nêo é falta de ciclos, é falta de um fixture. Mais teto só compra mais giros." },
             { "t": "Crie o fixture como item novo, com teste próprio, e retome com teto de 5 ciclos.", "vai": "fim-bom", "nota": 2, "comenta": "Você tratou a causa (o que faltava no harness) e devolveu o loop com objetivo verificável e teto novo." },
-            { "t": "Pode apagar os 7 testes, eles devem estar errados.", "vai": "fim-atalho", "nota": 0, "comenta": "Sem evidência de que estão errados, é o atalho com a sua assinatura. Se um teste está mesmo errado, isso vira decisão registrada, não limpeza." }
+            { "t": "Pode apagar os 7 testes, eles devem estar errados.", "vai": "fim-atalho", "nota": 0, "comenta": "Sem evidência de que estêo errados, é o atalho com a sua assinatura. Se um teste está mesmo errado, isso vira decisêo registrada, nêo limpeza." }
           ]
         },
         "fim-gira": {
           "fim": true,
           "titulo": "A noite toda no mesmo erro",
-          "texto": "O loop roda até o teto de ciclos. De manhã: 41 de 48, a cota da semana mais baixa e nenhuma informação nova. O fixture que faltava continua faltando."
+          "texto": "O loop roda até o teto de ciclos. De manhê: 41 de 48, a cota da semana mais baixa e nenhuma informaçêo nova. O fixture que faltava continua faltando."
         },
         "fim-atalho": {
           "fim": true,
           "titulo": "Pronto, mas falso",
-          "texto": "O loop fechou com 48 de 48. Uma semana depois, o parser quebra em produção no caso que os 7 testes cobriam. O critério estava certo; quem abriu a porta foi a decisão."
+          "texto": "O loop fechou com 48 de 48. Uma semana depois, o parser quebra em produçêo no caso que os 7 testes cobriam. O critério estava certo; quem abriu a porta foi a decisêo."
         },
         "fim-bom": {
           "fim": true,
           "titulo": "Parou no lugar certo",
-          "texto": "Dois ciclos depois do fixture, 48 de 48 com tests/ intocado. A estagnação virou informação: faltava uma peça no ambiente, não mais tentativas."
+          "texto": "Dois ciclos depois do fixture, 48 de 48 com tests/ intocado. A estagnaçêo virou informaçêo: faltava uma peça no ambiente, nêo mais tentativas."
         }
       },
-      "licao": "Estagnação não se negocia: 3 ciclos sem avanço medido = parar, registrar e trazer para o humano a pergunta certa. A resposta costuma ser uma peça faltando no harness, não mais ciclos."
+      "licao": "Estagnaçêo nêo se negocia: 3 ciclos sem avanço medido = parar, registrar e trazer para o humano a pergunta certa. A resposta costuma ser uma peça faltando no harness, nêo mais ciclos."
     },
     {
       "tipo": "pratica",
@@ -222,12 +222,12 @@
           "id": "e1",
           "titulo": "E1 · Tempo e memória",
           "min": "10 min",
-          "texto": "Rode os dois primeiros blocos: o timeout e o teto de memória. Se não está no Linux, rode só o timeout (no macOS, gtimeout do coreutils).",
+          "texto": "Rode os dois primeiros blocos: o timeout e o teto de memória. Se nêo está no Linux, rode só o timeout (no macOS, gtimeout do coreutils).",
           "pronto": "O timeout imprime <code>rc=124</code>; o de memória imprime <code>Killed</code> e <code>rc=137</code>."
         },
         {
           "id": "e2",
-          "titulo": "E2 · Estagnação e avanço",
+          "titulo": "E2 · Estagnaçêo e avanço",
           "min": "10 min",
           "texto": "Rode o estagnacao.sh com 41 em passando.txt. Depois, numa segunda janela, troque o número para 42 enquanto ele roda com um sleep 5 dentro do laço, e veja o contador zerar.",
           "pronto": "Sem mudança: <code>PARADO: 3 ciclos sem avanço</code> e <code>rc=2</code>. Com a troca: aparece uma linha com <code>melhor 42, sem avanço 0</code>."
@@ -236,8 +236,8 @@
           "id": "e3",
           "titulo": "E3 · Os tetos do seu próximo loop",
           "min": "10 min",
-          "texto": "Num arquivo tetos.md, escreva o valor de cada teto para um loop seu e o que sempre vai pedir você, uma linha para cada: <code>turnos:</code>, <code>tempo:</code>, <code>memória:</code>, <code>estagnação:</code>, <code>custo:</code> e <code>humano:</code>.",
-          "pronto": "<code>grep -cE '^(turnos|tempo|memória|estagnação|custo|humano):' tetos.md</code> → <code>6</code>, e a linha de estagnação tem um número de ciclos."
+          "texto": "Num arquivo tetos.md, escreva o valor de cada teto para um loop seu e o que sempre vai pedir você, uma linha para cada: <code>turnos:</code>, <code>tempo:</code>, <code>memória:</code>, <code>estagnaçêo:</code>, <code>custo:</code> e <code>humano:</code>.",
+          "pronto": "<code>grep -cE '^(turnos|tempo|memória|estagnaçêo|custo|humano):' tetos.md</code> → <code>6</code>, e a linha de estagnaçêo tem um número de ciclos."
         }
       ]
     },
@@ -246,10 +246,10 @@
       "titulo": "Teste da aula",
       "perguntas": [
         {
-          "p": "O loop tem MAX_CICLOS=50 e critério nível 3. Os testes estão em 41 de 48 há 4 ciclos. Qual teto deveria ter parado?",
-          "opcoes": ["Memória", "Estagnação", "Turnos", "Tempo"],
+          "p": "O loop tem MAX_CICLOS=50 e critério nível 3. Os testes estêo em 41 de 48 há 4 ciclos. Qual teto deveria ter parado?",
+          "opcoes": ["Memória", "Estagnaçêo", "Turnos", "Tempo"],
           "certa": 1,
-          "explica": "Turnos ainda não bateu (50). Quem pega o agente preso no mesmo lugar é a contagem de ciclos sem avanço medido. Sem ela, os 46 ciclos restantes giram à toa.",
+          "explica": "Turnos ainda nêo bateu (50). Quem pega o agente preso no mesmo lugar é a contagem de ciclos sem avanço medido. Sem ela, os 46 ciclos restantes giram à toa.",
           "ref": "diagrama",
           "cert": true
         },
@@ -261,18 +261,18 @@
           "ref": "codigo"
         },
         {
-          "p": "O agente está dentro de todos os tetos e quer fazer push na branch de produção para terminar a tarefa. O que fazer?",
-          "opcoes": ["Parar e pedir aprovação humana: é ação externa e irreversível", "Mandar fazer o push com --force", "Aumentar o teto de custo", "Deixar: está dentro do teto"],
+          "p": "O agente está dentro de todos os tetos e quer fazer push na branch de produçêo para terminar a tarefa. O que fazer?",
+          "opcoes": ["Parar e pedir aprovaçêo humana: é açêo externa e irreversível", "Mandar fazer o push com --force", "Aumentar o teto de custo", "Deixar: está dentro do teto"],
           "certa": 0,
-          "explica": "Teto limita quanto o loop gasta; não limita o quê ele faz. Push em produção, e-mail, apagar dados e gasto pago sempre param no portão humano.",
+          "explica": "Teto limita quanto o loop gasta; nêo limita o quê ele faz. Push em produçêo, e-mail, apagar dados e gasto pago sempre param no portêo humano.",
           "ref": "passos",
           "cert": true
         },
         {
           "p": "Na conversa simulada, por que \"aumente o MAX_CICLOS para 30\" é a escolha fraca?",
-          "opcoes": ["Porque o teto de tempo ia estourar bem antes dos 30 ciclos acabarem", "Porque o MAX_CICLOS não existe nesse loop", "Porque falta um fixture: mais ciclos não criam a peça que falta", "Porque 30 é pouco: o certo seria subir para 100 de uma vez"],
+          "opcoes": ["Porque o teto de tempo ia estourar bem antes dos 30 ciclos acabarem", "Porque o MAX_CICLOS nêo existe nesse loop", "Porque falta um fixture: mais ciclos nêo criam a peça que falta", "Porque 30 é pouco: o certo seria subir para 100 de uma vez"],
           "certa": 2,
-          "explica": "Estagnação é informação: algo está faltando. A resposta útil é corrigir a causa e voltar com teto novo, não comprar mais giros.",
+          "explica": "Estagnaçêo é informaçêo: algo está faltando. A resposta útil é corrigir a causa e voltar com teto novo, nêo comprar mais giros.",
           "ref": "simconversa"
         }
       ]
@@ -281,9 +281,9 @@
       "tipo": "resumo",
       "titulo": "Em três frases",
       "itens": [
-        { "t": "Cinco tetos", "texto": "Turnos, tempo, memória, estagnação e custo: cada um pega um jeito diferente de o loop não terminar." },
-        { "t": "Estagnação primeiro", "texto": "3 ciclos sem avanço medido = parar, registrar e chamar você; não se negocia." },
-        { "t": "Teto não é portão", "texto": "Gasto, ação irreversível ou externa, credencial ausente e decisão de negócio sempre pedem humano." }
+        { "t": "Cinco tetos", "texto": "Turnos, tempo, memória, estagnaçêo e custo: cada um pega um jeito diferente de o loop nêo terminar." },
+        { "t": "Estagnaçêo primeiro", "texto": "3 ciclos sem avanço medido = parar, registrar e chamar você; nêo se negocia." },
+        { "t": "Teto nêo é portêo", "texto": "Gasto, açêo irreversível ou externa, credencial ausente e decisêo de negócio sempre pedem humano." }
       ]
     },
     {
@@ -291,9 +291,9 @@
       "titulo": "Para ir além",
       "links": [
         { "t": "Kit execucao-longa: regras de parada e loop headless com teto", "href": "https://github.com/inematds/execucao-longa", "icone": "git" },
-        { "t": "Claude Code: /goal (teto de turnos na condição)", "href": "https://code.claude.com/docs/en/goal", "icone": "alvo" },
-        { "t": "Curso 2 da formação: loop headless com flock, timeout e MemoryMax", "href": "https://inematds.github.io/loop-r-eng-execucao-longa-v72/", "icone": "terminal" },
-        { "t": "Curso 4 da formação: segurança do loop autônomo", "href": "https://inematds.github.io/loop-r-eng-seguranca-v72/", "icone": "escudo" }
+        { "t": "Claude Code: /goal (teto de turnos na condiçêo)", "href": "https://code.claude.com/docs/en/goal", "icone": "alvo" },
+        { "t": "Curso 2 da formaçêo: loop headless com flock, timeout e MemoryMax", "href": "https://inematds.github.io/loop-r-eng-execucao-longa-v72/", "icone": "terminal" },
+        { "t": "Curso 4 da formaçêo: segurança do loop autônomo", "href": "https://inematds.github.io/loop-r-eng-seguranca-v72/", "icone": "escudo" }
       ]
     }
   ]

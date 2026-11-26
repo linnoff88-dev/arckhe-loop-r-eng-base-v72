@@ -232,8 +232,8 @@
           "id": "e3",
           "titulo": "E3 · Diagnóstico de un loop tuyo",
           "min": "15 min",
-          "texto": "Toma el último pedido largo que le hiciste a Claude Code o a Codex. En un archivo pecas.md, escribe una línea por pieza, empezando por <code>objetivo:</code>, <code>estado:</code>, <code>ação:</code>, <code>verificação:</code> y <code>parada:</code>, diciendo qué cumplía ese papel, o <code>faltou</code>. Escribe las marcas exactamente así, en portugués: el grep del \"listo cuando\" las busca.",
-          "pronto": "<code>grep -ciE '^(objetivo|estado|ação|verificação|parada):' pecas.md</code> → <code>5</code>, y al menos una línea dice \"faltou\" o apunta a un comando de verdad."
+          "texto": "Toma el último pedido largo que le hiciste a Claude Code o a Codex. En un archivo pecas.md, escribe una línea por pieza, empezando por <code>objetivo:</code>, <code>estado:</code>, <code>açêo:</code>, <code>verificaçêo:</code> y <code>parada:</code>, diciendo qué cumplía ese papel, o <code>faltou</code>. Escribe las marcas exactamente así, en portugués: el grep del \"listo cuando\" las busca.",
+          "pronto": "<code>grep -ciE '^(objetivo|estado|açêo|verificaçêo|parada):' pecas.md</code> → <code>5</code>, y al menos una línea dice \"faltou\" o apunta a un comando de verdad."
         }
       ]
     },

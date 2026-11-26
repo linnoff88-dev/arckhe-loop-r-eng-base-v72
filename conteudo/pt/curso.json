@@ -3,19 +3,19 @@
   "lang": "pt-BR",
   "url": "https://inematds.github.io/loop-r-eng-base-v72/",
   "nome": "Base: anatomia do loop",
-  "sub": "Formação LOOP-R Engenharia · curso 0",
+  "sub": "Formaçêo LOOP-R Engenharia · curso 0",
   "volta": {
     "t": "Área LOOP-R Engenharia",
     "href": "https://eventos.inema.pro/loop-r-engenharia/"
   },
   "lado_card": {
-    "rot": "O framework da formação",
+    "rot": "O framework da formaçêo",
     "t": "LOOP-R (código aberto)",
     "texto": "Nove agentes com contrato, ficha do loop e um exemplo rodado com dados sintéticos. A aula 4 parte dele.",
     "link": "Abrir o guia do LOOP-R",
     "href": "https://inematds.github.io/loop-r/guia/"
   },
-  "rodape": "INEMA.CLUB · conteúdo aberto e gratuito · formato INEMA Learning v7.2 · Formação LOOP-R Engenharia, curso 0 de 6 · <a href=\"https://eventos.inema.pro/loop-r-engenharia/\">eventos.inema.pro/loop-r-engenharia</a> · <a href=\"https://github.com/inematds/loop-r\">LOOP-R no GitHub</a> · <a href=\"https://github.com/inematds/execucao-longa\">kit execucao-longa no GitHub</a> · <a href=\"https://inema.club/\">inema.club</a>",
+  "rodape": "INEMA.CLUB · conteúdo aberto e gratuito · formato INEMA Learning v7.2 · Formaçêo LOOP-R Engenharia, curso 0 de 6 · <a href=\"https://eventos.inema.pro/loop-r-engenharia/\">eventos.inema.pro/loop-r-engenharia</a> · <a href=\"https://github.com/inematds/loop-r\">LOOP-R no GitHub</a> · <a href=\"https://github.com/inematds/execucao-longa\">kit execucao-longa no GitHub</a> · <a href=\"https://inema.club/\">inema.club</a>",
   "videos": {
     "ai-harness": {
       "titulo": "AI harness: quem faz o trabalho da IA",
@@ -63,32 +63,32 @@
     }
   },
   "inicio": {
-    "kicker": "Formação LOOP-R Engenharia · curso 0 de 6 · 8 aulas",
+    "kicker": "Formaçêo LOOP-R Engenharia · curso 0 de 6 · 8 aulas",
     "titulo": "Base: a anatomia de um loop de agente que trabalha, se confere e sabe parar",
-    "lead": "Objetivo, estado, ação, verificação e parada. O harness em volta do modelo, os motores de loop de hoje e o limite de cada um, o LOOP-R com seus nove agentes, critério de pronto de 0 a 4 e tetos. Cada aula aponta o curso da formação que aprofunda o assunto.",
+    "lead": "Objetivo, estado, açêo, verificaçêo e parada. O harness em volta do modelo, os motores de loop de hoje e o limite de cada um, o LOOP-R com seus nove agentes, critério de pronto de 0 a 4 e tetos. Cada aula aponta o curso da formaçêo que aprofunda o assunto.",
     "cta": "Começar pela aula 1",
     "cta2": {
-      "t": "Ver a área da formação",
+      "t": "Ver a área da formaçêo",
       "href": "https://eventos.inema.pro/loop-r-engenharia/"
     },
     "capa_alt": "Bancada escura com um cabo trançado em laço, um notebook com terminal e um painel com dois mostradores.",
     "numeros": [
       { "v": "8", "t": "aulas" },
-      { "v": "6", "t": "cursos na formação" },
+      { "v": "6", "t": "cursos na formaçêo" },
       { "v": "5", "t": "peças de todo loop" },
       { "v": "2", "t": "vídeos" }
     ],
     "cursos": {
-      "titulo": "Os 6 cursos da formação",
+      "titulo": "Os 6 cursos da formaçêo",
       "sub": "Este é o curso 0. Cada aula daqui aponta para o curso que é dono do assunto. Ordem sugerida: 0 → 1 → 2 → 3 → 4 → 5.",
       "abrir": "Abrir o curso",
       "itens": [
         { "rot": "Curso 0 · você está aqui", "t": "Base: anatomia do loop", "l": "As cinco peças, o harness, os motores de loop, o LOOP-R, critério de pronto de 0 a 4 e tetos.", "href": "https://inematds.github.io/loop-r-eng-base-v72/", "img": "assets/img/cursos/base.jpg" },
-        { "rot": "Curso 1", "t": "Verificação e evals", "l": "Avaliador separado e cético, testes congelados, reward hacking, conjunto de ouro e juiz calibrado.", "href": "https://inematds.github.io/loop-r-eng-verificacao-v72/", "img": "assets/img/cursos/verificacao.jpg" },
-        { "rot": "Curso 2", "t": "Execução longa", "l": "O kit de sete arquivos, goal.md nível 3+, contexto em faixas, handoff, loop headless e medição.", "href": "https://inematds.github.io/loop-r-eng-execucao-longa-v72/", "img": "assets/img/cursos/execucao-longa.jpg" },
-        { "rot": "Curso 3", "t": "Multiagente e orquestração", "l": "Quando não usar, subagentes, gerador × avaliador, worktrees, filas e o time Claude + Codex.", "href": "https://inematds.github.io/loop-r-eng-multiagente-v72/", "img": "assets/img/cursos/multiagente.jpg" },
-        { "rot": "Curso 4", "t": "Segurança do loop autônomo", "l": "Tríade letal, Regra de Dois, injeção pelo conteúdo lido, hooks de guarda e sandbox.", "href": "https://inematds.github.io/loop-r-eng-seguranca-v72/", "img": "assets/img/cursos/seguranca.jpg" },
-        { "rot": "Curso 5", "t": "O loop que aprende", "l": "Hipótese com número, experimento, promoção e rollback, lições e o risco de otimizar contra o medidor.", "href": "https://inematds.github.io/loop-r-eng-aprende-v72/", "img": "assets/img/cursos/aprende.jpg" }
+        { "rot": "Curso 1", "t": "Verificaçêo e evals", "l": "Avaliador separado e cético, testes congelados, reward hacking, conjunto de ouro e juiz calibrado.", "href": "https://inematds.github.io/loop-r-eng-verificacao-v72/", "img": "assets/img/cursos/verificacao.jpg" },
+        { "rot": "Curso 2", "t": "Execuçêo longa", "l": "O kit de sete arquivos, goal.md nível 3+, contexto em faixas, handoff, loop headless e mediçêo.", "href": "https://inematds.github.io/loop-r-eng-execucao-longa-v72/", "img": "assets/img/cursos/execucao-longa.jpg" },
+        { "rot": "Curso 3", "t": "Multiagente e orquestraçêo", "l": "Quando nêo usar, subagentes, gerador × avaliador, worktrees, filas e o time Claude + Codex.", "href": "https://inematds.github.io/loop-r-eng-multiagente-v72/", "img": "assets/img/cursos/multiagente.jpg" },
+        { "rot": "Curso 4", "t": "Segurança do loop autônomo", "l": "Tríade letal, Regra de Dois, injeçêo pelo conteúdo lido, hooks de guarda e sandbox.", "href": "https://inematds.github.io/loop-r-eng-seguranca-v72/", "img": "assets/img/cursos/seguranca.jpg" },
+        { "rot": "Curso 5", "t": "O loop que aprende", "l": "Hipótese com número, experimento, promoçêo e rollback, lições e o risco de otimizar contra o medidor.", "href": "https://inematds.github.io/loop-r-eng-aprende-v72/", "img": "assets/img/cursos/aprende.jpg" }
       ]
     },
     "aulas_titulo": "As aulas",
@@ -99,14 +99,14 @@
         "itens": [
           "Quem já usa Claude Code ou Codex no terminal e quer deixar o agente trabalhar sozinho por mais de um turno.",
           "Quem já viu o agente dizer \"pronto\" sem prova, ou girar no mesmo erro até acabar a cota.",
-          "Quem vai fazer a Formação LOOP-R Engenharia e precisa do vocabulário comum dos seis cursos."
+          "Quem vai fazer a Formaçêo LOOP-R Engenharia e precisa do vocabulário comum dos seis cursos."
         ]
       },
       {
         "t": "O que você sai fazendo",
         "itens": [
           "Apontar as cinco peças em qualquer loop e dizer qual está faltando.",
-          "Escolher entre /goal, /loop, Ralph, routines e codex exec pelo que cada um faz e não faz.",
+          "Escolher entre /goal, /loop, Ralph, routines e codex exec pelo que cada um faz e nêo faz.",
           "Classificar um critério de pronto de 0 a 4 e reescrever o vago até o nível 3.",
           "Rodar seu primeiro loop com testes congelados, teto de turnos e prova na saída."
         ]
@@ -115,8 +115,8 @@
         "t": "Antes de começar",
         "itens": [
           "Linux ou macOS com bash, git e Python 3 (pytest para a aula 8).",
-          "Claude Code ou Codex instalado e entrando pela sua assinatura. As práticas das aulas 1, 5 e 7 não gastam cota.",
-          "Nenhum curso anterior: este é o ponto de entrada da formação."
+          "Claude Code ou Codex instalado e entrando pela sua assinatura. As práticas das aulas 1, 5 e 7 nêo gastam cota.",
+          "Nenhum curso anterior: este é o ponto de entrada da formaçêo."
         ]
       }
     ]
@@ -135,7 +135,7 @@
     "dg_dica": "Clique em cada bloco do diagrama para ver o que ele faz.",
     "copiar": "Copiar",
     "copiado": "Copiado",
-    "selo_simulacao": "Simulação: exemplo ilustrativo",
+    "selo_simulacao": "Simulaçêo: exemplo ilustrativo",
     "selo_real": "Exemplo do repositório",
     "pronto_quando": "Pronto quando:",
     "fiz": "Fiz este exercício",
@@ -144,8 +144,8 @@
     "de": "de",
     "cert_tag": "competência",
     "correto": "Correto",
-    "errado": "Não é essa",
-    "quiz_aguarda": "Escolha uma alternativa. A explicação aparece depois da sua tentativa.",
+    "errado": "Nêo é essa",
+    "quiz_aguarda": "Escolha uma alternativa. A explicaçêo aparece depois da sua tentativa.",
     "proxima_pergunta": "Próxima pergunta",
     "quiz_ver": "Ver resultado",
     "quiz_fim": "Teste concluído",
@@ -172,7 +172,7 @@
     "baixar_ics": "Baixar para o calendário (.ics)",
     "ind_estudo": "Estudo (aulas)",
     "ind_pratica": "Prática declarada",
-    "ind_nota": "Prática = exercícios que você marcou como feitos. A comprovação vem na prova da certificação.",
+    "ind_nota": "Prática = exercícios que você marcou como feitos. A comprovaçêo vem na prova da certificaçêo.",
     "estudo": {
       "titulo": "Seu estudo",
       "continuar": "Continuar de onde parei",
@@ -185,7 +185,7 @@
       "notas": "Minhas anotações",
       "dados": "Copiar meus dados",
       "sem_testes": "Nenhum teste feito ainda. O teste fica no fim de cada aula.",
-      "nao_fez": "teste ainda não feito",
+      "nao_fez": "teste ainda nêo feito",
       "ultimo": "Último",
       "melhor": "Melhor",
       "tentativas": "tentativas",
@@ -194,21 +194,21 @@
       "rever": "Para rever",
       "resposta": "Resposta certa:",
       "ir_teste": "Refazer o teste",
-      "sem_notas": "Nenhuma anotação ainda. Na aula, selecione um trecho do texto e toque em Marcar ou Anotar.",
+      "sem_notas": "Nenhuma anotaçêo ainda. Na aula, selecione um trecho do texto e toque em Marcar ou Anotar.",
       "so_marcado": "(só marcado)",
       "marcar": "Marcar",
       "anotar": "Anotar",
       "salvar": "Salvar",
       "apagar": "Apagar marca",
       "fechar": "Fechar",
-      "nota_ph": "Escreva sua anotação sobre este trecho…",
+      "nota_ph": "Escreva sua anotaçêo sobre este trecho…",
       "um_bloco": "Marque dentro de um parágrafo só.",
-      "nao_marca": "Este trecho não pode ser marcado.",
-      "dados_exp": "Seu progresso, suas anotações e as notas dos testes ficam só neste navegador. Baixe uma cópia (.json) para guardar ou para continuar em outro computador ou navegador; lá, carregue a cópia. Carregar soma com o que já existe e não apaga nada.",
+      "nao_marca": "Este trecho nêo pode ser marcado.",
+      "dados_exp": "Seu progresso, suas anotações e as notas dos testes ficam só neste navegador. Baixe uma cópia (.json) para guardar ou para continuar em outro computador ou navegador; lá, carregue a cópia. Carregar soma com o que já existe e nêo apaga nada.",
       "exportar": "Baixar cópia",
       "importar": "Carregar cópia",
       "import_ok": "Cópia carregada ({n} itens). Atualizando a página…",
-      "import_erro": "Arquivo não reconhecido. Nada foi alterado.",
+      "import_erro": "Arquivo nêo reconhecido. Nada foi alterado.",
       "import_outro": "Esta cópia é de outro curso. Nada foi alterado.",
       "export_ok": "Cópia baixada."
     },
@@ -220,7 +220,7 @@
     "conv_ruim": "Escolha fraca",
     "conv_fim": "Fim da conversa",
     "conv_placar": "Você fez {p} de {m} pontos possíveis.",
-    "conv_licao": "Lição:",
+    "conv_licao": "Liçêo:",
     "conv_recomecar": "Recomeçar a conversa",
     "conv_feita": "Seu melhor placar: {p} de {m} pontos."
   },
